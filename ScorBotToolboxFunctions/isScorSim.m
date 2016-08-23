@@ -21,7 +21,7 @@ function bin = isScorSim(scorSim)
 %
 %   See also ScorSimInit ScorSimPatch
 %
-%   (c) M. Kutzer, 29Dec2015, USNA
+%   M. Kutzer, 29Dec2015, USNA
 
 % Updates
 %   30Dec2015 - Added debugging comments

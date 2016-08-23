@@ -8,7 +8,7 @@ function grip = ScorSimGetGripper(varargin)
 %
 %   See also ScorSimInit ScorSimSetGripper
 %
-%   (c) M. Kutzer, 30Sep2015, USNA
+%   M. Kutzer, 30Sep2015, USNA
 
 % Updates
 %   01Oct2015 - Updated to include error checking

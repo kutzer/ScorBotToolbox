@@ -1,10 +1,16 @@
 function gOffset = ScorGetGripperOffset
 % SCORGETGRIPPEROFFSET calculates the distance between the gripper
 % fingertip and the end-effector frame along the end-effector z-axis (mm).
+%   gOffset = SCORGETGRIPPEROFFSET gets the offset between the end-effector
+%   frame and the actual gripper fingertip in millimeters along the
+%   end-effector z-axis. 
 %
-%   See also ScorSimSetGripper ScorSimGetGripper
+%   See also ScorSetGripper ScorGetGripper
 %
-%   (c) M. Kutzer, 31Jan2016, USNA
+%   M. Kutzer, 31Jan2016, USNA
+
+% Updates
+%   23Aug2016 - Updated help documentation.
 
 %% Get gripper 
 grip = ScorGetGripper;

@@ -21,7 +21,7 @@ function DHtable = ScorDHtable(BSEPR)
 %
 %   See also ScorBSEPR2Pose
 %       
-%   (c) M. Kutzer, 10Aug2015, USNA
+%   M. Kutzer, 10Aug2015, USNA
 
 %% Check inputs
 narginchk(0,1);

@@ -20,7 +20,7 @@ function BSEPR = ScorBSEPRRandom(k)
 %
 %   See also: ScorBSEPRLimits
 %
-%   (c) M. Kutzer 10Aug2015, USNA
+%   M. Kutzer 10Aug2015, USNA
 
 %% Check inputs
 if nargin < 1

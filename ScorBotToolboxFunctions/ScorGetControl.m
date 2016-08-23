@@ -15,7 +15,7 @@ function cState = ScorGetControl(varargin)
 %
 %   See also ScorSetControl ScorIsReady
 %
-%   (c) M. Kutzer, 28Aug2015, USNA
+%   M. Kutzer, 28Aug2015, USNA
 
 %% Check inputs 
 narginchk(0,2);

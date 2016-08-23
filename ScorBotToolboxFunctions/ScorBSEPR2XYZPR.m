@@ -30,7 +30,7 @@ function XYZPR = ScorBSEPR2XYZPR(varargin)
 %           http://www.usna.edu/Users/weapsys/esposito-old/_files/scorbot.matlab/MTIS.zip
 %           Original function name "ScorDeg2X.m"
 %       
-%   (c) M. Kutzer, 10Aug2015, USNA
+%   M. Kutzer, 10Aug2015, USNA
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 

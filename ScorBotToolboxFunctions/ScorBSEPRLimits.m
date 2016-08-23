@@ -16,7 +16,7 @@ function BSEPRLimits = ScorBSEPRLimits()
 %
 %   See also ScorBSEPRRandom
 % 
-%   (c) M. Kutzer 10Aug2015, USNA
+%   M. Kutzer 10Aug2015, USNA
 
 %% Experimental limits
 % Limits taken from "r" configuration starting point using 1-degree

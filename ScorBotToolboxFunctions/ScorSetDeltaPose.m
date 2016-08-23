@@ -13,7 +13,7 @@ function confirm = ScorSetDeltaPose(varargin)
 %
 %   See also ScorPose2XYZPR ScorSetDeltaXYZPR
 %
-%   (c) M. Kutzer, 17Aug2015, USNA
+%   M. Kutzer, 17Aug2015, USNA
 
 % Updates
 %   23Dec2015 - Updated to clarify errors.

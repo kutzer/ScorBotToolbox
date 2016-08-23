@@ -11,7 +11,7 @@ function confirm = ScorSimSetDeltaPose(varargin)
 %
 %   See also ScorSimInit ScorSimSetDeltaBSEPR ScorSimSetDeltaXYZPR 
 %
-%   (c) M. Kutzer, 30Dec2015, USNA
+%   M. Kutzer, 30Dec2015, USNA
 
 % Updates
 %   30Dec2015 - Updated to add "confirm" output

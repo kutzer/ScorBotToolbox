@@ -5,7 +5,7 @@ function ScorSimPatch(varargin)
 %
 %   See also ScorSimInit ScorSimTeachXYZPR ScorSimTeachBSEPR
 %
-%   (c) M. Kutzer & M. Vetere, 25Sep2015, USNA
+%   M. Kutzer & M. Vetere, 25Sep2015, USNA
 
 % Updates
 %   29Sep2015 - Updated to correct link 5 parent/child relationship

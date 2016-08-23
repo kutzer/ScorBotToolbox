@@ -5,7 +5,7 @@ function pMode = ScorGetPendantMode()
 %
 %   See also: ScorSetPendantMode
 %       
-%   (c) M. Kutzer, 10Aug2015, USNA
+%   M. Kutzer, 10Aug2015, USNA
 
 % Updates
 %   28Aug2015 - Updated error handling

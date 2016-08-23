@@ -20,7 +20,7 @@ function confirm = ScorSimSetGripper(varargin)
 %
 %   See also ScorSimInit ScorSimGetGripper
 %
-%   (c) M. Kutzer, 30Sep2015, USNA
+%   M. Kutzer, 30Sep2015, USNA
 
 % Updates
 %   01Oct2015 - Updated to include error checking

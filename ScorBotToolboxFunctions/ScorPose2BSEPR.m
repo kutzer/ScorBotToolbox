@@ -29,7 +29,7 @@ function BSEPR = ScorPose2BSEPR(varargin)
 %
 %   See also ScorIkin ScorBSEPR2Pose ScorFkin ScorDHtable DH DHtableToFkin
 %
-%   (c) M. Kutzer, 13Aug2015, USNA
+%   M. Kutzer, 13Aug2015, USNA
 
 % Updates
 %   23Dec2015 - Updated to clarify errors.

@@ -14,7 +14,7 @@ function mTime = ScorGetMoveTime(varargin)
 %
 %   See also: ScorSetMoveTime ScorGetSpeed
 %
-%   (c) M. Kutzer, 28Aug2015, USNA
+%   M. Kutzer, 28Aug2015, USNA
 
 %% Check inputs 
 narginchk(0,2);

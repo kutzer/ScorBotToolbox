@@ -13,7 +13,7 @@ function ScorSound()
 %   References:
 %       [1] M. Gagnon, "Robot Blip 2", Attribution 3.0 license, 01/05/2011.
 %
-%   (c) M. Kutzer, 10Aug2015, USNA
+%   M. Kutzer, 10Aug2015, USNA
 
 %% Define sound as a persistent to avoid loading multiple times
 persistent ScorBotWav

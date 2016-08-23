@@ -28,7 +28,7 @@ function H = ScorXYZPR2Pose(varargin)
 %
 %   See also ScorPose2XYZPR ScorFkin ScorPose2BSEPR
 %
-%   (c) M. Kutzer, 12Aug2015, USNA
+%   M. Kutzer, 12Aug2015, USNA
 
 % Updates
 %   23Dec2015 - Updated to clarify errors.

@@ -1,15 +1,20 @@
 function udpS = ScorInitSender(port,IP)
 % SCORINITSENDER initializes a UDP server for transmitting ScorBot 
-% information to a remote client
+% information to a remote client.
 %   udpS = ScorInitSender(port) creates a UDP Sender tied to the designated
 %   port (suggested ports 31000 - 32000) using a default IP.
 %
-%   udpS = ScorInitSender(port) creates a UDP Sender tied to the designated
-%   port (suggested ports 31000 - 32000) using a specified IP.
+%   udpS = ScorInitSender(port,IP) creates a UDP Sender tied to the 
+%   designated port (suggested ports 31000 - 32000) using a specified IP.
 %
-% See also ScorInitReceiver ScorSendBSEPR ScorReceiveBSEPR
+%   Note: This function requires the DSP System Toolbox.
 %
-% M. Kutzer, 12Apr2016, USNA
+%   See also ScorInitReceiver ScorSendBSEPR ScorReceiveBSEPR
+%
+%   M. Kutzer, 12Apr2016, USNA
+
+% Updates
+%   23Aug2016 - Updated help documentation.
 
 % TODO - add notes about broadcast IP
 % TODO - add example IPs

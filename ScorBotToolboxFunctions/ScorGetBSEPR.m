@@ -21,7 +21,7 @@ function BSEPR = ScorGetBSEPR()
 %           http://www.usna.edu/Users/weapsys/esposito-old/_files/scorbot.matlab/MTIS.zip
 %           Original function name "ScorGetBSEPR.m"
 %       
-%   (c) C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
+%   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 

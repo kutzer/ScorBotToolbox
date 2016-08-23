@@ -4,7 +4,7 @@ function gOffset = ScorSimGetGripperOffset(sim)
 %
 %   See also ScorSimSetGripper ScorSimGetGripper
 %
-%   (c) M. Kutzer, 31Jan2016, USNA
+%   M. Kutzer, 31Jan2016, USNA
 
 %% Get gripper 
 grip = ScorSimGetGripper(sim);

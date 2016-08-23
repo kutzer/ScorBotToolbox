@@ -14,7 +14,7 @@ function ScorDispError(varargin)
 %   
 %   See also ScorParseErrorCode ScorIsReady
 %
-%   (c) M. Kutzer, 28Aug2015, USNA
+%   M. Kutzer, 28Aug2015, USNA
 
 % Updates
 %   15Sep2015 - Updated to remove beep and red message display for teach

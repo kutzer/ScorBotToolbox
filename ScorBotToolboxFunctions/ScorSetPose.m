@@ -12,7 +12,7 @@ function confirm = ScorSetPose(varargin)
 %
 %   See also ScorPose2XYZPR ScorSetXYZPR
 %
-%   (c) M. Kutzer, 14Aug2015, USNA
+%   M. Kutzer, 14Aug2015, USNA
 
 % Updates
 %   23Dec2015 - Updated to clarify errors.

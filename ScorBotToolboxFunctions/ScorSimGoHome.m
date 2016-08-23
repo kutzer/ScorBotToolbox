@@ -14,7 +14,7 @@ function ScorSimGoHome(varargin)
 %   See also ScorSimInit ScorSimSetBSEPR ScorSimGetBSEPR ScorSimSetXYZPR
 %       ScorSimGetXYZPR etc
 %
-%   (c) M. Kutzer, 14Aug2015, USNA
+%   M. Kutzer, 14Aug2015, USNA
 
 % Updates
 %   01Oct2015 - Updated to include error checking

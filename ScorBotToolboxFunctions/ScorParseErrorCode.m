@@ -14,7 +14,7 @@ function errStruct = ScorParseErrorCode(eCode)
 %       [1] B. Mirko, "Error.h," Eshed Robotec R&D, 27June1993
 %       [2] Shimon, edits to "Error.h," Eshed Robotec R&D, 24Sept2001
 %
-%   (c) M. Kutzer, D. DiSerio, & C. Wick, 28Aug2015, USNA
+%   M. Kutzer, D. DiSerio, & C. Wick, 28Aug2015, USNA
 
 % Updates
 %   15Sep2015 - Updated to include mitigation for message 912

@@ -4,7 +4,7 @@ function ScorSimQuitTeachCallback(src,callbackdata)
 %
 %   NOTE: This function is not intended for general use.
 %
-%   (c) M. Kutzer, 16Oct2015, USNA
+%   M. Kutzer, 16Oct2015, USNA
 
 % Updates
 %   23Oct2015 - Updates to status indicator.

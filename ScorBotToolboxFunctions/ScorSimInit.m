@@ -32,7 +32,7 @@ function scorSim = ScorSimInit(varargin)
 %   See also ScorSimPatch ScorSimGoHome ScorSimSetBSEPR ScorSimGetBSEPR 
 %            ScorSimSetXYZPR ScorSimGetXYZPR etc
 %
-%   (c) M. Kutzer, 13Aug2015, USNA
+%   M. Kutzer, 13Aug2015, USNA
 
 % Updates
 %   25Sep2015 - Updated to adjust default view angle to match student view

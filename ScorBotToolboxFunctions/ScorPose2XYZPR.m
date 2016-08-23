@@ -19,7 +19,7 @@ function XYZPR = ScorPose2XYZPR(varargin)
 %
 %   See also ScorXYZPR2Pose ScorIkin ScorBSEPR2Pose
 %
-%   (c) M. Kutzer, 11Aug2015, USNA
+%   M. Kutzer, 11Aug2015, USNA
 
 % Updates
 %   23Dec2015 - Updated to clarify errors.

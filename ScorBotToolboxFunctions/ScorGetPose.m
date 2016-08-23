@@ -5,7 +5,7 @@ function H = ScorGetPose()
 %
 %   See also ScorGetBSEPR ScorGetXYZPR
 %
-%   (c) M. Kutzer, 13Aug2015, USNA
+%   M. Kutzer, 13Aug2015, USNA
 
 BSEPR = ScorGetBSEPR;
 H = ScorBSEPR2Pose(BSEPR);

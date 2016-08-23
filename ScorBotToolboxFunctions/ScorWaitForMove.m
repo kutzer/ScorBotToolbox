@@ -177,10 +177,10 @@ function varargout = ScorWaitForMove(varargin)
 %       [1] C. Wick, J. Esposito, & K. Knowles, US Naval Academy, 2010
 %           http://www.usna.edu/Users/weapsys/esposito-old/_files/scorbot.matlab/MTIS.zip
 %           Original function names:
-%               "SworWaitUntilDone.m"
+%               "ScorWaitUntilDone.m"
 %               "ScorBlockUntilMotionComplete.m"
 %       
-%   (c) M. Kutzer, 13Aug2015, USNA
+%   M. Kutzer, 13Aug2015, USNA
 
 % Updates
 %   25Aug2015 - Updated to correct help documentation, "J. Esposito K. 
@@ -199,6 +199,7 @@ function varargout = ScorWaitForMove(varargin)
 %               joint angles to drop below a threshold.
 %   08Jan2016 - Error fix to set general "showProgress" default
 %   08Jan2016 - Error fix to set general "iter" default
+%   23Aug2016 - Corrected typo in help documentation.
 
 % Known Issues
 %   15Sep2015 - Running ScorWaitForMove immediately following a

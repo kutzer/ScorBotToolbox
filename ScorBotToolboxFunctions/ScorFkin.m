@@ -20,6 +20,6 @@ function H = ScorFkin(BSEPR)
 %
 %   See also ScorIkin ScorBSEPR2Pose ScorPose2BSEPR ScorDHtable DH DHtableToFkin
 %
-%   (c) M. Kutzer, 11Aug2015, USNA
+%   M. Kutzer, 11Aug2015, USNA
 
 H = ScorBSEPR2Pose(BSEPR);

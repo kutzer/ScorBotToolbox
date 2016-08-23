@@ -4,7 +4,7 @@ function ScorShutdownCallback(src,callbackdata)
 %
 %   NOTE: This function is not intended for general use.
 %
-%   (c) M. Kutzer, 10Aug2015, USNA
+%   M. Kutzer, 10Aug2015, USNA
 
 % Updates
 %   25Aug2015 - Updated to include a note to not use ctrl-C during

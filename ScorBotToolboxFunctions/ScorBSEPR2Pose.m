@@ -20,7 +20,7 @@ function H = ScorBSEPR2Pose(varargin)
 %
 %   See also ScorFkin ScorPose2BSEPR ScorIkin ScorDHtable DH DHtableToFkin
 %
-%   (c) M. Kutzer, 11Aug2015, USNA
+%   M. Kutzer, 11Aug2015, USNA
 
 % Updates
 %   23Dec2015 - Updated to varargin to clarify errors.

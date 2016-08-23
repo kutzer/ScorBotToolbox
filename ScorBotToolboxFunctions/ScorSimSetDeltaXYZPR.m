@@ -10,7 +10,7 @@ function confirm = ScorSimSetDeltaXYZPR(varargin)
 %
 %   See also ScorSimInit ScorSimSetXYZPR ScorSimSetDeltaBSEPR
 %
-%   (c) M. Kutzer, 25Sep2015, USNA
+%   M. Kutzer, 25Sep2015, USNA
 
 % Updates
 %   01Oct2015 - Updated to include error checking

@@ -7,7 +7,7 @@ function confirm = ScorGoHome()
 %
 %   See also ScorHome
 %
-%   (c) M. Kutzer, 10Aug2015, USNA
+%   M. Kutzer, 10Aug2015, USNA
 
 %% ScorBot XYZPR home position [mm, mm, mm, rad, rad]
 XYZPRhome = [169.300,0.000,504.328,-1.10912,0.00000];

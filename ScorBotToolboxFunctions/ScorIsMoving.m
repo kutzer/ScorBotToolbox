@@ -5,7 +5,7 @@ function isMoving = ScorIsMoving()
 %
 %   See also: ScorWaitForMove
 %       
-%   (c) M. Kutzer, 10Aug2015, USNA
+%   M. Kutzer, 10Aug2015, USNA
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;

@@ -1,7 +1,7 @@
 function ScorUpdate
 % SCORUPDATE download and update the ScorBot Toolbox. 
 %
-%   (c) M. Kutzer 26Aug2015, USNA
+%   M. Kutzer 26Aug2015, USNA
 
 % Updates
 %   27Aug2015 - Updated to include check for multiple the newest update on

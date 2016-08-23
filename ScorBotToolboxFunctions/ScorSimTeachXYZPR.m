@@ -22,7 +22,7 @@ function ScorSimTeachXYZPR(varargin)
 %
 %   See also ScorSimInit ScorSimTeachBSEPR
 %
-%   (c) M. Kutzer, 16Oct2015, USNA
+%   M. Kutzer, 16Oct2015, USNA
 
 % Updates
 %   23Oct2015 - Updates to status indicator and function description.
