@@ -89,7 +89,7 @@ while true
         else
             fprintf('.');
         end
-        iter = iter+1;
+        ITER = ITER+1;
     end
 end
         

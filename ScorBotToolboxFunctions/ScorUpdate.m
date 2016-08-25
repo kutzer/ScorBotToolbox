@@ -1,4 +1,4 @@
-function ScorUpdate
+function ScorUpdate(varargin)
 % SCORUPDATE download and update the ScorBot Toolbox. 
 %
 %   M. Kutzer 26Aug2015, USNA
@@ -10,10 +10,28 @@ function ScorUpdate
 %   29Sep2015 - Updated to include simulation test and istall for operating
 %               systems outside of Windows 32-bit (for simulation only).
 %   04Oct2015 - Updated hardware and simulation test scripts.
+%   25Aug2016 - Updated to allow for skipped hardware/simulation tests.
 
 % TODO - Find a location for "ScorBotToolbox Example SCRIPTS"
 % TODO - update function for general operation
 
+%% Check inputs
+% TODO - cleanup and document this capability
+narginchk(0,1);
+hardwarechk = true;
+if nargin >= 1
+    uMode = varargin{1};
+    switch lower(uMode)
+        case 'slow'
+            hardwarechk = true;
+        case 'fast'
+            hardwarechk = false;
+        otherwise
+            warning('Mode must be specified as either "Slow" or "Fast"');
+            hardwarechk = true;
+    end
+end
+            
 %% Check current version
 A = ScorVer;
 
@@ -52,17 +70,20 @@ cd(pname_star);
 %% Install ScorBot Toolbox
 installScorBotToolbox(true);
 
-%% Test ScorBot hardware functionality
-if ispc
-    switch computer
-        case 'PCWIN'
-            SCRIPT_BasicHardwareTest;
+%% Test functionality
+if hardwarechk
+    % ScorBot hardware
+    if ispc
+        switch computer
+            case 'PCWIN'
+                SCRIPT_BasicHardwareTest;
+        end
     end
+    % ScorBot simulation
+    SCRIPT_BasicSimulationTest;
+else
+    fprintf('Skipping hardware and simulation check.\n');
 end
-
-%% Test simulation functionality
-SCRIPT_BasicSimulationTest;
-
 %% Move back to current directory and remove temp file
 cd(cpath);
 [ok,msg] = rmdir(pname,'s');
