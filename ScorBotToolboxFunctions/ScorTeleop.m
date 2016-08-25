@@ -47,7 +47,7 @@ while true
         if ~isequal(BSEPRs(1,:),BSEPRs(2,:))
             % Execute joint move
             % TODO - send joint vs task movement information
-            ScorSetBSEPR(BSEPR(2,:));
+            ScorSetBSEPR(BSEPRs(2,:));
             % Display progress
             iter = 0;
             fprintf('Executing joint movement...');
