@@ -70,6 +70,7 @@ if ~isnumeric(BSEPR) || numel(BSEPR) ~= 5
 end
 
 %% Send message
+% TODO - improve message handling
 % Create message
 msg_Send = sprintf('[%f,%f,%f,%f,%f,%f]',[BSEPR,grip]);
 % Convert message

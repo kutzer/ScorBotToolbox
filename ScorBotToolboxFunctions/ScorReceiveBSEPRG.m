@@ -35,6 +35,7 @@ switch class(udpR)
 end
 
 %% Receive message
+% TODO - improve message handling
 % Receive message
 dataReceived = step(udpR);
 % Convert message
@@ -45,7 +46,8 @@ BSEPRG = str2num(msg_Rsvd);
 %% Check message
 if ~isnumeric(BSEPRG) || numel(BSEPRG) ~= 6
     BSEPR = []; % return an empty set
-    grip = [];
+    grip = [];  % return an empty set
+    return
 end
 
 %% Package output
