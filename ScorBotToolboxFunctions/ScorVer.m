@@ -54,16 +54,16 @@ function varargout = ScorVer
 %   13Apr2016 - Added initial UDP send/receive functionality
 %   20Apr2016 - Added ScorSetUndo functionality
 %   23Aug2016 - Updated to generalize Sender/Receiver functionality
-%   24Aug2016 - Updated default movement type in ScorSetXYZPR
+%   25Aug2016 - Updated default movement type in ScorSetXYZPR
+%   25Aug2016 - Added ScorTeleop function for simple teleoperation
 
-% TODO - Migrate affine transform tools into more descriptive folder
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '3.1.3';
+A.Version = '3.1.4';
 A.Release = '(R2014a)';
-A.Date = '24-Aug-2016';
+A.Date = '25-Aug-2016';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);

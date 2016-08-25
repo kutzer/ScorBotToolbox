@@ -9,16 +9,21 @@ function udpS = ScorInitSender(port,IP)
 %
 %   Note: This function requires the DSP System Toolbox.
 %
-%   See also ScorInitReceiver ScorSendBSEPR ScorReceiveBSEPR
+%   See also ScorInitReceiver ScorSendBSEPRG ScorReceiveBSEPRG ScorTeleop
 %
 %   M. Kutzer, 12Apr2016, USNA
 
 % Updates
 %   23Aug2016 - Updated help documentation.
+%   25Aug2016 - Updated to check for inputs.
 
 % TODO - add notes about broadcast IP
 % TODO - add example IPs
 % TODO - add examples
+
+%% Check inputs
+% TODO - improve error handling
+narginchk(1,2);
 
 %% Set default IP
 if nargin < 2

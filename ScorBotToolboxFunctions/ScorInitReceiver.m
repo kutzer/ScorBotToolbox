@@ -7,14 +7,17 @@ function udpR = ScorInitReceiver(port)
 %
 %   Note: This function requires the DSP System Toolbox.
 %
-%   See also ScorInitSender ScorSendBSEPR ScorReceiveBSEPR
+%   See also ScorInitSender ScorSendBSEPRG ScorReceiveBSEPRG ScorTeleop
 %
 %   M. Kutzer, 12Apr2016, USNA
 
 % Updates
 %   23Aug2016 - Updated help documentation.
+%   25Aug2016 - Updated to check for inputs.
 
 %% Check inputs
+% TODO - improve error handling
+narginchk(1,1);
 % TODO - check port range
 
 %% Create UDP receiver

@@ -12,13 +12,18 @@ function ScorSendBSEPRG(udpS,BSEPR,grip)
 %
 %   Note: This function requires the DSP System Toolbox.
 %
-%   See also ScorInitSender ScorInitReceiver ScorReceiveBSEPR
+%   See also ScorInitSender ScorInitReceiver ScorReceiveBSEPRG ScorTeleop
 %
 %   M. Kutzer, 12Apr2016, USNA
 
 % Updates
 %   23Aug2016 - Clarified variable names and error messages and added
 %               gripper state.
+%   25Aug2016 - Updated to check for inputs.
+
+%% Check inputs
+% TODO - improve error handling
+narginchk(1,3);
 
 %% Check UDP Sender
 switch class(udpS)
