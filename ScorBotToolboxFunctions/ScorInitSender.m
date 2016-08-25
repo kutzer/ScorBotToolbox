@@ -2,7 +2,7 @@ function udpS = ScorInitSender(port,IP)
 % SCORINITSENDER initializes a UDP server for transmitting ScorBot 
 % information to a remote client.
 %   udpS = ScorInitSender(port) creates a UDP Sender tied to the designated
-%   port (suggested ports 31000 - 32000) using a default IP.
+%   port (suggested ports 31000 - 32000) using a default broadcast IP.
 %
 %   udpS = ScorInitSender(port,IP) creates a UDP Sender tied to the 
 %   designated port (suggested ports 31000 - 32000) using a specified IP.
@@ -16,10 +16,8 @@ function udpS = ScorInitSender(port,IP)
 % Updates
 %   23Aug2016 - Updated help documentation.
 %   25Aug2016 - Updated to check for inputs.
+%   25Aug2016 - Use getIPv4 to find the broadcast IP.
 
-% TODO - add notes about broadcast IP
-% TODO - add example IPs
-% TODO - add examples
 
 %% Check inputs
 % TODO - improve error handling
@@ -29,7 +27,7 @@ narginchk(1,2);
 if nargin < 2
     % Set to broadcast
     % NOTE: This IP should be tied to your network IP
-    IP = '10.52.21.255';
+    [~,IP] = getIPv4;
 end
 
 %% Check inputs
