@@ -27,12 +27,14 @@ grips = nan(2,1);  % Initialize grips for t-1 and t
 BSEPRs = nan(2,5); % Initialize BSEPRs for t-1 and t
 
 %% Loop to respond to commands
+% Show waiting for move message
 ITER = 0;
+fprintf('\nWaiting for command...');
 while true
     [BSEPR,grip] = ScorReceiveBSEPRG(udpR);
     if ~isempty(BSEPR) && ~isempty(grip)
         % Reset "waiting" statement
-        fprintf( char(repmat(8,1,mod(iter-1,4))) );
+        fprintf( char(repmat(8,1,mod(ITER-1,4))) );
         fprintf('...');
         fprintf('RECEIVED\n');
         ITER = 0;

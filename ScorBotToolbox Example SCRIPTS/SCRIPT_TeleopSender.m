@@ -26,7 +26,7 @@ end
 while true
     for wpnt = 1:size(BSEPRs,1)
         for i = 1:numel(udpS)
-            ScorSendBSEPRG(udpS{i},BSEPRs{wpnt,:),grip(wpnt));
+            ScorSendBSEPRG(udpS{i},BSEPRs(wpnt,:),grips(wpnt));
         end
     end
 end
