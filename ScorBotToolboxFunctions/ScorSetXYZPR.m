@@ -37,6 +37,7 @@ function confirm = ScorSetXYZPR(varargin)
 %               Erik Hoss
 %   28Aug2015 - Updated error handling
 %   23Dec2015 - Updated to clarify errors.
+%   25Aug2016 - Updated to correct default movement type.
 
 %% Set global for ScorSetUndo
 global ScorSetUndoBSEPR
@@ -77,7 +78,7 @@ if nargin >= 2
     end
 end
 % Check property value
-mType = 'LinearJoint';
+mType = 'LinearTask';
 if nargin >= 3
     mType = varargin{3};
     switch lower(mType)
