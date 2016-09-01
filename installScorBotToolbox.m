@@ -14,7 +14,7 @@ function installScorBotToolbox(replaceExisting)
 %
 %   NOTE: This toolbox requires a 32-bit Windows Operating System.
 %
-%   (c) M. Kutzer 10Aug2015, USNA
+%   M. Kutzer 10Aug2015, USNA
 
 % Updates
 %   26Aug2015 - Updated to include replaceExisting to support

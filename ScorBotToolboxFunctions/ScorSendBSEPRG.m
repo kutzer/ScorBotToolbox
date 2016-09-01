@@ -59,15 +59,15 @@ end
 
 %% Check BSEPR 
 % TODO - check grip value
-if ~isnumeric(BSEPR) || numel(BSEPR) ~= 6
+if ~isnumeric(BSEPR) || numel(BSEPR) ~= 5
     if isempty(inputname(1))
         txt = 'udpS';
     else
         txt = inputname(1);
     end
     error('ScorSend:BadBSEPR',...
-        ['Joint configuration must be specified as a 6-element numeric array.',...
-        '\n\t-> Use "%s(%s,[Joint1,Joint2,...,Joint5,grip]);".'],mfilename,txt);
+        ['Joint configuration must be specified as a 5-element numeric array.',...
+        '\n\t-> Use "%s(%s,[Joint1,Joint2,...,Joint5]);".'],mfilename,txt);
 end
 
 %% Send message

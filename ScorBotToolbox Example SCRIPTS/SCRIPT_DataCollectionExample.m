@@ -1,8 +1,8 @@
 %% Initialize and home ScorBot
 % Note: You only need to run this once! If you already ran ScorInit and
 % ScorHome, you do not need to run them again.
-% ScorInit;
-% ScorHome;
+ScorInit;
+ScorHome;
 
 %% CCC
 clear all
@@ -152,5 +152,4 @@ close(vidObj);
 % finished using ScorBot! If you run ScorSafeShutdown and still need to use
 % ScorBot, you will need to reinitialize using ScorInit, and rehome using
 % ScorHome.
-
-% ScorSafeShutdown;
+ScorSafeShutdown;

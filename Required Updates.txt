@@ -1,6 +1,0 @@
-(1) Add matched documentation for:
-- ScorSimSet* to match ScorSet*
-
-(2) Improve ScorWaitForMove error when teach pendant is in "Teach" mode
-
-(3) Correct errors with ScorTeleop

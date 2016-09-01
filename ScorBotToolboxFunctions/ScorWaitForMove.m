@@ -8,6 +8,10 @@ function varargout = ScorWaitForMove(varargin)
 %   its move, it is recommended to use a "pause(2)" following the 
 %   completion of ScorWaitForMove.
 %
+%   NOTE: To minimize the wait time between movements in applications that
+%   do not require data acquisition during or after a movement, consider
+%   using "while ScorIsMoving; end" instead of ScorWaitForMove.
+%
 %   SCORWAITFORMOVE('PropertyName',PropertyValue)
 %
 %   NOTE: Setting one or more plot or data paramter to 'On' disables the
@@ -91,13 +95,14 @@ function varargout = ScorWaitForMove(varargin)
 %           ScorWaitForMove;
 %       end
 %
-%       % ScorWaitForMove with command line progress display, and sample
+%       % ScorWaitForMove with command line progress display and sampled
+%       %   waypoint
 %       fprintf('Demonstrating command line progress display.\n');
 %       for i = 1:size(BSEPR,1)
 %           ScorSetBSEPR(BSEPR(i,:));
 %           ScorWaitForMove;
-%           pause(2);
-%           q = ScorGetBSEPR;
+%           pause(2);         % Pause to allow ScorBot to fully stop
+%           q = ScorGetBSEPR; % Sampled waypoint
 %           fprintf('q = [%0.3f,%0.3f,%0.3f,%0.3f,%0.3f]\n',q);
 %       end
 %
@@ -200,6 +205,8 @@ function varargout = ScorWaitForMove(varargin)
 %   08Jan2016 - Error fix to set general "showProgress" default
 %   08Jan2016 - Error fix to set general "iter" default
 %   23Aug2016 - Corrected typo in help documentation.
+%   01Sep2016 - Added comments to examples
+%   01Sep2016 - Added rapid movement note, "while ScorIsMoving; end"
 
 % Known Issues
 %   15Sep2015 - Running ScorWaitForMove immediately following a

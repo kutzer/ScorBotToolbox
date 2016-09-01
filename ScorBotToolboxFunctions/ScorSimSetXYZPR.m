@@ -6,6 +6,10 @@ function confirm = ScorSimSetXYZPR(varargin)
 %
 %   confirm = SCORSIMSETXYZPR(___) returns 1 if successful and 0 otherwise.
 %
+%   Note: Wrist pitch angle of BSEPR does not equal the pitch angle of 
+%   XYZPR. BSEPR pitch angle is body-fixed while the pitch angle of XYZPR 
+%   is calculated relative to the base.
+%
 %   See also ScorSimInit ScorSimSetDeltaXYZPR ScorSimSetBSEPR
 %
 %   M. Kutzer, 14Aug2015, USNA
@@ -16,6 +20,7 @@ function confirm = ScorSimSetXYZPR(varargin)
 %               simulation configuration.
 %   30Dec2015 - Updated error checking
 %   30Dec2015 - Updated to add "confirm" output
+%   01Sep2016 - Updated to include BSEPR/XYZPR pitch distinction
 
 %% Check inputs
 % Check for zero inputs

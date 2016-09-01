@@ -56,14 +56,15 @@ function varargout = ScorVer
 %   23Aug2016 - Updated to generalize Sender/Receiver functionality
 %   25Aug2016 - Updated default movement type in ScorSetXYZPR
 %   25Aug2016 - Added ScorTeleop function for simple teleoperation
+%   01Sep2016 - Updated help documentation
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '3.1.5';
+A.Version = '3.1.6';
 A.Release = '(R2014a)';
-A.Date = '25-Aug-2016';
+A.Date = '01-Sep-2016';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);

@@ -7,8 +7,10 @@ function confirm = ScorSetSpeed(PercentSpeed)
 %
 %   confirm = SCORSETSPEED(___) returns 1 if successful and 0 otherwise.
 %
-%   NOTE: Move time remains fixed until a new speed or move time is
-%   declared.
+%   NOTE: Changing the speed with the teach pendant will not change the
+%   speed when setting waypoint using MATLAB. 
+%
+%   NOTE: Speed remains fixed until a new speed or move time is declared.
 %
 %   Example:
 %       %% Initialize and home ScorBot
@@ -50,6 +52,7 @@ function confirm = ScorSetSpeed(PercentSpeed)
 %               Knowles," to "J. Esposito, & K. Knowles,"
 %               Erik Hoss
 %   28Aug2015 - Updated to include ScorGetSpeed functionality
+%   01Sep2016 - Updated help documentation
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
