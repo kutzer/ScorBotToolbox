@@ -20,6 +20,7 @@ function ScorSendBSEPRG(udpS,BSEPR,grip)
 %   23Aug2016 - Clarified variable names and error messages and added
 %               gripper state.
 %   25Aug2016 - Updated to check for inputs.
+%   01Sep2016 - Error correction in error checking
 
 %% Check inputs
 % TODO - improve error handling
@@ -58,15 +59,15 @@ end
 
 %% Check BSEPR 
 % TODO - check grip value
-if ~isnumeric(BSEPR) || numel(BSEPR) ~= 5
+if ~isnumeric(BSEPR) || numel(BSEPR) ~= 6
     if isempty(inputname(1))
         txt = 'udpS';
     else
         txt = inputname(1);
     end
     error('ScorSend:BadBSEPR',...
-        ['Joint configuration must be specified as a 5-element numeric array.',...
-        '\n\t-> Use "%s(%s,[Joint1,Joint2,...,Joint5]);".'],mfilename,txt);
+        ['Joint configuration must be specified as a 6-element numeric array.',...
+        '\n\t-> Use "%s(%s,[Joint1,Joint2,...,Joint5,grip]);".'],mfilename,txt);
 end
 
 %% Send message

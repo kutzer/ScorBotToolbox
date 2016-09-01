@@ -26,7 +26,7 @@ h = []; % initialize variable for plot handle
 fprintf('Demonstrating XYZPR move with Animation Plots.\n');
 for wpnt = 1:size(XYZPRs,1)
     ScorSetXYZPR(XYZPRs(wpnt,:));
-    [~,h] = ScorWaitForMove('RobotAnimation','On','PlotHandle',h);
+    [~,h,sData(wpnt)] = ScorWaitForMove('RobotAnimation','On','PlotHandle',h,'CollectData','On');
     if wpnt == 1
         title(h.RobotAnimation.Sim.Axes,'Movements using ScorSetXYZPR');
         ScorSimPatch(h.RobotAnimation.Sim);
@@ -43,7 +43,7 @@ fprintf('Demonstrating BSEPR move with Animation Plots.\n');
 title(h.RobotAnimation.Sim.Axes,'Movements using ScorSetBSEPR');
 for wpnt = 1:size(BSEPRs,1)
     ScorSetBSEPR(BSEPRs(wpnt,:));
-    [~,h] = ScorWaitForMove('RobotAnimation','On','PlotHandle',h);
+    [~,h,sData(wpnt)] = ScorWaitForMove('RobotAnimation','On','PlotHandle',h,'CollectData','On');
 end
 plot3(h.RobotAnimation.Sim.Axes,XYZPRs(1:4,1),XYZPRs(1:4,2),XYZPRs(1:4,3),'*k');
 
