@@ -126,7 +126,6 @@ switch lower(dispFlag)
         end
 end
 
-
 %% Output special case for Teach Pendant messages
 if errStruct.Code == 970 || errStruct.Code == 971
     isReady = true;

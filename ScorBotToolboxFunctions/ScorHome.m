@@ -1,8 +1,13 @@
-function confirm = ScorHome()
+function confirm = ScorHome(varargin)
 % SCORHOME homes the ScorBot 
 %   SCORHOME homes the ScorBot and enables control.
 %
-%   confirm = SCORHOME returns 1 if successful and 0 otherwise.
+%   confirm = SCORHOME returns 1 if successful and 0 otherwise. If homing
+%   has already been executed, a pop-up dialog will prompt the user to see
+%   if re-homing is the desired course of action.
+%
+%   confirm = SCORHOME('true') will bipass the user dialog and execute the
+%   homing sequence regardless of prior homing.
 %
 %   See also ScorInit
 %
@@ -22,6 +27,104 @@ function confirm = ScorHome()
 %               "ScorIsMoving" to reflect a state of 0 once ScorBot has
 %               homed.
 %   01Sep2015 - Updated to include set to default speed of 50%
+%   08Sep2016 - Updated to include check for previously homed ScorBot with
+%               pop-up (suggested by MIDN Jaunich)
+
+%% Define persistent variable for homing
+persistent priorHome
+
+% Set default prior home value to false
+if isempty(priorHome)
+    priorHome = false;
+end
+
+% Check if ScorBot has been shutdown
+ShutdownFig = 1845;
+if ~ishandle(ShutdownFig)
+    % Implies ScorBot has been shutdown
+    priorHome = false;
+end
+
+%% Check inputs
+% TODO - update error dialog for too many inputs
+narginchk(0,1);
+if nargin == 1
+    bypassDialog = varargin{1};
+    % TODO - Consider lightening this to include 0 and 1
+    if ~isscalar(bypassDialog) || ~islogical(bypassDialog)
+        error('ScorHome:BadInput',...
+            'Input argument must be a scalar logical value (e.g. "true" or "false").');
+    end
+else
+    bypassDialog = false;
+end
+
+if bypassDialog
+    % Run homing
+    priorHome = false;
+end
+
+%% Pop-up to ask user if they really want to rehome the ScorBot
+if priorHome
+    cState = ScorGetControl;
+    switch lower(cState)
+        case 'on'
+            % Define dialog message for "Control On" scenario
+            dlgMsg = ...
+                sprintf(...
+                    ['ScorBot was previously homed and control appears to be enabled. \n',...
+                     '\n',...
+                     '  Note: You can use "ScorGoHome" as a faster alternative to the "ScorHome" \n',...
+                     '        command if ScorBot has already been homed and is operating \n',...
+                     '        correctly. \n',...
+                     '\n',...
+                     'Would you like ScorBot to run the homing sequence?']...
+                 );
+             % "Fast Option"
+             btn3 = 'Execute "ScorGoHome"';
+             fcn3 = 'ScorGoHome'; % NOTE: @ScorGoHome is a better option
+        case 'off'
+            % Define dialog message for "Control Off" scenario
+            dlgMsg = ...
+                sprintf(...
+                    ['ScorBot was previously homed but control appears ',...
+                     'to be disabled. \n',...
+                     '\n',...
+                     '  Note: You can use "ScorSetControl(''On'')" to attempt to recover control \n',...
+                     '        of ScorBot without running the entire homing sequence. \n',...
+                     '        -> If this does not work, re-homing is required. \n',...
+                     '\n',...
+                     'Would you like ScorBot to run the homing sequence?']...
+                 );
+             % "Fast Option"
+             btn3 = 'Execute "ScorSetControl(''On'')"';
+             fcn3 = 'ScorSetControl(''On'')';
+        otherwise
+            error('Unexpected response from ScorGetControl.');
+    end
+    % Prompt user
+    choice = questdlg(dlgMsg,'Execute Homing Sequence','Yes','No',btn3,'Yes');
+    switch lower(choice)
+        case 'yes'
+            % Run homing
+            priorHome = false;  % Reset prior home status
+        case 'no'
+            % Skip homing
+            confirm = 1;        % Assume ScorBot is homed
+            priorHome = true;   % Maintain prior home status
+            return
+        case lower(btn3)
+            % Execute fast option
+            eval( sprintf('confirm = %s;',fcn3) );
+            priorHome = true;
+            return
+        otherwise
+            % Action cancelled
+            fprintf('Action Cancelled.\n');
+            % Run homing
+            priorHome = false;  % Reset prior home status
+    end
+end
 
 %% Define library alias
 libname = 'RobotDll';
@@ -80,5 +183,7 @@ else
     [~] = ScorSetXYZPR(XYZPR);
     % Initialize speed
     [~] = ScorSetSpeed(50);
+    % Set prior home value to true
+    priorHome = true;
 end
 

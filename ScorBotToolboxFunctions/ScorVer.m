@@ -57,6 +57,8 @@ function varargout = ScorVer
 %   25Aug2016 - Updated default movement type in ScorSetXYZPR
 %   25Aug2016 - Added ScorTeleop function for simple teleoperation
 %   01Sep2016 - Updated help documentation
+%   08Sep2016 - Added quest dialog to ScorHome and corrected quest dialog 
+%       in installScorBotToolbox
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
