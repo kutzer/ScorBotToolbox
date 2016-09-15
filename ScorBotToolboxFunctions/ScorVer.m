@@ -59,14 +59,15 @@ function varargout = ScorVer
 %   01Sep2016 - Updated help documentation
 %   08Sep2016 - Added quest dialog to ScorHome and corrected quest dialog 
 %       in installScorBotToolbox
-
+%   15Sep2016 - Correct movetype default in ScorSetPose, and corrected
+%       error typo in ScorSetGripper
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '3.2.0';
+A.Version = '3.2.1';
 A.Release = '(R2014a)';
-A.Date = '08-Sep-2016';
+A.Date = '15-Sep-2016';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);

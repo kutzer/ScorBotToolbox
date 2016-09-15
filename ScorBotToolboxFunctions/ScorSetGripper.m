@@ -27,7 +27,8 @@ function confirm = ScorSetGripper(grip)
 %               Erik Hoss
 %   28Aug2015 - Updated to maintain speed even after changing the gripper 
 %               state using the ScorGetSpeed/ScorGetMoveTime functionality
-
+%   15Sep2016 - Updated to correct error text "closed" to "close"
+%               Christian Jaunich
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
 if ~isReady
@@ -69,7 +70,7 @@ if ischar(grip) % Binary Open/Close
                 end
             end
         otherwise
-            error('Binary gripper commands must be either "Open" or "Closed"');
+            error('Binary gripper commands must be either "Open" or "Close"');
     end
 else % Metric grip state
     if grip > 70 || grip < 0
