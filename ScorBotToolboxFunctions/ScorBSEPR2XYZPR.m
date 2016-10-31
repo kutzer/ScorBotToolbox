@@ -39,6 +39,7 @@ function XYZPR = ScorBSEPR2XYZPR(varargin)
 %   01Sep2015 - Removed commented old method
 %   23Dec2015 - Updated to varargin to clarify errors.
 %   23Dec2015 - Updated to clarify errors.
+%   31Oct2016 - Added "Todo" for use with symbolic variables
 
 %% Check inputs
 % This assumes nargin is fixed to 1 with a set of common errors:
@@ -53,6 +54,8 @@ end
 % Check BSEPR
 if nargin >= 1
     BSEPR = varargin{1};
+    % TODO - make this work with symbolic variables
+    %   -> Consider removing isnumeric()...
     if ~isnumeric(BSEPR) || numel(BSEPR) ~= 5
         error('ScorX2Y:BadBSEPR',...
             ['Joint configuration must be specified as a 5-element numeric array.',...
