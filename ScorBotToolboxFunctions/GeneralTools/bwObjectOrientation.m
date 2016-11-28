@@ -15,6 +15,9 @@ function phi = bwObjectOrientation(BW,orientMethod)
 %
 %   J. Conroy & M. Kutzer 28Nov2016, USNA
 
+% Updates:
+%   28Nov2016 - Updated to make uniform angle output in radians (M. Kutzer)
+
 %% Check inputs
 % Check number of input arguments
 narginchk(1,2)
@@ -36,11 +39,17 @@ switch lower(orientMethod)
         BW_buffered(2:(M+1),2:(N+1)) = BW;
         % Calculate orientation using Hough Transform
         BW_edge = edge(BW_buffered,'canny');
-        imshow(BW_edge)
         [H,theta,rho] = hough(BW_edge);
-        P  = houghpeaks(H,4);
+        P = houghpeaks(H,4);
         lines = houghlines(BW_edge,theta,rho,P);
-        phi = lines(1).theta;
+        
+        try
+            phi = deg2rad( lines(1).theta );
+        catch
+            warning('Hough Transform did not yield a solution. Using Principal Angle instead.');
+            [~,~,phi,~,~] = bwObjectProperties(BW);
+        end
+        
     case 'principalangle'
         [~,~,phi,~,~] = bwObjectProperties(BW);
     otherwise

@@ -58,7 +58,7 @@ mu11 = M11 - (M01*M10)/M00;
 mu20 = M20 - (M10*M10)/M00;
 mu02 = M02 - (M01*M01)/M00;
 
-phi = atan2(2*mu11,mu20-mu02);
+phi = (1/2)*atan2(2*mu11,mu20-mu02);
 
 %% Calculate Hu's moments
 v11 = mu11/(mu00^((1+1+2)/2));

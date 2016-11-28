@@ -61,13 +61,15 @@ function varargout = ScorVer
 %       in installScorBotToolbox
 %   15Sep2016 - Correct movetype default in ScorSetPose, and corrected
 %       error typo in ScorSetGripper
+%   28Nov2016 - Added bwObject functions to support ES450 specific image 
+%       processing functionality
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '3.2.1';
+A.Version = '3.2.2';
 A.Release = '(R2014a)';
-A.Date = '15-Sep-2016';
+A.Date = '28-Nov-2016';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);
