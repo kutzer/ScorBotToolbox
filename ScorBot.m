@@ -1,5 +1,6 @@
-%classdef ScorBot < matlab.mixin.SetGet
-classdef ScorBot < hgsetget
+%classdef ScorBot < hgsetge
+classdef ScorBot < matlab.mixin.SetGet
+    % ScorBot handle class for creating an object to interact with 
     properties(GetAccess = 'public', SetAccess = 'public')
         MoveTime
         MoveType

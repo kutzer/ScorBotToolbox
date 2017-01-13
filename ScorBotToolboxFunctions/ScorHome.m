@@ -6,7 +6,7 @@ function confirm = ScorHome(varargin)
 %   has already been executed, a pop-up dialog will prompt the user to see
 %   if re-homing is the desired course of action.
 %
-%   confirm = SCORHOME('true') will bipass the user dialog and execute the
+%   confirm = SCORHOME(true) will bypass the user dialog and execute the
 %   homing sequence regardless of prior homing.
 %
 %   See also ScorInit
@@ -29,6 +29,7 @@ function confirm = ScorHome(varargin)
 %   01Sep2015 - Updated to include set to default speed of 50%
 %   08Sep2016 - Updated to include check for previously homed ScorBot with
 %               pop-up (suggested by MIDN Jaunich)
+%   13Jan2017 - Updated documentation
 
 %% Define persistent variable for homing
 persistent priorHome

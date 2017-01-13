@@ -16,7 +16,7 @@ function ScorTeleop(port)
 
 %% Check inputs
 % TODO - improve error handling
-narginchk(1,3);
+narginchk(1,1);
 % TODO - check port range
 
 %% Create receiver

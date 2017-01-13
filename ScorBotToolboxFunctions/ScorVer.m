@@ -63,6 +63,9 @@ function varargout = ScorVer
 %       error typo in ScorSetGripper
 %   28Nov2016 - Added bwObject functions to support ES450 specific image 
 %       processing functionality
+%   13Jan2017 - Updated documentation on ScorHome and beginning migration
+%       of ScorBot class 
+
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
