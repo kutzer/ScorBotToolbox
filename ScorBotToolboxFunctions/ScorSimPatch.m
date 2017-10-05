@@ -1,6 +1,6 @@
 function ScorSimPatch(varargin)
 % SCORSIMPATCH creates a patch object a visualization of the ScorBot
-%   SCORSIMPATCH(scorSim) creates a patch object a visualization of the 
+%   SCORSIMPATCH(scorSim) loads a patch object visualization of the
 %   ScorBot.
 %
 %   See also ScorSimInit ScorSimTeachXYZPR ScorSimTeachBSEPR
@@ -15,6 +15,7 @@ function ScorSimPatch(varargin)
 %   23Oct2015 - Updates to status indicator
 %   30Dec2015 - Updates see also
 %   30Dec2015 - Updated error checking
+%   05Oct2017 - Updated to fix parent/child error for MATLAB 2017a
 
 % TODO - finish documentation
 
@@ -49,7 +50,8 @@ end
 
 %% Check scorSim
 if ~ishandle(scorSim.Figure)
-    error('Invalid simulation object. Run "ScorSimInit" to create a valid simulation object.');
+    error('ScorSim:BadSimHandle',...
+        'Invalid simulation object. Run "ScorSimInit" to create a valid simulation object.');
 else
     set(scorSim.TeachFlag,'FaceColor','r');
     set(scorSim.TeachText,'String',sprintf('Adding patch\ndata...'));
@@ -86,16 +88,49 @@ end
 %% Load link files
 for i = 0:5
     for j = 1:numel(mname)
+        % Open part
         filename = sprintf(sprintf('%s%s%s',fname,mname{j},lname),i);
         open(filename);
-        fig = gcf;
-        set(fig,'Visible','off');
-        % TODO - Add error checking
-        axs = get(fig,'Children');
-        body = get(axs,'Children');
         
-        set(body,'Parent',scorSim.Frames(i+1));
-        close(fig);
+        % Transfer children
+        %fig = gcf; % OLD METHOD
+        figname = filename(1:(end-4));
+        fig = findobj('Parent',0,'Name',figname);
+        
+        % Check figure and move contents
+        if isempty(fig)
+            % Use current figure if no figure is found
+            warning('ScorSim:UnknownFigureName',...
+                'The figure name for "%s" does not appear to be "%s". Attempting to use current figure instead.',filename,figname);
+            drawnow;
+            fig = gcf;
+        end
+        if numel(fig) > 1
+            % Multiple candidate figures found
+            %  - Cycle through figures
+            warning('ScorSim:MultipleFigureName',...
+                'Multiple instances of "%s" are currently open.',figname);
+            figs = fig;
+            for fig_idx = 1:numel(figs)
+                fig = figs(fig_idx);
+                try
+                    axs = get(fig,'Children');
+                    body = get(axs,'Children');
+                    set(body,'Parent',scorSim.Frames(i+1));
+                    close(fig);
+                    break
+                catch
+                    close(fig);
+                end
+            end
+        else
+            % Single figure found
+            axs = get(fig,'Children');
+            body = get(axs,'Children');
+            set(body,'Parent',scorSim.Frames(i+1));
+            close(fig);
+        end
+
     end
 end
 

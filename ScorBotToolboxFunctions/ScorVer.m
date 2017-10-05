@@ -65,14 +65,15 @@ function varargout = ScorVer
 %       processing functionality
 %   13Jan2017 - Updated documentation on ScorHome and beginning migration
 %       of ScorBot class 
+%   05Oct2017 - Updated to fix 2017a error with object handles
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '3.2.2';
+A.Version = '3.2.3';
 A.Release = '(R2014a)';
-A.Date = '28-Nov-2016';
+A.Date = '05-Oct-2017';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);
