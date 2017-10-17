@@ -67,14 +67,18 @@ function varargout = ScorVer
 %       of ScorBot class 
 %   05Oct2017 - Updated to fix 2017a error with object handles
 %   16Oct2017 - Revised fix for 2017a object handling error
-
+%   17Oct2017 - Fixed floating point error in check of inverse kinematic 
+%               solution, various updates to ScorSim documentation and 
+%               error messages, further revised fix for 2017a object 
+%               handling error
+%
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '3.2.4';
+A.Version = '3.2.5';
 A.Release = '(R2014a)';
-A.Date = '05-Oct-2017';
+A.Date = '17-Oct-2017';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);

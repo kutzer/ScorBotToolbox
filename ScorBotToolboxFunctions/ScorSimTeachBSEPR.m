@@ -27,6 +27,7 @@ function ScorSimTeachBSEPR(varargin)
 % Updates
 %   23Oct2015 - Updates to status indicator and function description.
 %   30Dec2015 - Updated error checking
+%   17Oct2017 - Added error instructions for bad ScorSim
 
 %% Check inputs
 % Check for zero inputs
@@ -175,9 +176,11 @@ delete([key,shift,space,rarrow]);
 
 %% Bring ScorBot figure to the foreground
 if ~ishandle(scorSim.TeachFlag)
-    % TODO - add instructions
     close(fig);
-    error('Specified ScorBot Simulation object is not valid.');
+    error('ScorSim:BadSimObj',...
+        ['Specified ScorBot Simulation object is not valid.',...
+        '\n\t-> Use "scorSim = ScorSimInit;" to create a valid ScorSim object',...
+        '\n\t-> and "%s(scorSim);" to execute this function.'],mfilename)
 else
     teachStr = 'BSEPR Teach';
     readyStr = 'Ready.';

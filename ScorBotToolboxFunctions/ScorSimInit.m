@@ -3,7 +3,7 @@ function scorSim = ScorSimInit(varargin)
 %   scorSim = SCORSIMINIT initializes a visualization of the ScorBot in a
 %   new figure window, and returns the scorSim structured array.
 %
-%   Properties:
+%   Structured Array Fields for scorSim:
 %       scorSim.Figure - figure handle of ScorBot visualization
 %       scorSim.Axes   - axes handle of ScorBot visualization
 %       scorSim.Joints - 1x5 array containing joint handles for ScorBot
@@ -45,13 +45,20 @@ function scorSim = ScorSimInit(varargin)
 %   30Dec2015 - Updated see also
 %   30Dec2015 - Updated error checking
 %   30Dec2015 - Updated to add example
+%   17Oct2017 - Updated documentation and nargout check
 
 %% Check inputs
 % Check for too many inputs
 if nargin > 0
-    warning('Too many inputs specified. Ignoring additional parameters.');
+    warning('ScorSim:TooManyInputs',...
+        'Too many inputs specified. Ignoring additional parameters.');
 end
 
+%% Check outputs
+if nargout < 1
+    warning('ScorSim:NoSimOut',...
+        'An output (e.g. "sim = ScorSimInit") must be specified to interact with the ScorBot simulation.');
+end
 %% Initialize output
 scorSim.Figure = [];
 scorSim.Axes   = [];

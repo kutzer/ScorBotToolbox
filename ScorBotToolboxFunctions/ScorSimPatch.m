@@ -17,6 +17,7 @@ function ScorSimPatch(varargin)
 %   30Dec2015 - Updated error checking
 %   05Oct2017 - Updated to fix parent/child error for MATLAB 2017a
 %   16Oct2017 - Updated to continue fix for parent/child error for 2017a
+%   17Oct2017 - Updated to finalize fix for parent/child error for 2017a
 
 % TODO - finish documentation
 
@@ -189,14 +190,47 @@ tname = 'ScorFingerTip';
 for i = 1:2
     filename = sprintf('%s%d%s',tname,i,lname);
     open(filename);
-    fig = gcf;
-    set(fig,'Visible','off');
-    % TODO - Add error checking
-    axs = get(fig,'Children');
-    body = get(axs,'Children');
     
-    set(body,'Parent',scorSim.FingerTip(i));
-    close(fig);
+    % Transfer children
+    %fig = gcf; % OLD METHOD
+    figname = filename(1:(end-4));
+    fig = findobj('Parent',0,'Name',figname);
+    
+    set(fig,'Visible','off');
+    
+    % Check figure and move contents
+    if isempty(fig)
+        % Use current figure if no figure is found
+        warning('ScorSim:UnknownFigureName',...
+            'The figure name for "%s" does not appear to be "%s". Attempting to use current figure instead.',filename,figname);
+        drawnow;
+        fig = gcf;
+    end
+    if numel(fig) > 1
+        % Multiple candidate figures found
+        %  - Cycle through figures
+        warning('ScorSim:MultipleFigureName',...
+            'Multiple instances of "%s" are currently open.',figname);
+        figs = fig;
+        for fig_idx = 1:numel(figs)
+            fig = figs(fig_idx);
+            try
+                axs = get(fig,'Children');
+                body = get(axs,'Children');
+                set(body,'Parent',scorSim.FingerTip(i));
+                close(fig);
+                break
+            catch
+                close(fig);
+            end
+        end
+    else
+        % Single figure found
+        axs = get(fig,'Children');
+        body = get(axs,'Children');
+        set(body,'Parent',scorSim.FingerTip(i));
+        close(fig);
+    end
 end
 
 %% Add light

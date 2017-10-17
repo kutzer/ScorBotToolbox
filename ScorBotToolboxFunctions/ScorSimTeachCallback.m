@@ -8,6 +8,7 @@ function ScorSimTeachCallback(src, callbackdata)
 
 % Updates
 %   23Oct2015 - Updates to status indicator.
+%   17Oct2017 - Updated comments.
 
 %% Declare globals
 global scorSimGlobalVariable scorSimTeachBSEPR scorSimTeachXYZPR
@@ -113,8 +114,8 @@ else
 end
 
 %% Initialize parameters
-angScale = 0.0175;
-linScale = 1.0000;
+angScale = 0.0175; % Angular resolution (radians)
+linScale = 1.0000; % Linear resolution (millimeters)
 if scorSimTeachBSEPR
     teachStr = 'BSEPR Teach';
     set([simObj.TeachFlag,simObj.TeachText],'Visible','on');
