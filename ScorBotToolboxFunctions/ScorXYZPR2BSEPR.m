@@ -52,7 +52,9 @@ function BSEPR = ScorXYZPR2BSEPR(varargin)
 %   30Dec2015 - Corrected help documentation.
 %   17Oct2017 - Updated solution check to account for spacing of floating
 %               point numbers (see eps), wrap rotational values for
-%               comparison, and return "good" solutions when available. 
+%               comparison, and return "good" solutions when available.
+%   18Oct2017 - Updated solution check to account for values close to 0
+%               and/or 2*pi.
 
 % TODO - check special case configurations
 % TODO - account for additional "reach-back" solutions and clarify pitch.
@@ -237,6 +239,12 @@ for i = 1:size(theta,2)
     % Wrap rotational parameters for comparison
     X_in = [XYZPR(1:3),wrapTo2Pi(XYZPR(4:5))];
     X_calc = [X(1:3),wrapTo2Pi(X(4:5))];
+    for ii = 4:5
+        if abs(X_in(ii) - X_calc(ii)) > 3*pi/4
+            X_in(ii) = wrapToPi( X_in(ii) );
+            X_calc(ii) = wrapToPi( X_calc(ii) );
+        end
+    end
     % Calculate error
     ERROR = norm(X_in - X_calc);
     % Estimate conservative value for zero
