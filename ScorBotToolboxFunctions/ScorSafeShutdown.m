@@ -28,6 +28,7 @@ function confirm = ScorSafeShutdown()
 %               ScorGetControl file
 %   01Sep2015 - Added ScorWaitForMove prior to entering shutdown
 %   15Sep2015 - Added ScorSetPendantMode('Auto') prior to ScorWaitForMove.
+%   28Nov2017 - Updated to override ScorHome prompt
 
 %% Create global shutdown figure handle
 ShutdownFig = 1845;
@@ -63,7 +64,7 @@ isMovedHome = ScorGoHome;
 ScorWaitForMove;
 pause(2);
 if ~isMovedHome
-    isHome = ScorHome;
+    isHome = ScorHome(true);
     if ~isHome
         confirm(end+1) = false;
         warning('Unable to home ScorBot.');

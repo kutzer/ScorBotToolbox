@@ -73,14 +73,16 @@ function varargout = ScorVer
 %               handling error
 %   18Oct2017 - Updated ScorXYZPR2BSEPR solution check to account for 
 %               pitch and roll values approaching 0 and 2*pi 
+%   28Nov2017 - Updated ScorSafeShutdown and SCRIPT_ScorDance to override
+%               ScorHome user prompt
 %
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '3.2.6';
+A.Version = '3.2.8';
 A.Release = '(R2014a)';
-A.Date = '18-Oct-2017';
+A.Date = '28-Nov-2017';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);

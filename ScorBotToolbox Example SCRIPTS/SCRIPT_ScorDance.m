@@ -1,7 +1,10 @@
 %SCRIPT_ScorDance
 % Execute a series of random joint configurations for the ScorBot.
 %
-%   (c) M. Kutzer 13Aug2015, USNA
+%   M. Kutzer 13Aug2015, USNA
+
+% Updates
+%   28Nov2017 - Updated to override ScorHome prompt
 
 tBSEPRData = [];
 k = 1.0; % Allow movements up to a factor of k times the total distance between limits
@@ -9,7 +12,7 @@ ScorSetSpeed(70);
 while true
     isReady = ScorIsReady;
     if ~isReady
-        ScorHome;
+        ScorHome(true);
     end
     
     BSEPR = ScorBSEPRRandom(k);
