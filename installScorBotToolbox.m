@@ -23,7 +23,8 @@ function installScorBotToolbox(replaceExisting)
 %   26Aug2015 - Updated to include drawnow before rehash of toolbox cache
 %   08Sep2016 - Updated to correct questdlg default and title
 %   07Mar2018 - Updated to include try/catch for required toolbox
-%               installations
+%               installations.
+%   15Mar2018 - Updated to include msgbox warning when download fails.
 %
 % TODO - Allow users to create a local version if admin rights are not
 % possible.
@@ -441,6 +442,8 @@ alternativeInstallMsg = [...
 if ~confirm
     warning('InstallToolbox:FailedDownload','Failed to download updated version of %s Toolbox.',toolboxName);
     fprintf(2,'\n%s\n',alternativeInstallMsg);
+    
+    msgbox(alternativeInstallMsg, sprintf('Failed to download %s Toolbox',toolboxName),'warn');
     return
 end
 

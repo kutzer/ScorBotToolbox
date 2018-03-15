@@ -12,7 +12,8 @@ function ScorUpdate(varargin)
 %   04Oct2015 - Updated hardware and simulation test scripts.
 %   25Aug2016 - Updated to allow for skipped hardware/simulation tests.
 %   07Mar2018 - Updated to include try/catch for required toolbox
-%               installations
+%               installations.
+%   15Mar2018 - Updated to include msgbox warning when download fails.
 %
 % TODO - Find a location for "ScorBotToolbox Example SCRIPTS"
 % TODO - update function for general operation
@@ -86,6 +87,8 @@ alternativeInstallMsg = [...
 if ~confirm
     warning('InstallToolbox:FailedDownload','Failed to download updated version of %s Toolbox.',toolboxName);
     fprintf(2,'\n%s\n',alternativeInstallMsg);
+    
+    msgbox(alternativeInstallMsg, sprintf('Failed to download %s Toolbox',toolboxName),'warn');
     return
 end
 

@@ -77,14 +77,15 @@ function varargout = ScorVer
 %               ScorHome user prompt
 %   07Mar2018 - Updated to include try/catch for required toolbox
 %               installations
+%   15Mar2018 - Updated to include msgbox warning when download fails
 %
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '3.2.9';
+A.Version = '3.2.10';
 A.Release = '(R2014a)';
-A.Date = '07-Mar-2018';
+A.Date = '15-Mar-2018';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);
