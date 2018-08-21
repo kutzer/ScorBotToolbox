@@ -19,5 +19,4 @@ https://www.usna.edu/Users/weapsys/kutzer/_Code-Development/ScorBot_Toolbox.php
 
 References
 [1] J. Esposito, C. Wick, & K. Knowles, "Matlab Toolbox for the Intelitek Scorbot: An open source robotics education library," in Proc. American Society of Engineering Education Annual Conference, Vancouver, BC, 2011.
-
 [2] C. Wick, J. Esposito, & K. Knowles, (2012, Aug 25) Matlab Toolbox for the Intelitek Scorbot (MTIS) [Online]. Available: https://www.usna.edu/Users/weapsys/esposito/scorbot.matlab.php
