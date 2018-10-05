@@ -29,6 +29,8 @@ function confirm = ScorSetGripper(grip)
 %               state using the ScorGetSpeed/ScorGetMoveTime functionality
 %   15Sep2016 - Updated to correct error text "closed" to "close"
 %               Christian Jaunich
+%   03Oct2018 - Updated to include error logging.
+
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
 if ~isReady
@@ -52,6 +54,8 @@ if ischar(grip) % Binary Open/Close
         case 'open'
             isOpen = calllib(libname,'RGripOpen');
             if isOpen
+                % Write gripper value to error log
+                ScorErrorLogWrite('GripCommand',70);
                 confirm = true;
             else
                 confirm = false;
@@ -62,6 +66,8 @@ if ischar(grip) % Binary Open/Close
         case 'close'
             isClose = calllib(libname,'RGripClose');
             if isClose
+                % Write gripper value to error log
+                ScorErrorLogWrite('GripCommand',0);
                 confirm = true;
             else
                 confirm = false;
@@ -79,6 +85,8 @@ else % Metric grip state
     grip = round(grip);
     isGrip = calllib(libname,'RGripMetric',grip);
     if isGrip
+        % Write gripper value to error log
+        ScorErrorLogWrite('GripCommand',grip);
         confirm = true;
     else
         confirm = false;

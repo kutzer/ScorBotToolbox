@@ -33,6 +33,7 @@ function confirm = ScorSetDeltaXYZPR(varargin)
 %               Erik Hoss
 %   28Aug2015 - Updated error handling
 %   23Dec2015 - Updated to clarify errors.
+%   02Oct2018 - Updated to include error logging.
 
 %% Set global for ScorSetUndo
 global ScorSetUndoBSEPR
@@ -107,6 +108,12 @@ ScorSetUndoBSEPR = ScorGetBSEPR;
 %% Goto point
 isMove = ScorGotoPoint('MoveType',mType);
 if isMove
+    % Write movement command to error log
+    XYZPR = ScorGetXYZPR + DeltaXYZPR;
+    BSEPR = ScorXYZPR2BSEPR(XYZPR);
+    % Update error log
+    ScorErrorLogWrite(1,mType,BSEPR);
+    % Set confirm flag
     confirm = true;
     return
 else

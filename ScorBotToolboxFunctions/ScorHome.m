@@ -30,6 +30,8 @@ function confirm = ScorHome(varargin)
 %   08Sep2016 - Updated to include check for previously homed ScorBot with
 %               pop-up (suggested by MIDN Jaunich)
 %   13Jan2017 - Updated documentation
+%   25Sep2018 - Updated to include "last error" reset
+%   02Oct2018 - Updated to include error logging
 
 %% Define persistent variable for homing
 persistent priorHome
@@ -157,6 +159,10 @@ if ~isHoming
     confirm = false;
     fprintf('FAILED\n');
     warning('Unable to execute homing.');
+    % Update "last error" code
+    ScorErrorLastSet(901);
+    % Write to error log
+    ScorErrorLogWrite(901);
     return
 end
 
@@ -166,6 +172,10 @@ if ~isHome
     confirm = false;
     fprintf('FAILED\n');
     warning('Unable to reach home position.');
+    % Update "last error" code
+    ScorErrorLastSet(937);
+    % Write to error log
+    ScorErrorLogWrite(937);
     return
 end
 
@@ -175,6 +185,10 @@ if ~isOn
     confirm = false;
     fprintf('FAILED\n');
     warning('Failed to set ScorBot Control Mode to "On".');
+    % Update "last error" code
+    ScorErrorLastSet(903);
+    % Write to error log
+    ScorErrorLogWrite(903);
     return
 else
     confirm = true;
@@ -186,5 +200,9 @@ else
     [~] = ScorSetSpeed(50);
     % Set prior home value to true
     priorHome = true;
+    % Reset "last error" code
+    ScorErrorLastSet(0);
+    % Write to error log
+    ScorErrorLogWrite(0);
 end
 

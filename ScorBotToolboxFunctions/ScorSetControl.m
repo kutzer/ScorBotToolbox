@@ -20,6 +20,8 @@ function confirm = ScorSetControl(cMode)
 %               Knowles," to "J. Esposito, & K. Knowles,"
 %               Erik Hoss
 %   28Aug2015 - Updated to include control enable/disable tracking
+%   25Sep2018 - Updated to include "last error" reset
+%   04Oct2018 - Updated to include error logging
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
@@ -35,6 +37,10 @@ switch lower(cMode)
         if isOn
             confirm = true;
             ScorGetControl('SetControl','On');
+            % Reset "last error" code
+            ScorErrorLastSet(0);
+            % Write to error log
+            ScorErrorLogWrite(0);
         else
             confirm = false;
             if nargout == 0

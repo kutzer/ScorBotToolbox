@@ -38,6 +38,7 @@ function confirm = ScorSetXYZPR(varargin)
 %   28Aug2015 - Updated error handling
 %   23Dec2015 - Updated to clarify errors.
 %   25Aug2016 - Updated to correct default movement type.
+%   28Sep2018 - Updated to include error logging
 
 %% Set global for ScorSetUndo
 global ScorSetUndoBSEPR
@@ -112,6 +113,10 @@ ScorSetUndoBSEPR = ScorGetBSEPR;
 %% Goto point
 isMove = ScorGotoPoint('MoveType',mType);
 if isMove
+    % Write movement command to error log
+    BSEPR = ScorXYZPR2BSEPR(XYZPR);
+    ScorErrorLogWrite(0,mType,BSEPR);
+    % Set confirm flag
     confirm = true;
     return
 else

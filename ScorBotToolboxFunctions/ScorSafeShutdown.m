@@ -29,12 +29,16 @@ function confirm = ScorSafeShutdown()
 %   01Sep2015 - Added ScorWaitForMove prior to entering shutdown
 %   15Sep2015 - Added ScorSetPendantMode('Auto') prior to ScorWaitForMove.
 %   28Nov2017 - Updated to override ScorHome prompt
+%   25Sep2018 - Updates to include error logging
 
-%% Create global shutdown figure handle
+%% Define shutdown figure handle
 ShutdownFig = 1845;
 
 %% Setup confirmation flags array
 confirm = [];
+
+%% Close and send error log
+ScorErrorLogClose;
 
 %% Set Teach Pendant to Auto Mode
 isAuto = ScorSetPendantMode('Auto');

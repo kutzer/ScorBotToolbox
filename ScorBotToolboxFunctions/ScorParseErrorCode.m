@@ -15,12 +15,18 @@ function errStruct = ScorParseErrorCode(eCode)
 %       [2] Shimon, edits to "Error.h," Eshed Robotec R&D, 24Sept2001
 %
 %   M. Kutzer, D. DiSerio, & C. Wick, 28Aug2015, USNA
+%
+%   *Special thanks to USNA Professor Emeritus Carl Wick for all his help 
+%   providing error code documentation and insight into the ScorBot ER-4U 
+%   controller. This, like so many of your efforts, is above and beyond. 
 
 % Updates
 %   15Sep2015 - Updated to include mitigation for message 912
 %   28Sep2015 - Updated to include mitigation for message 516
+%   25Sep2018 - Updated to include mitigation for message 937
 
-% TODO - Complete this function
+% TODO - add "Toolbox" errors to this function (see NaN errors in ScorHome
+% etc.)
 
 %% Set Defaults
 errStruct.Code       = eCode;
@@ -324,6 +330,8 @@ msg{934} = sprintf('%s: I/O not disabled',eType);
 msg{935} = sprintf('%s: The motion is out of the robot workspace',eType);
 msg{936} = sprintf('%s: Invalid IRQ number',eType);
 msg{937} = sprintf('%s: Robot home not done',eType);
+mit{937} = sprintf('Run "ScorHome" to re-home ScorBot');
+qfx{937} = sprintf('ScorHome;');
 msg{938} = sprintf('%s: Peripheral axis home not done',eType);
 msg{939} = sprintf('%s: Undefined robot position',eType);
 msg{940} = sprintf('%s: Undefined peripheral position',eType);
