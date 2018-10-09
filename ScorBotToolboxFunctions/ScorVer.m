@@ -82,14 +82,15 @@ function varargout = ScorVer
 %               update isMoving flag accordingly; also provides errStruct 
 %               as optional output
 %   05Oct2018 - Updated to include last error tracking and error logging
+%   09Oct2018 - Updated to correct ScorWarmup oversight. 
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '4.0.0';
+A.Version = '4.0.1';
 A.Release = '(R2015b)';
-A.Date = '05-Oct-2018';
+A.Date = '09-Oct-2018';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);

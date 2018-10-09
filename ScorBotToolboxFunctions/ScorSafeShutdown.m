@@ -30,6 +30,21 @@ function confirm = ScorSafeShutdown()
 %   15Sep2015 - Added ScorSetPendantMode('Auto') prior to ScorWaitForMove.
 %   28Nov2017 - Updated to override ScorHome prompt
 %   25Sep2018 - Updates to include error logging
+%   05Oct2018 - Updated to account for safe shutdown if/when library is not
+%               loaded.
+
+%% Check if ScorBot is initialized
+[~,libname,~] = ScorIsReady;
+isLoaded = libisloaded(libname);
+if ~isLoaded
+    confirm = false;
+    % Error copied from ScorIsReady
+    errStruct.Code       = NaN;
+    errStruct.Message    = sprintf('TOOLBOX: The ScorBot library "%s" has not been loaded.',libname);
+    errStruct.Mitigation = sprintf('Run "ScorInit" to intialize ScorBot.');
+    ScorDispError(errStruct);
+    return
+end
 
 %% Define shutdown figure handle
 ShutdownFig = 1845;

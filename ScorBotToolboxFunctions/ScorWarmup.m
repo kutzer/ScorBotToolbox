@@ -10,6 +10,7 @@ function ScorWarmup(runtime)
 
 % Updates:
 %   03Oct2018 - Updated to incorporate new error logging functions.
+%   05Oct2018 - Updated to account for logout issue.
 
 %% Check inputs
 if nargin < 1
@@ -119,12 +120,12 @@ while ishandle(h) && (t_check <= runtime)
     drawnow;
     t_check = toc(t_start);
 end
-
+delete(h);
 
 %% Shutdown robot and logout (if applicable)
 if t_check > runtime
     % Safely shutdown the robot
-    if shutdownFlag
+    if shutdownFlag && ~logoutFlag
         ScorSafeShutdown;
     end
     % Logout of the PC
