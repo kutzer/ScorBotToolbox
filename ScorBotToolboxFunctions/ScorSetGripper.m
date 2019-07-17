@@ -20,6 +20,8 @@ function confirm = ScorSetGripper(grip)
 %           Original function name "ScorSetGripper.m"
 %       
 %   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 12Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 
@@ -30,6 +32,8 @@ function confirm = ScorSetGripper(grip)
 %   15Sep2016 - Updated to correct error text "closed" to "close"
 %               Christian Jaunich
 %   03Oct2018 - Updated to include error logging.
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
@@ -52,7 +56,7 @@ end
 if ischar(grip) % Binary Open/Close
     switch lower(grip)
         case 'open'
-            isOpen = calllib(libname,'RGripOpen');
+            isOpen = ScorCallLib(libname,'RGripOpen');
             if isOpen
                 % Write gripper value to error log
                 ScorErrorLogWrite('GripCommand',70);
@@ -64,7 +68,7 @@ if ischar(grip) % Binary Open/Close
                 end
             end
         case 'close'
-            isClose = calllib(libname,'RGripClose');
+            isClose = ScorCallLib(libname,'RGripClose');
             if isClose
                 % Write gripper value to error log
                 ScorErrorLogWrite('GripCommand',0);
@@ -83,7 +87,7 @@ else % Metric grip state
         error('Gripper value must be between 0 and 70 millimeters.');
     end
     grip = round(grip);
-    isGrip = calllib(libname,'RGripMetric',grip);
+    isGrip = ScorCallLib(libname,'RGripMetric',grip);
     if isGrip
         % Write gripper value to error log
         ScorErrorLogWrite('GripCommand',grip);

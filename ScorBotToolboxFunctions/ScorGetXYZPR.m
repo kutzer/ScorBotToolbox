@@ -25,6 +25,8 @@ function XYZPR = ScorGetXYZPR()
 %           Original function name "ScorGetCart.m"
 %       
 %   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 
@@ -32,6 +34,8 @@ function XYZPR = ScorGetXYZPR()
 %               Erik Hoss
 %   28Aug2015 - Updated error handling
 %   25Sep2015 - Ignore isReady flag
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
@@ -50,7 +54,7 @@ r = 0.0; % end-effector wrist roll in 1/1000's of a degree
 
 %% Get XYZPR
 try
-    [confirm,x,y,z,p,r]=calllib(libname,'RGetXYZPR',x,y,z,p,r);
+    [confirm,x,y,z,p,r]=ScorCallLib(libname,'RGetXYZPR',x,y,z,p,r);
     if confirm
         XYZPR(1) = x*1e-3; % end-effector x-position in millimeters
         XYZPR(2) = y*1e-3; % end-effector y-position in millimeters
@@ -59,9 +63,9 @@ try
         XYZPR(5) = deg2rad(r*1e-3); % end-effector roll in radians
     else
         XYZPR = [];
-        warning('"calllib(''%s'',''RGetXYZPR'',...", failed to return a positive confirmation.',libname);
+        warning('"ScorCallLib(''%s'',''RGetXYZPR'',...", failed to return a positive confirmation.',libname);
     end
 catch
     XYZPR = [];
-    warning('Error with "calllib(''%s'',''RGetXYZPR'',...", no values returned.',libname);
+    warning('Error with "ScorCallLib(''%s'',''RGetXYZPR'',...", no values returned.',libname);
 end

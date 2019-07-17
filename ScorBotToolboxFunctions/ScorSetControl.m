@@ -14,6 +14,8 @@ function confirm = ScorSetControl(cMode)
 %           Original function name "ScorControlEnable.m"
 %       
 %   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 
@@ -22,6 +24,8 @@ function confirm = ScorSetControl(cMode)
 %   28Aug2015 - Updated to include control enable/disable tracking
 %   25Sep2018 - Updated to include "last error" reset
 %   04Oct2018 - Updated to include error logging
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
@@ -33,7 +37,7 @@ end
 %% Set control mode
 switch lower(cMode)
     case 'on'
-        isOn = calllib(libname,'RControl',int8('A'),1);
+        isOn = ScorCallLib(libname,'RControl',int8('A'),1);
         if isOn
             confirm = true;
             ScorGetControl('SetControl','On');
@@ -49,7 +53,7 @@ switch lower(cMode)
             return
         end
     case 'off'
-        isOff = calllib(libname,'RControl',int8('A'),0);
+        isOff = ScorCallLib(libname,'RControl',int8('A'),0);
         if isOff
             confirm = true;
             ScorGetControl('SetControl','Off');

@@ -26,6 +26,8 @@ function [isReady,libname,errStruct] = ScorIsReady(dispFlag)
 %   See also ScorInit ScorHome
 %
 %   M. Kutzer 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   28Aug2015 - Updated to replace ErrorFlag output with errStruct output
@@ -37,6 +39,24 @@ function [isReady,libname,errStruct] = ScorIsReady(dispFlag)
 %   15Sep2015 - Updated to suppress teach pendant messages by default, and
 %               display in black if "Display All" flag is set.
 %   25Sep2018 - Updated to include "last error" tracking and check
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
+%   17Jul2019 - Updated to include "libisloaded" equivalent check for
+%               64-bit, "system('tasklist..." 
+
+persistent osbits
+
+%% Check operating system
+if isempty(osbits)
+    switch computer
+        case 'PCWIN'
+            % 32-bit OS
+            osbits = 32;
+        case 'PCWIN64'
+            % 64-bit OS
+            osbits = 64;
+    end
+end
 
 %% Check input(s) and set default(s)
 nOut = nargout;
@@ -67,21 +87,44 @@ for i = 1:numel(callExceptions)
 end
 
 %% Check library
-isLoaded = libisloaded(libname);
-if ~isLoaded
-    isReady = false;
-    errStruct.Code       = NaN;
-    errStruct.Message    = sprintf('TOOLBOX: The ScorBot library "%s" has not been loaded.',libname);
-    errStruct.Mitigation = sprintf('Run "ScorInit" to intialize ScorBot');
-    errStruct.QuickFix   = sprintf('ScorInit;');
-    
-    ScorErrorLastSet(errStruct.Code);   % Update the "last error" code
-    ShowErrorToUser;                    % Show error to user
-    return
+switch osbits
+    case 32
+        % 32-bit OS
+        % -> [...] = calllib(libname,funcname,...);
+        isLoaded = libisloaded(libname);
+        if ~isLoaded
+            isReady = false;
+            errStruct.Code       = NaN;
+            errStruct.Message    = sprintf('TOOLBOX: The ScorBot library "%s" has not been loaded.',libname);
+            errStruct.Mitigation = sprintf('Run "ScorInit" to intialize ScorBot');
+            errStruct.QuickFix   = sprintf('ScorInit;');
+            
+            ScorErrorLastSet(errStruct.Code);   % Update the "last error" code
+            ShowErrorToUser;                    % Show error to user
+            return
+        end
+    case 64
+        % 64-bit OS
+        % -> ScorServerCMD using ScorbotServer.exe
+        % Check if server is running
+        isRunning = ScorServerIsRunning;
+        if ~isRunning
+            isReady = false;
+            errStruct.Code       = NaN;
+            errStruct.Message    = sprintf('TOOLBOX: The ScorBot server "%s" is not running.','ScorbotServer.exe');
+            errStruct.Mitigation = sprintf('Run "ScorInit" to intialize ScorBot');
+            errStruct.QuickFix   = sprintf('ScorInit;');
+            
+            ScorErrorLastSet(errStruct.Code);   % Update the "last error" code
+            ShowErrorToUser;                    % Show error to user
+            return
+        end
+    otherwise
+        error('OSBITS variable not set to known value.');
 end
 
 %% Check if ScorBot is homed
-isHome = calllib(libname,'RIsHomeDone');
+isHome = ScorCallLib(libname,'RIsHomeDone');
 if ~isHome
     isReady = false;
     errStruct.Code       = NaN;
@@ -129,7 +172,7 @@ if ~strcmpi(isEnabled,'On')
 end
 
 %% Check for ScorBot error
-sError = calllib(libname,'RIsError');
+sError = ScorCallLib(libname,'RIsError');
 errStruct = ScorParseErrorCode(sError);
 % Special case for control disabled
 if sError == 903

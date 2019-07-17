@@ -24,6 +24,8 @@ function confirm = ScorGotoPoint(varargin)
 %           Original function name "ScorMoveToPt.m"
 %       
 %   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 
@@ -32,6 +34,8 @@ function confirm = ScorGotoPoint(varargin)
 %   28Aug2015 - Redundand "ScorIsReady" added at the end of the function
 %               for additional error checking
 %   28Aug2015 - Updated error handling
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
@@ -89,7 +93,7 @@ end
 %% Goto point
 switch lower(mType)
     case 'lineartask'
-        isMove = calllib(libname,'RMoveLinear',vName,idx);
+        isMove = ScorCallLib(libname,'RMoveLinear',vName,idx);
         if isMove
             confirm = true;
         else
@@ -99,7 +103,7 @@ switch lower(mType)
 %             end
         end
     case 'linearjoint'
-        isMove = calllib(libname,'RMoveJoint',vName,idx);
+        isMove = ScorCallLib(libname,'RMoveJoint',vName,idx);
         if isMove
             confirm = true;
         else

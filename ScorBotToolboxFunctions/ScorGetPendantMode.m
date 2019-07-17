@@ -6,10 +6,15 @@ function pMode = ScorGetPendantMode()
 %   See also: ScorSetPendantMode
 %       
 %   M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   28Aug2015 - Updated error handling
 %   25Sep2015 - Ignore isReady flag
+%   17Jul2019 - Updated error handling
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
@@ -19,12 +24,12 @@ function pMode = ScorGetPendantMode()
 % end
 
 %% Get teach pendant mode
-isTeach = calllib(libname,'RIsTeach');
+isTeach = ScorCallLib(libname,'RIsTeach');
 switch isTeach
     case 0
         pMode = 'Auto';
     case 1
         pMode = 'Teach';
     otherwise
-        error('Unexpected response from "calllib(''RobotDll'',''RIsTeach'')"');
+        error('ScorCallLib:NoResponse','Unexpected response from "ScorCallLib(''%s'',''RIsTeach'')"',libname);
 end

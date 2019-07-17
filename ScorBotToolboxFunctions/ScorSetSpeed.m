@@ -46,6 +46,8 @@ function confirm = ScorSetSpeed(PercentSpeed)
 %           Original function name "ScorSetSpeed.m"
 %       
 %   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 
@@ -53,6 +55,8 @@ function confirm = ScorSetSpeed(PercentSpeed)
 %               Erik Hoss
 %   28Aug2015 - Updated to include ScorGetSpeed functionality
 %   01Sep2016 - Updated help documentation
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
@@ -70,7 +74,7 @@ end
 
 %% Set speed 
 PercentSpeed = round(PercentSpeed);
-isSet = calllib(libname,'RSetSpeed',PercentSpeed);
+isSet = ScorCallLib(libname,'RSetSpeed',PercentSpeed);
 if isSet
     confirm = true;
     ScorGetSpeed('SetSpeed',PercentSpeed);

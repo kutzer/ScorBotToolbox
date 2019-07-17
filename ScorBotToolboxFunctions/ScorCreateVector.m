@@ -22,11 +22,15 @@ function confirm = ScorCreateVector(vName,n)
 %           Original function name "ScorCreateVector.m"
 %       
 %   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 
 %               Knowles," to "J. Esposito, & K. Knowles,"
 %               Erik Hoss
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
@@ -48,7 +52,7 @@ if n > 1e4
 end
 
 %% Create vector
-success = calllib(libname,'RDefineVector',vName,n);
+success = ScorCallLib(libname,'RDefineVector',vName,n);
 if success
     confirm = true;
 else

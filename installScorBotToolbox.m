@@ -52,20 +52,29 @@ if ispc
     switch computer
         case 'PCWIN'
             fprintf('32-bit Windows Operating System detected.\n');
+            % Check is a MEX C compiler is installed
             cc = mex.getCompilerConfigurations('C');
+            if isempty(cc)
+                error('No C compiler found. Please use supportPackageInstaller to install a C compiler for this version of MATLAB.');
+            end
             switch cc.Name
                 case 'lcc-win32'
                     fprintf('Mex compiler: "%s"\n',cc.Name);
                 otherwise
                     fprintf('Unexpected Mex compiler: "%s"\n',cc.Name);
             end
+            osbits = 32;
+            fullInstall = true;
+        case 'PCWIN64'
+            fprintf('64-bit Windows Operating System detected.\n');
+            osbits = 64;
             fullInstall = true;
         otherwise
             warning('Interaction with the ScorBot hardware requires a 32-bit Windows OS.');
             choice = questdlg(...
                 sprintf(...
                     ['Full installation of the ScorBot Toolbox requires\n',...
-                    'a 32-bit Windows OS.\n',...
+                    'a 32-bit or 64-bit Windows OS.\n',...
                     '\n',...
                     '  - Installing on this OS will only enable\n',...
                     '    simulation capabilities.\n',...
@@ -119,15 +128,24 @@ else
     end
 end
 
-%% Check for 32-bit bin directory
+%% Check for 32-bit or 64-bit bin directory (if applicable)
 if fullInstall
-    win32binRoot = fullfile(matlabroot,'bin','win32');
-    
-    isWin32bin = exist(win32binRoot,'file');
-    if isWin32bin == 7
-        %bin\win32 exists as expected
-    else
-        error('MATLAB root does not contain the directory:\n\t"%s"\n',isWin32bin);
+    switch osbits
+        case 32
+            % 32-bit Windows install
+            win32binRoot = fullfile(matlabroot,'bin','win32');
+            
+            isWin32bin = exist(win32binRoot,'file');
+            if isWin32bin == 7
+                %bin\win32 exists as expected
+            else
+                error('MATLAB root does not contain the directory:\n\t"%s"\n',isWin32bin);
+            end
+        case 64
+            % 64-bit Windows install
+            % No action required
+        otherwise
+            error('OSBITS variable not set to known value.');
     end
 end
 
@@ -147,6 +165,7 @@ if isToolbox == 7
         choice = 'No';
     end
     % Replace existing or cancel installation
+    % TODO - Add 64-bit "Install_ScorbotServer.msi" uninstall
     switch choice
         case 'Yes'
             if libisloaded('RobotDll')
@@ -239,7 +258,32 @@ for i = 1:n
     else
         fprintf('\t%s...',files(i).name);
         if fullInstall
-            [isCopy,msg,msgID] = copyfile(source,destination,'f');
+            isCopy = 0;
+            switch osbits
+                case 32
+                    % 32-bit Windows install
+                    % -> Ignore specific files for 64-bit install
+                    ignoreMe = {...
+                        'ScorServerCmd.m'};
+                    ignoreMat = cell2mat( strfind(ignoreMe,files(i).name) );
+                    if ~isempty(ignoreMat)
+                        isCopy = -1;
+                    end
+                case 64
+                    % 64-bit Windows install
+                    % -> Ignore dll and header files for 32-bit install
+                    if strcmp(files(i).name(end-3:end),'.dll')
+                        isCopy = -1;
+                    end
+                    if strcmp(files(i).name(end-1:end),'.h')
+                        isCopy = -1;
+                    end
+                otherwise
+                    error('OSBITS variable not set to known value.');
+            end
+            if isCopy ~= -1
+                [isCopy,msg,msgID] = copyfile(source,destination,'f');
+            end
         else
             isCopy = 0;
             % Ignore general files for simulation-only install
@@ -270,7 +314,9 @@ for i = 1:n
                 'ScorParseErrorCode.m',...
                 'ScorSafeShutdown.m',...
                 'ScorShutdownCallback.m',...
-                'ScorWaitForMove.m'};
+                'ScorWaitForMove.m',...
+                'ScorCallLib.m',...
+                'ScorServerCmd.m'};
             ignoreMat = cell2mat( strfind(ignoreMe,files(i).name) );
             if ~isempty(ignoreMat)
                 isCopy = -1;
@@ -299,54 +345,70 @@ set(wb,'Visible','off');
 addpath(genpath(toolboxRoot),'-end');
 savepath;
     
-%% Migrate binary folder contents
+%% Migrate binary folder contents or install server components
 if fullInstall
-    win32binContent = 'ScorBotToolboxSupport';
-    if ~isdir(win32binContent)
-        error(sprintf(...
-            ['Change your working directory to the location of "installScorBotToolbox.m".\n',...
-            '\n',...
-            'If this problem persists:\n',...
-            '\t(1) Unzip your original download of "ScorBotToolbox" into a new directory\n',...
-            '\t(2) Open a new instance of MATLAB "as administrator"\n',...
-            '\t\t(a) Locate MATLAB shortcut\n',...
-            '\t\t(b) Right click\n',...
-            '\t\t(c) Select "Run as administrator"\n',...
-            '\t(3) Change your "working directory" to the location of "installScorBotToolbox.m"\n',...
-            '\t(4) Enter "installScorBotToolbox" (without quotes) into the command window\n',...
-            '\t(5) Press Enter.']));
-    end
-    files = dir(win32binContent);
-    waitbar(0,wb,'Copying win32bin contents...');
-    set(wb,'Visible','on');
-    n = numel(files);
-    fprintf('Copying win32bin contents:\n');
-    for i = 1:n
-        % source file location
-        source = fullfile(win32binContent,files(i).name);
-        % destination location
-        destination = win32binRoot;
-        if files(i).isdir
-            switch files(i).name
-                case '.'
-                    %Ignore
-                case '..'
-                    %Ignore
-                otherwise
+    switch osbits
+        case 32
+            % 32-bit Windows install
+            win32binContent = 'ScorBotToolboxSupport';
+            if ~isdir(win32binContent)
+                error(sprintf(...
+                    ['Change your working directory to the location of "installScorBotToolbox.m".\n',...
+                    '\n',...
+                    'If this problem persists:\n',...
+                    '\t(1) Unzip your original download of "ScorBotToolbox" into a new directory\n',...
+                    '\t(2) Open a new instance of MATLAB "as administrator"\n',...
+                    '\t\t(a) Locate MATLAB shortcut\n',...
+                    '\t\t(b) Right click\n',...
+                    '\t\t(c) Select "Run as administrator"\n',...
+                    '\t(3) Change your "working directory" to the location of "installScorBotToolbox.m"\n',...
+                    '\t(4) Enter "installScorBotToolbox" (without quotes) into the command window\n',...
+                    '\t(5) Press Enter.']));
+            end
+            files = dir(win32binContent);
+            waitbar(0,wb,'Copying win32bin contents...');
+            set(wb,'Visible','on');
+            n = numel(files);
+            fprintf('Copying win32bin contents:\n');
+            for i = 1:n
+                % source file location
+                source = fullfile(win32binContent,files(i).name);
+                % destination location
+                destination = win32binRoot;
+                if files(i).isdir
+                    switch files(i).name
+                        case '.'
+                            %Ignore
+                        case '..'
+                            %Ignore
+                        otherwise
+                            fprintf('\t%s...',files(i).name);
+                            nDestination = fullfile(destination,files(i).name);
+                            [isDir,msg,msgID] = mkdir(nDestination);
+                            if isDir
+                                [isCopy,msg,msgID] = copyfile(source,nDestination,'f');
+                                if isCopy
+                                    fprintf('[Complete]\n');
+                                else
+                                    bin = msg == char(10);
+                                    msg(bin) = [];
+                                    bin = msg == char(13);
+                                    msg(bin) = [];
+                                    fprintf('[Failed: "%s"]\n',msg);
+                                end
+                            else
+                                bin = msg == char(10);
+                                msg(bin) = [];
+                                bin = msg == char(13);
+                                msg(bin) = [];
+                                fprintf('[Failed: "%s"]\n',msg);
+                            end
+                    end
+                else
                     fprintf('\t%s...',files(i).name);
-                    nDestination = fullfile(destination,files(i).name);
-                    [isDir,msg,msgID] = mkdir(nDestination);
-                    if isDir
-                        [isCopy,msg,msgID] = copyfile(source,nDestination,'f');
-                        if isCopy
-                            fprintf('[Complete]\n');
-                        else
-                            bin = msg == char(10);
-                            msg(bin) = [];
-                            bin = msg == char(13);
-                            msg(bin) = [];
-                            fprintf('[Failed: "%s"]\n',msg);
-                        end
+                    [isCopy,msg,msgID] = copyfile(source,destination,'f');
+                    if isCopy
+                        fprintf('[Complete]\n');
                     else
                         bin = msg == char(10);
                         msg(bin) = [];
@@ -354,24 +416,29 @@ if fullInstall
                         msg(bin) = [];
                         fprintf('[Failed: "%s"]\n',msg);
                     end
+                end
+                waitbar(i/n,wb);
             end
-        else
-            fprintf('\t%s...',files(i).name);
-            [isCopy,msg,msgID] = copyfile(source,destination,'f');
-            if isCopy
-                fprintf('[Complete]\n');
-            else
-                bin = msg == char(10);
-                msg(bin) = [];
-                bin = msg == char(13);
-                msg(bin) = [];
-                fprintf('[Failed: "%s"]\n',msg);
-            end
-        end
-        waitbar(i/n,wb);
+            close(wb);
+            drawnow
+        case 64
+            % 64-bit Windows install
+            % 64-bit requires:
+            %   Install_ScorbotServer.msi
+            %   Authorize_ScorbotServer.bat
+            fprintf('Installing ScorbotServer.msi...');
+            [status,cmdout] = system('Install_ScorbotServer.msi');
+            % TODO - use status info etc. to check if this is actually
+            % complete
+            fprintf('[Complete]\n');
+            fprintf('Authorizing server...');
+            [status,cmdout] = system('Authorize_ScorbotServer.bat');
+            % TODO - use status info etc. to check if this is actually 
+            % complete
+            fprintf('[Complete]\n');
+        otherwise
+            error('OSBITS variable not set to known value.');
     end
-    close(wb);
-    drawnow
 end
 
 %% Rehash toolbox cache

@@ -41,12 +41,16 @@ function confirm = ScorSetMoveTime(t)
 %           Original function name "ScorSetMovetime.m"
 %       
 %   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 
 %               Knowles," to "J. Esposito, & K. Knowles,"
 %               Erik Hoss
 %   28Aug2015 - Updated to include ScorGetMoveTime functionality
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
@@ -60,7 +64,7 @@ narginchk(1,1);
 
 %% Set move time
 ms = round(t*1e3);
-isTime = calllib(libname,'RSetTime',ms);
+isTime = ScorCallLib(libname,'RSetTime',ms);
 if isTime
     confirm = true;
     ScorGetMoveTime('SetMoveTime',t);

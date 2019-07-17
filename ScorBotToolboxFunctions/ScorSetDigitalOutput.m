@@ -24,12 +24,16 @@ function confirm = ScorSetDigitalOutput(varargin)
 %           Original function name "ScorSetDigitalOutput.m"
 %       
 %   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 
 %               Knowles," to "J. Esposito, & K. Knowles,"
 %               Erik Hoss
 %   28Aug2015 - Updated error handling
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
@@ -64,14 +68,14 @@ end
 if isempty(v)
     switch lower(state)
         case 'on'
-            isSet = calllib(libname,'RDigOn', i);
+            isSet = ScorCallLib(libname,'RDigOn', i);
         case 'off'
-            isSet = calllib(libname,'RDigOff',i);
+            isSet = ScorCallLib(libname,'RDigOff',i);
         case 1
-            isSet = calllib(libname,'RDigOn', i);
+            isSet = ScorCallLib(libname,'RDigOn', i);
             state = 'On';
         case 0
-            isSet = calllib(libname,'RDigOff',i);
+            isSet = ScorCallLib(libname,'RDigOff',i);
             state = 'Off';
         otherwise
             error('Digital output state not recognized.');
@@ -89,10 +93,10 @@ else
     for i = 1:numel(v)
         switch v(i)
             case 1
-            isSet(i) = calllib(libname,'RDigOn', i);
+            isSet(i) = ScorCallLib(libname,'RDigOn', i);
             state = 'On';
         case 0
-            isSet(i) = calllib(libname,'RDigOff',i);
+            isSet(i) = ScorCallLib(libname,'RDigOff',i);
             state = 'Off';
         otherwise
             error('Unrecognized digital output state');

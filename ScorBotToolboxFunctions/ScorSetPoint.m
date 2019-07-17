@@ -36,6 +36,8 @@ function confirm = ScorSetPoint(varargin)
 %           Original function name "ScorAddToVec.m"
 %       
 %   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 
@@ -44,6 +46,8 @@ function confirm = ScorSetPoint(varargin)
 %   28Aug2015 - Redundand "ScorIsReady" added at the end of the function
 %               for additional error checking
 %   28Aug2015 - Updated error handling
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
@@ -105,7 +109,7 @@ r = round(rad2deg(XYZPR(5))*1e3); % end-effector pitch in 1/1000's of a degree
 switch lower(pMode)
     case 'absolute'
         % 0 for absolute point
-        isSet = calllib(libname,'RAddToVecXYZPR',vName,idx,0,x,y,z,p,r);
+        isSet = ScorCallLib(libname,'RAddToVecXYZPR',vName,idx,0,x,y,z,p,r);
         if isSet
             confirm = true;
         else
@@ -116,7 +120,7 @@ switch lower(pMode)
         end
     case 'relative'
         % 1 for relative point
-        isSet = calllib(libname,'RAddToVecXYZPR',vName,idx,1,x,y,z,p,r);
+        isSet = ScorCallLib(libname,'RAddToVecXYZPR',vName,idx,1,x,y,z,p,r);
         if isSet
             confirm = true;
         else

@@ -15,6 +15,8 @@ function confirm = ScorSafeShutdown()
 %           Original function name "ScorSafeShutdown.m"
 %       
 %   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 
@@ -32,18 +34,53 @@ function confirm = ScorSafeShutdown()
 %   25Sep2018 - Updates to include error logging
 %   05Oct2018 - Updated to account for safe shutdown if/when library is not
 %               loaded.
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
+%   17Jul2019 - Updated to differentiate between 32-bit and 64-bit
+%               initialization
+
+persistent osbits
+
+%% Check operating system
+if isempty(osbits)
+    switch computer
+        case 'PCWIN'
+            % 32-bit OS
+            osbits = 32;
+        case 'PCWIN64'
+            % 64-bit OS
+            osbits = 64;
+    end
+end
 
 %% Check if ScorBot is initialized
 [~,libname,~] = ScorIsReady;
-isLoaded = libisloaded(libname);
-if ~isLoaded
-    confirm = false;
-    % Error copied from ScorIsReady
-    errStruct.Code       = NaN;
-    errStruct.Message    = sprintf('TOOLBOX: The ScorBot library "%s" has not been loaded.',libname);
-    errStruct.Mitigation = sprintf('Run "ScorInit" to intialize ScorBot.');
-    ScorDispError(errStruct);
-    return
+switch osbits
+    case 32
+        isLoaded = libisloaded(libname);
+        if ~isLoaded
+            confirm = false;
+            % Error copied from ScorIsReady
+            errStruct.Code       = NaN;
+            errStruct.Message    = sprintf('TOOLBOX: The ScorBot library "%s" has not been loaded.',libname);
+            errStruct.Mitigation = sprintf('Run "ScorInit" to intialize ScorBot.');
+            ScorDispError(errStruct);
+            return
+        end
+    case 64
+        isRunning = ScorServerIsRunning;
+        if ~isRunning
+            confirm = false;
+            % Error copied from ScorIsReady
+            errStruct.Code       = NaN;
+            errStruct.Message    = sprintf('TOOLBOX: The ScorBot server "%s" is not running.','ScorbotServer.exe');
+            errStruct.Mitigation = sprintf('Run "ScorInit" to intialize ScorBot');
+            errStruct.QuickFix   = sprintf('ScorInit;');
+            ScorDispError(errStruct);
+            return
+        end
+    otherwise
+        error('OSBITS variable not set to known value.');
 end
 
 %% Define shutdown figure handle
@@ -129,17 +166,36 @@ end
 ScorGetControl('DeleteControl');
 
 %% Unload library
-fprintf('Unloading "%s" library...',libname); 
-try
-    unloadlibrary(libname);
-    fprintf('SUCCESS\n');
-    confirm(end+1) = true;
-    fprintf('ScorBot library has been unloaded.\n')
-    fprintf('\tRun "ScorInit" and "ScorHome" to continue using ScorBot\n');
-catch
-    fprintf('FAILED\n');
-    confirm(end+1) = false;
-    warning('Unable to unload "%s".',libname);
+switch osbits
+    case 32
+        fprintf('Unloading "%s" library...',libname);
+        try
+            unloadlibrary(libname);
+            fprintf('SUCCESS\n');
+            confirm(end+1) = true;
+            fprintf('ScorBot library has been unloaded.\n')
+            fprintf('\tRun "ScorInit" and "ScorHome" to continue using ScorBot\n');
+        catch
+            fprintf('FAILED\n');
+            confirm(end+1) = false;
+            warning('Unable to unload "%s".',libname);
+        end
+    case 64
+        fprintf('Terminating the ScorBot server...');
+        try
+            ScorServerStop;
+            fprintf('SUCCESS\n');
+            confirm(end+1) = true;
+            fprintf('ScorBot server has been terminated.\n')
+            fprintf('\tRun "ScorInit" and "ScorHome" to continue using ScorBot\n');
+        catch
+            confirm = false;
+            fprintf('FAILED\n');
+            warning('Server did not terminate successfully.');
+            return
+        end
+    otherwise
+        
 end
 
 %% Define final confirmation state

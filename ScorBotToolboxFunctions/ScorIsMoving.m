@@ -6,9 +6,13 @@ function [isMoving,errStruct] = ScorIsMoving()
 %   See also: ScorWaitForMove
 %       
 %   M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   06Sep2018 - Updated to identify specific error codes that stop movement
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Check ScorBot and define library alias
 % Check ScorBot
@@ -43,11 +47,11 @@ switch errStruct.Code
 end
         
 %% Check if ScorBot is moving
-switch calllib(libname,'RIsMotionDone')
+switch ScorCallLib(libname,'RIsMotionDone')
     case 0 % ScorBot is moving
         isMoving = true;
     case 1 % ScorBot is finished moving
         isMoving = false;
     otherwise
-        error('Unexpected response from "calllib(''%s'',''RIsMotionDone'')".',libname);
+        error('ScorCallLib:NoResponse','Unexpected response from "ScorCallLib(''%s'',''RIsMotionDone'')".',libname);
 end

@@ -22,6 +22,8 @@ function BSEPR = ScorGetBSEPR()
 %           Original function name "ScorGetBSEPR.m"
 %       
 %   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 
@@ -29,6 +31,8 @@ function BSEPR = ScorGetBSEPR()
 %               Erik Hoss
 %   28Aug2015 - Updated error handling
 %   25Sep2015 - Ignore isReady flag
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Check ScorBot and define library alias
 [isReady,libname] = ScorIsReady;
@@ -47,7 +51,7 @@ R = 0.0; % end-effector wrist roll in 1/1000's of a degree
 
 %%
 try
-    [confirm,B,S,E,P,R]=calllib(libname,'RGetBSEPR',B,S,E,P,R);
+    [confirm,B,S,E,P,R]=ScorCallLib(libname,'RGetBSEPR',B,S,E,P,R);
     if confirm
         BSEPR(1) =  deg2rad(B*1e-3); % end-effector base angle in radians
         BSEPR(2) = -deg2rad(S*1e-3); % end-effector shoulder angle in radians (sign change to match teach pendant)
@@ -56,9 +60,9 @@ try
         BSEPR(5) =  deg2rad(R*1e-3); % end-effector wrist roll in radians
     else
         BSEPR = [];
-        warning('"calllib(''%s'',''RGetBSEPR'',...", failed to return a positive confirmation.',libname);
+        warning('"ScorCallLib(''%s'',''RGetBSEPR'',...", failed to return a positive confirmation.',libname);
     end
 catch
     BSEPR = [];
-    warning('Error with "calllib(''%s'',''RGetBSEPR'',...", no values returned.',libname); 
+    warning('Error with "ScorCallLib(''%s'',''RGetBSEPR'',...", no values returned.',libname); 
 end

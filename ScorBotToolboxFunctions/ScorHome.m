@@ -17,6 +17,8 @@ function confirm = ScorHome(varargin)
 %           Original function name "ScorHome.m"
 %       
 %   C. Wick, J. Esposito, K. Knowles, & M. Kutzer, 10Aug2015, USNA
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates
 %   25Aug2015 - Updated correct help documentation, "J. Esposito K. 
@@ -32,9 +34,13 @@ function confirm = ScorHome(varargin)
 %   13Jan2017 - Updated documentation
 %   25Sep2018 - Updated to include "last error" reset
 %   02Oct2018 - Updated to include error logging
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
+%   17Jul2019 - Updated to differentiate between 32-bit and 64-bit
+%               initialization
 
 %% Define persistent variable for homing
-persistent priorHome
+persistent priorHome osbits
 
 % Set default prior home value to false
 if isempty(priorHome)
@@ -46,6 +52,18 @@ ShutdownFig = 1845;
 if ~ishandle(ShutdownFig)
     % Implies ScorBot has been shutdown
     priorHome = false;
+end
+
+%% Check operating system
+if isempty(osbits)
+    switch computer
+        case 'PCWIN'
+            % 32-bit OS
+            osbits = 32;
+        case 'PCWIN64'
+            % 64-bit OS
+            osbits = 64;
+    end
 end
 
 %% Check inputs
@@ -133,17 +151,34 @@ end
 libname = 'RobotDll';
 
 %% Check library
-isLoaded = libisloaded(libname);
-if ~isLoaded
-    confirm = false;
-    % Error copied from ScorIsReady
-    errStruct.Code       = NaN;
-    errStruct.Message    = sprintf('TOOLBOX: The ScorBot library "%s" has not been loaded.',libname);
-    errStruct.Mitigation = sprintf('Run "ScorInit" to intialize ScorBot.');
-    ScorDispError(errStruct);
-    return
+switch osbits
+    case 32
+        isLoaded = libisloaded(libname);
+        if ~isLoaded
+            confirm = false;
+            % Error copied from ScorIsReady
+            errStruct.Code       = NaN;
+            errStruct.Message    = sprintf('TOOLBOX: The ScorBot library "%s" has not been loaded.',libname);
+            errStruct.Mitigation = sprintf('Run "ScorInit" to intialize ScorBot');
+            errStruct.QuickFix   = sprintf('ScorInit;');
+            ScorDispError(errStruct);
+            return
+        end
+    case 64
+        isRunning = ScorServerIsRunning;
+        if ~isRunning
+            confirm = false;
+            % Error copied from ScorIsReady
+            errStruct.Code       = NaN;
+            errStruct.Message    = sprintf('TOOLBOX: The ScorBot server "%s" is not running.','ScorbotServer.exe');
+            errStruct.Mitigation = sprintf('Run "ScorInit" to intialize ScorBot');
+            errStruct.QuickFix   = sprintf('ScorInit;');
+            ScorDispError(errStruct);
+            return
+        end
+    otherwise
+        error('OSBITS variable not set to known value.');
 end
-
 %% Set teach pendant to auto
 isAuto = ScorSetPendantMode('Auto');
 if ~isAuto
@@ -154,7 +189,7 @@ end
 
 %% Home robot
 fprintf('Homing ScorBot...');
-isHoming = calllib(libname,'RHome',int8('A'));
+isHoming = ScorCallLib(libname,'RHome',int8('A'));
 if ~isHoming
     confirm = false;
     fprintf('FAILED\n');
@@ -167,7 +202,7 @@ if ~isHoming
 end
 
 %% Check if robot is homed
-isHome = calllib(libname,'RIsHomeDone');
+isHome = ScorCallLib(libname,'RIsHomeDone');
 if ~isHome
     confirm = false;
     fprintf('FAILED\n');
