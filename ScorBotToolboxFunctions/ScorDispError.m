@@ -46,12 +46,15 @@ else
 end
 
 %% Output special case for Teach Pendant messages
+% Get info from calling function
+st = dbstack(1);
+msg = sprintf(' - In %s (line %d)',st(1).name,st(1).line);
 % Teach pendant messages
 if errStruct.Code == 970 || errStruct.Code == 971
     if dispAll
         % Display teach/auto messages in black
-        fprintf('\nScorBot Message [%d]\n->%s\n\t %s\n',...
-            errStruct.Code,errStruct.Message,errStruct.Mitigation);
+        fprintf('\nScorBot Message [%d]%s\n->%s\n\t %s\n',...
+            errStruct.Code,msg,errStruct.Message,errStruct.Mitigation);
     else
         % Ignore teach pendant messages
     end
@@ -62,6 +65,8 @@ if errStruct.Code ~= 0
     % Beep to notify the user
     beep;
     % Display message in red, fprintf(2,...)
-    fprintf(2,'\nScorBot Message [%d]\n->%s\n\t %s\n',...
-        errStruct.Code,errStruct.Message,errStruct.Mitigation);
+    fprintf(2,'\nScorBot Message [%d]%s\n->%s\n\t %s\n',...
+        errStruct.Code,msg,errStruct.Message,errStruct.Mitigation);
 end
+
+                

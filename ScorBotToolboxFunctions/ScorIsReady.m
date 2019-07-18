@@ -125,17 +125,17 @@ switch osbits
 end
 
 %% Check if ScorBot is homed
+t0 = tic;   % Current time
+tf = 30.0;  % Timeout threshold
 while true
-    %% Check for ScorBot error
+    % Check for ScorBot error
     sError = ScorCallLib(libname,'RIsError');
     errStruct = ScorParseErrorCode(sError);
     % Special case for control disabled
     if sError == 903
         ScorGetControl('SetControl','Off');
     end
-    ScorErrorLastSet(errStruct.Code);   % Update the "last error" code
-    ShowErrorToUser;                    % Show error to user
-
+    % If/when no error is found, check if homing is finished
     if sError == 0
         isHome = ScorCallLib(libname,'RIsHomeDone');
         if ~isHome
@@ -150,6 +150,23 @@ while true
             return
         end
         break
+    else
+        ScorErrorLastSet(errStruct.Code);   % Update the "last error" code
+        ShowErrorToUser;                    % Show error to user
+    end
+    % Timeout if tf is exceeded
+    % Throw timeout
+    t = toc(t0);
+    if t > tf
+        isReady = false;
+        errStruct.Code       = NaN;
+        errStruct.Message    = sprintf('TOOLBOX: The ScorBot is throwing recurring errors.');
+        errStruct.Mitigation = sprintf('Run "ScorHome" to home ScorBot');
+        errStruct.QuickFix   = sprintf('ScorHome;');
+        
+        ScorErrorLastSet(errStruct.Code);   % Update the "last error" code
+        ShowErrorToUser;                    % Show error to user
+        return
     end
 end
 
@@ -188,12 +205,13 @@ if ~strcmpi(isEnabled,'On')
 end
 
 %% Check for ScorBot error
-sError = ScorCallLib(libname,'RIsError');
-errStruct = ScorParseErrorCode(sError);
-% Special case for control disabled
-if sError == 903
-    ScorGetControl('SetControl','Off');
-end
+% -> Replaced by while loop
+% sError = ScorCallLib(libname,'RIsError');
+% errStruct = ScorParseErrorCode(sError);
+% % Special case for control disabled
+% if sError == 903
+%     ScorGetControl('SetControl','Off');
+% end
 
 %% Display error message if user does not get the output
 ScorErrorLastSet(errStruct.Code);   % Update the "last error" code

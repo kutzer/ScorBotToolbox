@@ -60,14 +60,22 @@ switch lower( str )
     case 'ok'
         status = 1;
         data = [];
+    case 'unknown command'
+        error('The command "%s" is not recognized by the ScorbotServer.',cmd);
     otherwise
         status = 1;
         try
             data = jsondecode(str);
         catch
             data = [];
-            r
-            str
+            fprintf('\n');
+            fprintf(2,'--- Unable to decode JSON ---\n');
+            fprintf(2,'\t    url: %s\n',url);
+            fprintf(2,'\twebread: r = [');
+            fprintf(2,' %d ',r);
+            fprintf(2,']\n');
+            fprintf(2,'\t string: str = "%s"\n',str);
+            fprintf(2,'-----------------------------\n');
         end
 end
 

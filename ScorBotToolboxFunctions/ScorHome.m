@@ -194,6 +194,8 @@ if ~isHoming
     confirm = false;
     fprintf('FAILED\n');
     warning('Unable to execute homing.');
+    % Check if an actual error has occured
+    sError = ScorCallLib(1,'RIsError');
     % Update "last error" code
     ScorErrorLastSet(901);
     % Write to error log
@@ -203,6 +205,21 @@ end
 
 %% Check if robot is homed
 isHome = ScorCallLib(libname,'RIsHomeDone');
+if ~isHome
+    % Check for ScorBot error
+    sError = ScorCallLib(libname,'RIsError');
+    errStruct = ScorParseErrorCode(sError);
+    % Special case for control disabled
+    if sError == 903
+        ScorGetControl('SetControl','Off');
+    end
+    if sError ~= 0
+        ScorErrorLastSet(errStruct.Code);   % Update the "last error" code
+        ShowErrorToUser;                    % Show error to user
+    end
+    isHome = ScorCallLib(libname,'RIsHomeDone');
+end
+
 if ~isHome
     confirm = false;
     fprintf('FAILED\n');

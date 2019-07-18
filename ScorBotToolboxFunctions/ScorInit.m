@@ -134,6 +134,17 @@ switch osbits
             % Try to run the server
             try
                 ScorServerStart;
+                t0 = tic;
+                t_out = 30;
+                while ~ScorServerIsRunning
+                    % Wait for server to start
+                    t = toc(t0);
+                    if t > t_out
+                        fprintf('TIMEOUT\n');
+                        warning('Server did not start successfully.');
+                        return
+                    end
+                end
                 fprintf('SUCCESS\n');
             catch
                 confirm = false;
@@ -190,7 +201,26 @@ switch osbits
     case 64
         fprintf('Checking initialization status...');
         % Exception to "ScorCallLib"
-        status = ScorServerCmd('RIsInitDone');
+        t0 = tic;
+        t_out = 30;
+        isDone = false;
+        while ~isDone
+            % Check initialization status
+            try
+                status = ScorServerCmd('RIsInitDone');
+                isDone = true;
+            catch
+                pause(0.10);
+            end
+            % Throw timeout
+            t = toc(t0);
+            if t > t_out
+                fprintf('CONNECTION REFUSED\n');
+                warning('Server did not start successfully.');
+                return
+            end
+        end
+        % Check status
         switch lower(status)
             case 'error'
                 fprintf('Error communicating with ScorbotServer, is it running?')

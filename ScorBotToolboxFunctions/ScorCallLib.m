@@ -60,6 +60,8 @@ switch osbits
         
         % Call server command
         [status,data] = ScorServerCmd(funcName,varargin{:});
+        
+        % Show debug information
         if debugFlag
             fprintf('\tStatus - %d\n',status);
             if ischar(data)
@@ -107,4 +109,30 @@ switch osbits
         end         
     otherwise
          error('OSBITS variable not set to known value.');
+end
+
+%% Display Error Codes
+switch funcName
+    case 'RIsError'
+        if debugFlag
+            fprintf('--------------\n');
+            st = dbstack(1);
+            switch st(1).name
+                case 'ScorIsReady'
+                    % Display line number
+                    fprintf('\tIn %s (line %d)\n',st(1).name,st(1).line);
+                otherwise
+                    dbstack(1);
+            end
+        end
+        % Parse error code
+        errStruct = ScorParseErrorCode(varargout{1});
+        % Display error to command window
+        %ScorDispError(errStruct,'Display All');
+        ScorDispError(errStruct,'Display Critical');
+        if errStruct.Code ~= 0
+            % Update log and last error
+            ScorErrorLastSet(errStruct.Code);
+            ScorErrorLogWrite(errStruct.Code);
+        end
 end
