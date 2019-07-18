@@ -18,8 +18,13 @@ function [status,data] = ScorServerCmd( cmd,varargin )
 %   J. Donnal, 19Jun2017, USNA 
 
 % Updates
-%   16Jul2019 - Corrected JSON message interpretation issue(s), M. Kutzer
+%   16Jul2019 - Updated JSON message interpretation to correct issue(s)
+%               M. Kutzer
 
+%% Set debug flag
+debugFlag = false;
+
+%% Create url
 base_url='http://localhost:8080/scorbot?cmd=';
 param_str='';
 if nargin > 1
@@ -30,15 +35,25 @@ if nargin > 1
 end
 url = strcat(base_url,cmd,param_str);
 
-fprintf(2,'DEBUG ');
-fprintf('URL: "%s"\n',url); % Kutzer addition.
+%% Display debug information
+if debugFlag
+    fprintf(2,'DEBUG ');
+    fprintf('URL: "%s"\n',url);
+end
 
+%% Read url
 options=weboptions('timeout',Inf);
 r = webread(url,options);
 
-% Kutzer Update
+%% Convert JSON message to character array
 str = char(r.');    % Convert JSON message to a character string
-switch str
+if debugFlag
+    fprintf(2,'DEBUG ');
+    fprintf(' --> "%s"\n',str);
+end
+
+%% Parse character array
+switch lower( str )
     case 'error'
         status = 0;
         data = [];
@@ -47,9 +62,16 @@ switch str
         data = [];
     otherwise
         status = 1;
-        data = jsondecode(str);
+        try
+            data = jsondecode(str);
+        catch
+            data = [];
+            r
+            str
+        end
 end
 
+%% Original content
 %{
 % ORIGINAL DONNAL CODE
 str = strjoin(string(char(r)),'');

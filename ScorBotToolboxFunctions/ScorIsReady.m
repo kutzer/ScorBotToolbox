@@ -43,6 +43,7 @@ function [isReady,libname,errStruct] = ScorIsReady(dispFlag)
 %               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 %   17Jul2019 - Updated to include "libisloaded" equivalent check for
 %               64-bit, "system('tasklist..." 
+%   18Jul2019 - Added error-check prior to IsHomeDone query
 
 persistent osbits
 
@@ -86,7 +87,7 @@ for i = 1:numel(callExceptions)
     end
 end
 
-%% Check library
+%% Check library or server
 switch osbits
     case 32
         % 32-bit OS
@@ -124,17 +125,32 @@ switch osbits
 end
 
 %% Check if ScorBot is homed
-isHome = ScorCallLib(libname,'RIsHomeDone');
-if ~isHome
-    isReady = false;
-    errStruct.Code       = NaN;
-    errStruct.Message    = sprintf('TOOLBOX: The ScorBot has not executed the homing sequence.');
-    errStruct.Mitigation = sprintf('Run "ScorHome" to home ScorBot');
-    errStruct.QuickFix   = sprintf('ScorHome;');
-    
+while true
+    %% Check for ScorBot error
+    sError = ScorCallLib(libname,'RIsError');
+    errStruct = ScorParseErrorCode(sError);
+    % Special case for control disabled
+    if sError == 903
+        ScorGetControl('SetControl','Off');
+    end
     ScorErrorLastSet(errStruct.Code);   % Update the "last error" code
     ShowErrorToUser;                    % Show error to user
-    return
+
+    if sError == 0
+        isHome = ScorCallLib(libname,'RIsHomeDone');
+        if ~isHome
+            isReady = false;
+            errStruct.Code       = NaN;
+            errStruct.Message    = sprintf('TOOLBOX: The ScorBot has not executed the homing sequence.');
+            errStruct.Mitigation = sprintf('Run "ScorHome" to home ScorBot');
+            errStruct.QuickFix   = sprintf('ScorHome;');
+            
+            ScorErrorLastSet(errStruct.Code);   % Update the "last error" code
+            ShowErrorToUser;                    % Show error to user
+            return
+        end
+        break
+    end
 end
 
 %% Check for prior errors

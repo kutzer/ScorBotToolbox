@@ -9,6 +9,9 @@ function varargout = ScorCallLib(libname,funcName,varargin)
 
 persistent osbits
 
+%% Set debug flag
+debugFlag = false;
+
 %% Check operating system
 if isempty(osbits)
     switch computer
@@ -56,13 +59,30 @@ switch osbits
         end
         
         % Call server command
-        [status,data] = ScorServerCmd('RGetXYZPR',varargin{:});
+        [status,data] = ScorServerCmd(funcName,varargin{:});
+        if debugFlag
+            fprintf('\tStatus - %d\n',status);
+            if ischar(data)
+                fprintf('\t  Data - %s\n',data);
+            else
+                fprintf('\t  Data - [')
+                for i = 1:numel(data)
+                    fprintf('%.4f',data(i));
+                    if i < numel(data)
+                        fprintf(', ');
+                    end
+                end
+                fprintf(']\n');
+            end
+        end
         
         % Adjust outputs
         if nargout > 0
             switch funcName
                 case 'RIsError'
                     varargout{1} = data;    % Output error code only
+                case 'RGetJaw'
+                    varargout{1} = data;
                 otherwise
                     varargout{1} = status;
             end
@@ -76,6 +96,12 @@ switch osbits
                     else
                         break;
                     end
+                end
+            end
+            
+            if nargout > numel(varargout)
+                for i = (numel(varargout)+1):nargout
+                    varargout{i} = [];
                 end
             end
         end         

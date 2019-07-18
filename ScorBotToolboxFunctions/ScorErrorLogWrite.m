@@ -31,9 +31,13 @@ function ScorErrorLogWrite(varargin)
 %           '$datetime!0,mFlag,B,S,E,P,R,grip\r\n'
 %
 %   M. Kutzer, USNA, 28Sep2018
+%
+%   J. Donnal, 28Jun2017, USNA (64-bit Support)
 
 % Updates:
 %   05Oct2018 - Updated to remove recurring lines.
+%   17Jul2019 - Updated to replace instances of "calllib.m" with
+%               "ScorCallLib.m" to include J. Donnal 64-bit solution 
 
 %% Define persistent last line variable
 % TODO - populate lastLine and compare (post date stamp) to the new line
@@ -182,7 +186,7 @@ R = 0.0; % end-effector wrist roll in 1/1000's of a degree
 
 % Get BSEPR values 
 try
-    [confirm,B,S,E,P,R]=calllib(libname,'RGetBSEPR',B,S,E,P,R);
+    [confirm,B,S,E,P,R]=ScorCallLib(libname,'RGetBSEPR',B,S,E,P,R);
     if confirm
         BSEPR(1) =  deg2rad(B*1e-3); % end-effector base angle in radians
         BSEPR(2) = -deg2rad(S*1e-3); % end-effector shoulder angle in radians (sign change to match teach pendant)
@@ -202,6 +206,6 @@ function grip = GetGripper_NoCheck(libname)
 % conflicts with ScorIsReady writing to the error log.
 
 % Get gripper state
-grip = calllib(libname,'RGetJaw');
+grip = ScorCallLib(libname,'RGetJaw');
 
 end
