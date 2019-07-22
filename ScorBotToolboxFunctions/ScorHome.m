@@ -209,15 +209,24 @@ if ~isHome
     % Check for ScorBot error
     sError = ScorCallLib(libname,'RIsError');
     errStruct = ScorParseErrorCode(sError);
-    % Special case for control disabled
-    if sError == 903
-        ScorGetControl('SetControl','Off');
+    % Check special case errors
+    switch sError
+        case 0
+            % No error was found, check home again
+            isHome = ScorCallLib(libname,'RIsHomeDone');
+        case 300
+            % "Emergency on" was pressed at some point, check home again
+            isHome = ScorCallLib(libname,'RIsHomeDone');
+        case 301
+            % "Emergency off" was pressed at some point, check home again
+            isHome = ScorCallLib(libname,'RIsHomeDone');
+        case 903
+            % Special case for control disabled
+            ScorGetControl('SetControl','Off');
+        otherwise
+            % Unforseen error, try checking home again
+            isHome = ScorCallLib(libname,'RIsHomeDone');
     end
-    if sError ~= 0
-        ScorErrorLastSet(errStruct.Code);   % Update the "last error" code
-        ShowErrorToUser;                    % Show error to user
-    end
-    isHome = ScorCallLib(libname,'RIsHomeDone');
 end
 
 if ~isHome

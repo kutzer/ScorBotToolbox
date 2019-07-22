@@ -110,6 +110,7 @@ end
 if sError == 0
     % Get prior error information
     sError = ScorErrorLastGet;
+    errStruct = ScorParseErrorCode(sError);
 else
     % Write to "ErrorLast" and show to user
     ScorErrorLastSet(errStruct.Code);   % Update the "last error" code
@@ -122,6 +123,14 @@ switch sError
         isReady = true;
         return
     case 908
+        % Out of workspace
+        isReady = true;
+        return
+    case 911
+        % Motion in progress
+        isReady = true;
+        return
+    case 962
         % Out of workspace
         isReady = true;
         return

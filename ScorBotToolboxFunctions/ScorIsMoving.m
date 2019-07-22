@@ -39,6 +39,9 @@ switch errStruct.Code
     case 903
         isMoving = false;
         return
+    case 911
+        isMoving = false;
+        return
     otherwise
         if isnan(errStruct.Code)
             isMoving = false;
