@@ -135,4 +135,15 @@ switch funcName
             ScorErrorLastSet(errStruct.Code);
             ScorErrorLogWrite(errStruct.Code);
         end
+    case 'RAddToVecXYZPR'
+        % Clear lingering errors
+        eCode = ScorErrorLastGet;
+        switch eCode
+            case 908
+                % Point out of workspace
+                ScorErrorLastSet(0);
+            case 911
+                % User didn't use "ScorWaitForMove"
+                ScorErrorLastSet(0);
+        end
 end

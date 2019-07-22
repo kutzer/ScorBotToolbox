@@ -1,7 +1,6 @@
-;File: SCBS1.ENG           12-JUN-2002
+;   File: SCBS1.ENG        Ver.1.7     Date: 09-FEB-2017
 
 [PERIPHERALS] 
-; See Pc_acc.XXX file
 NOC=Not Connected
 LSB100S=Slidebase 1.0m, Screw-drive  
 LSB150S=Slidebase 1.5m, Screw-drive
@@ -14,8 +13,11 @@ RT24=Rotary Table, 24V
 CONV24=Conveyor Belt (gray),  24V
 MK24_127=Motor Kit (127.7:1), 24V
 
+;  CONV12=Conveyor Belt (gray),  12V              // 5.0
+;  RT_Orange = Rotary Table (orange), 12V        // 5.0
+;  CONV_Orange = Conveyor Belt (orange), 12V  // 5.0
+;  MK12_127=Motor Kit (127.7:1), 12V                 // 5.0 
 
-// Shimon
 [WorkspaceDialog]          
 Caption = Workspace
 Project = Project
@@ -23,14 +25,11 @@ Commands = Commands
 Program = Program -\s
 Positions = Positions -\s
 Image     = 3D Image -\s
-Empty = Empty        // Shimon2
-
-// Shimon
+Empty = Empty  
 [OpenParameterSetDialog]
 Caption = Open Parameter Set
 Open =    &Open 
 
-// Shimon
 [LoadProjectDialog]
 Caption = Load Project
 Filter =  Project
@@ -44,19 +43,19 @@ Robot = Robot: // IDC_STATIC_MYROBOT
 Axis7 = Axis 7: // IDC_STATIC_AXIS7
 Axis8 = Axis 8: // IDC_STATIC_AXIS8
 
-// Shimon2
+
 [SaveProjectDialog]
 Caption = Save Project
 Filter =  Project
 
-// Shimon1
+
 [ChartsLegendDialog]
 Caption = Legend
 Encoders = Encoders   // IDC_STATIC_ENCODERS
 Error  = Error        // IDC_STATIC_ERROR
 PWM    = PWM         // IDC_STATIC_PWM 
 
-// Shimon1
+
 [MotionInfoDialog]
 Caption = Movement Information
 AxisNum1 = Axis #: // IDC_STATIC_AXISNUM1
@@ -66,14 +65,14 @@ PWM = PWM               //IDC_STATIC_PWM
 AxisNum2 = Axis #:  // IDC_STATIC_AXISNUM2
 Value = Value:      // IDC_STATIC_VALUE
 
-// Shimon1
+
 [ProgramMessagesDialog]
 Caption = Messages
 Date = Date
 Time = Time
 Message = Message
 
-// Shimon1
+
 [ChartToPrintDialog]
 Caption = Chart To Print
 SelectChart = Select a Chart                 // IDC_STATIC_FRAME
@@ -87,7 +86,6 @@ Axis7 = Axis #7 // IDC_RADIO_AXIS_7
 Axis8 = Axis #8 // IDC_RADIO_AXIS_8
 
 [ChartsPropDialog]
-;new lang
 Caption = Chart Options
 History = History         // IDC_STATIC_HISTORY
 Browse = &Browse...       // IDC_BUTTON_HIS_BROWSE
@@ -107,7 +105,7 @@ ClearAll =  &Clear All
 ClearPWM = Clear &PWM
 DefaultRange = &Default Range
 ViewCaption = Charts - Axis #%d: Time: %0.2f, Encoders: %s, Error: %s, PWM: %s // Shimon2
-NotShow = Not Show   // Shimon2
+NotShow = Not Show 
 
 [PeriphDialog]
 Caption = Hardware Setup
@@ -115,14 +113,18 @@ PeripheralsRadBut  = Peripherals // IDC_RADIO_PERIPH
 RobotRadBut = Robot              // IDC_RADIO_ROBOT 
 Axis7Txt    = Axis 7:            // IDC_STATIC_AX7
 Axis8Txt    = Axis 8:            // IDC_STATIC_AX8
+Homing = Homing               // IDC_STATIC_HOMING  4.9.2
+Fast = Fast                        // IDC_RADIO_QUICK       4.9.2
+Precise = Precise               // IDC_RADIO_PRECISE   4.9.2 
 
 [AdvOptions]
 Caption = Advanced Options
 AdvCmnds = Advanced Commands      // IDC_CHECK_ADV_COMM 
 ViewFlexCmnds = ViewFlex Commands // IDC_CHECK_VF_COMM
-Warning1 = Warning:\nParameters are used to adapt the controller to a particular robotic system.\nOnly skilled operators should attempt to manipulate parameters.\n
-Warning2 = Never change parameter values while the robot or peripheral axes are in motion.\nWorking with incorrect parameter settings may result in unexpected movements\nor damage to the robot arm or peripheral axes.\n
-Warning3 = Impact protection parameters monitor the servo axes for abnormal conditions\nsuch as encoder and power failure, and impact.\nWhen such conditions are detected, the motors are disabled.\n
+Warning1 = Warning:\nParameters are used to adapt the controller to a particular robotic system. Only skilled operators should attempt to manipulate parameters.\n 
+Warning2 = Never change parameter values while the robot or peripheral axes are in motion. Working with incorrect parameter settings may result in unexpected movements or damage to the robot arm or peripheral axes.\n
+Warning3 = Impact protection parameters monitor the servo axes for abnormal conditions such as encoder and power failure, and impact. When such conditions are detected, the motors are disabled.\n
+
 
 [FindObjectDialog]
 Caption = Find Object
@@ -159,7 +161,182 @@ Row     = Row          // IDC_STATIC_ROW
 Column  = Column       // IDC_STATIC_COLUMN
 Value   = Value        // IDC_STATIC_VALUE
 
-; For TPMesages section length of strings up to 20 characters.
+[SendMessageDialog]          
+Caption = Send Message        // 5.0
+SendTo = Send To:             // 5.0   IDC_STATIC_SEND_TO
+TaskID   = Task ID:           // 5.0   IDC_STATIC_TASK_ID
+MessageType = Type:           // 5.0   IDC_STATIC_MESSAGE_TYPE
+String = String:              // 5.0a  IDC_STATIC_TASK_ID
+DeviceID = Device ID:         // 5.0a  IDC_STATIC_MESSAGE_TYPE
+String_2 = String             // 5.1.2 IDC_RADIO_STRING
+Command = Command             // 5.1.2 IDC_RADIO_COMMAND
+QCResult = Result:            // 5.2.0.3 IDC_EDIT_QC_RESULT
+
+[TeachPosCmdDialog]
+Caption = Teach Position Command
+PosNum = Position Number   // 5.0   IDC_STATIC_POSIT_NUM
+Absolute = &Absolute           // 5.0   IDC_RADIO_ABSOL
+Relative = Relative to:           // 5.0  IDC_RADIO_RELAT 
+GetPos = &Get Position        // 5.0   IDC_BUTTON_GET_POSIT
+Clear =  &Clear                   // 5.0   IDC_BUTTON_CLEAR
+Joint = &Joints                    // 5.0   IDC_RADIO_JOINTS
+XYZ =  XYZ                        // 5.0   IDC_RADIO_XYZ  
+X = X (mm/100)                   // 5.005   IDC_TPC_X
+Y = Y (mm/100)                   // 5.005   IDC_TPC_Y
+Z = Z (mm/100)                    // 5.005   IDC_TPC_Z
+Pitch = Pitch (deg/100)          // 5.005   IDC_TPC_PITCH
+Roll =  Roll (deg/100)            // 5.005   IDC_TPC_ROLL
+Theta =  Theta (deg/100)        // 5.005   IDC_TPC_ROLL
+
+BaseMM = Base (mm/100)             // 5.005
+ShoulderMM = Shoulder (mm/100)   // 5.005
+ElbowMM = Elbow (mm/100)           // 5.005
+
+BaseDEG = Base (deg/100)               // 5.005
+ShoulderDEG  = Shoulder (deg/100)   // 5.005
+ElbowDEG  = Elbow (deg/100)           // 5.005
+
+
+[AddScriptDialog]
+Caption = Load Script      // 5.1
+Str1 = File name:                   // 5.0
+Str2 = \n                              // 5.0  
+Error = The script code file name is undefined. // 5.0
+
+[Script]
+OpenScript = Open Script        // 5.0
+ScriptFiles = Script Files          // 5.0
+CannotRead =  Cannot read script file:\n%s     // 5.0
+LaunchEditor = \n\nDo you want to launch the script editor?         // 5.0
+Error1 = Error: %d,  %s\n\nIn the line:\n%s    // 5.0  
+Error2 = Error: %d,  %s\n\nLine: %d  %s       // 5.0
+UnknownError = Unknown script error           // 5.0
+ScriptErrorTitle = Script Error                       // 5.0                   
+
+[OpenCIM]
+RemarkBeginAutoCode = $ Beginning of automatically generated code // 5.0
+RemarkEndAutoCode = $ End of automatically generated code      // 5.0
+
+TaskID = TaskID:         // 5.0
+ParCount = ParCount:  // 5.0
+Prg = Prg:                  // 5.0
+Pars = Pars:               // 5.0
+
+CIMManager = MANAGER            // 5.0    
+
+DeviceDriver =  Device Driver  // 5.0a    
+RobotDeviceDriver = Robot Device Driver  // 5.1.1
+CNCDeviceDriver = CNC Device Driver      // 5.1.1 
+
+StartMessage  = $Start                // 5.0 
+FinishMessage =$Finish              // 5.0  
+EndMessage =   $End                 // 5.0 
+SetErrorMessage = $Set error       // 5.0 
+ManualStop = *** Manual Stop ***     // 5.0a
+
+QCResult = $QC Result              // 5.2.0.3 
+QualityControlRequest = Quality Control Request has been received... // 5.2.0.3	
+QCResultFormat = QC Result: %f  // 5.2.0.3 
+LowRangeFormat = Low Range: %f   // 5.2.0.3
+HighRangeFormat = High Range: %f  // 5.2.0.3 
+ToBeRescanned = --- TO BE RESCANNED ! ----   // 5.2.0.3 
+NotToBeRescanned = --- NOT TO BE RESCANNED ! ----   // 5.2.0.3 
+DriverSendQCSuccess = Driver Send QC Success     // 5.2.0.3 
+DriverSendQCFail = Driver Send QC Fail           // 5.2.0.3 
+
+DriverSendEnd = Driver Send End                  // 5.2.0.3 
+ 
+
+DriverSendEndFail = Driver Send End - fail       // 5.2.0.3 
+
+DriverSendFinish = Driver Send Finish
+ 
+            // 5.2.0.3
+DriverSendFinishFail = Driver Send Finish - fail  // 5.2.0.3
+
+DriverSendStart = Driver Send Start              // 5.2.0.3 
+ 
+
+DriverSendStartFail = Driver Send Start - fail   // 5.2.0.3 
+
+[Socket]
+MessageWasSent = Message was sent                 // 5.0  
+SocketNotCreated = (1) Socket not created         // 5.0    
+SocketClientNotCreated = (2) Socket client not created  for\n     // 5.0    
+CannotConnect = (3) Cannot connect to\n	                  // 5.0    
+InvalidKnotName = (4) Invalid knot name\n                             // 5.0    
+InvalidIPAddress = (5) Invalid IP address                                // 5.0    
+SocketServerNotCreated = (6) Socket server not created for\n    // 5.0    
+InvalidCommunProperties = (7) Invalid communication properties\nof the $  // 5.0    
+ReadSocketError = (8) Read socket error                                               // 5.0     
+
+[CIMDriverForm]
+Caption = Not applicable                                   // 5.0 
+DriverTitle = Open CIM Device Driver - USBC%d  // 5.0
+StartNewSession = --- Start new session ---   // 5.0
+Online = On-Line            // 5.0
+Simulation = Simulation     // 5.0
+Standalone = Standalone   // 5.0
+
+OperationMode = Operation Mode   // 5.0   IDC_ST1
+TaskHistory = Task History             // 5.0   IDC_ST3
+CompleteFromFile = % Complete from Pick and Place File  // 5.0 IDC_ST4
+Automatic = Automatic   // 5.0 IDC_RADIO_AUTO
+Manual = Manual         // 5.0 IDC_RADIO_MANUAL 
+Messages = CIM Messages  // 5.0 IDC_ST51
+
+FilesSaved = These files have been saved:\n%s\n%s    // 5.0
+PleaseWait = ---- Please wait for system purposes ... ---  // 5.0
+InvalidDeviceID = (10) Invalid device ID %d                   // 5.0
+StringWillSend =   <--- "%s" will send to device %d           // 5.005
+ToSCORBASE = To SCORBASE: %s    // 5.0a
+ReceivedToRun = ---> "%s" received from device %d      // 5.005
+
+[TcpStatusDialog]
+Caption = TCP/IP Status   // 5.3
+EnableTCP = Enable TCP/IP // 5.3	
+
+[SetVarDialog]
+Caption = Set Variable
+Name =  Variable Name      // 5.0
+Comput = Computation        
+Timer = Timer (1/10 sec)      
+Sensor = Gripper Sensor (mm)
+Analog = Analog Input               
+
+Function = Function      // 5.0
+JointPosit = Joint Value at Position (1/100 of deg or mm)             // 5.0
+CartesPosit = Cartesian Coordinate at Position (1/100 of deg or mm)   // 5.0
+
+PositionNumber = Position Number            // 5.0
+AxisNumber = Joint Number (Base=1,Shoulder=2,Elbow=3,Pitch=4,Roll=5)  // 5.0
+CartesCoor = Cartesian Coordinate Number (X=1,Y=2,Z=3,Pitch=4,Roll=5) // 5.0
+
+ValueOrExpres = Value  or  Expression
+AnalogInpNum  = Analog  Input  Number
+UndefNameVar = Undefined variable name.
+UndefValVar = The value or expression are undefined.
+Note = Note: You can use script functions and variables. For example: // 5.0
+
+
+[RunSubrDialog]
+Caption = Run Subroutine                                                                              // 6.0
+SubrName = Subroutine name:  // IDC_STATIC_PROGRAM_NAME   // 6.0
+Program =  &Program   // ID_BUTTON_PROG                                            // 6.0 
+Execute=  &Execute  // ID_BUTTON_EXEC                                                 // 6.0  
+
+[WaitConditionDialog]
+Caption = Wait For Condition   // 6.0.3
+LogicExpres = Logical Expression // 6.0.3
+
+[WaitDigitalInputDialog]
+Caption = Wait For Digital Input // 6.0.3
+InputNumber = Input Number: // IDC_STATIC_WAIT_DIG_INP_NUMBER 6.0.3
+On = O&n    // IDC_RADIO_WAIT_DIG_INP_ON  6.0.3
+Off = O&ff  // IDC_RADIO_WAIT_DIG_INP_OFF 6.0.3	
+
+
+; For TPMesages section length of strings up to 20 Latin characters.
 [TPMessages]
 SPLINE_STR   =	Spline\s  
 MOVE_STR    =	Move\s 
@@ -183,7 +360,7 @@ TOOL_STR      =	\sTOOL
 UNDEF_STR    =	Undefined function!
 AX_STR           =	Axis\s    
 SEL_STR         =	Selected  
-AX_SEL_STR         =	Axis %d Selected 
+AX_SEL_STR   =	Axis %d Selected 
 SIN_STR          =	Single Step      
 ABORT_STR    =	Abort                    
 ROLL_STR       =	Roll             
@@ -234,66 +411,60 @@ ERR_IMPACT	 = Impact!
 ERR_THERMIC	 = Thermic overload!
 ERR_CIRC_PATH    = Cannot move on path!
 TP_ERR		 = Error #%d!
-;end new lang
+
 
 [ApplicationErrors]
 ; See WCRES.XXX file ApplicationStrings section
 
-;new lang
+MultipleMonitors = Multiple display monitors are not supported!  // 7.0.6
+
+SubProgOpened = The sub-program is already opened! // 5.0a
+ProgramNotDefined = Cannot run the %s  program, since this program is not defined. // 5.0a
+
 IllegImport3D = The 3D model cannot be imported. Incompatible hardware configuration.
 IllegOpenProj = The project cannot be opened. Incompatible hardware configuration.
-PeriphConf = The peripherals and positions are not compatible! Change the peripheral setup or positions.
+PeriphConf = The peripherals and positions are not compatible! Change the peripheral setup and/or positions and save the project.
 ContrNotRespondFull = The controller is not responding. //ERR_NOT_RESPOND
 ContrNotRespondBrief  = There is no response from the controller.
 HomeAborted = Homing aborted by user. //ERR_HOME_ABORTED
 InvalCoor = Invalid encoder/coordinate value:  %s
-;end new lang
 
 EmergMes = Emergency! All programs aborted!  // ERR_EMERG
 ImpactMes = Position error! The motion is too great or an impact has occurred.  // ERR_TRCK
 
-;new lang1
 NoMoveSpecPath = The movement cannot be executed along the specified path !   // ERR_SKIN
 
 FatalErr = Fatal Error !  // ERR_FATAL
 InvalFile = Invalid file name !   // ERR_INVNM
 
-;new lang
 InvalPar =  Invalid parameter !    // ERR_INVPAR
 InvalPar2 =  Invalid parameter: %s !
 InvalParSet =  Invalid parameter set: %s !
 PosNoWorksp =  The position is not in the workspace !
 KinCfgPar = Kinematics: Invalid configuration parameters !  // KIN_CFG
 KinDivZero = Kinematics: Division by zero !  // KIN_ZERO
-;end new lang
 
 CartWorkspace1 =  The position is not in the Cartesian workspace.\n(Kinematics: Alpha error) // KIN_ALPHA
 CartWorkspace2 =  Position is not in the Cartesian workspace.\n( Kinematics: Beta error )   // KIN_BETA
 ThermOver =  Thermic overload !  // ERR_THR
 
-;new lang
 ContrBoxOff =  Controller is off. Turn it on.  // ERR_PWOFF
 ContrBoxErr =  Controller error !  // ERR_PB
-;end new lang
 
 InvalRobType =  Invalid robot type!  // ERR_ROBT
 FileNotFound = Path or file not found!   // ERR_PF_NF
 
-;new lang
 TooManyOpFiles =  Too many files are open!  // ERR_TOO_F
 FileAccsDen = Access to the file is denied! // ERR_PER_DEN
-;end new lang
 
 InvalAccsCode = Invalid file access code! // ERR_IN_ACC
 UnabCloseFile = Unable to close the file!  // ERR_CLOSE
 InternErr = Internal system error!  // ERR_UK_ERR
 
-;new lang
 BadFileName = Invalid file name!  // ERR_BAD_FN
-ErrWrPar = An error occured while writing the parameters!       // ERR_PAR_WR
-ErrRePar = An error occured while reading the parameters!   // ERR_PAR_RE
+ErrWrPar = An error occurred while writing the parameters!       // ERR_PAR_WR
+ErrRePar = An error occurred while reading the parameters!   // ERR_PAR_RE
 NoTimeHome = Time for homing has elapsed, axis %d.    // ERR_HT
-;end new lang
 
 UnabFindHomeSw = Unable to find the home switch!   // ERR_HNF
 AxNotCon = The axis is not connected! // ERR_NOT_CONNECT
@@ -303,34 +474,29 @@ MotProgress = Motion in progress!  // ERR_MOVP
 InvalCoorType = Invalid coordinate type!   // ERR_INCOO
 PosNoRobWorksp = The position is not in the robot workspace!          // ERR_INV
 
-;new lang
 PosNoEncWorksp = The position is not in the encoder workspace. Axis: %d. // ERR_ENC_INV
 PosNoJointWorksp = The position is not in the joint workspace. Axis: %d. // ERR_JNT_INV
-;end new lang
 
 PosNoCartWorksp = The position is not in the Cartesian workspace!     // ERR_XYZ_INV
 PosNoPerWorksp = The position is not in the peripheral workspace!     // ERR_B_INV
 InvalMotDur = Invalid time duration for the motion!                   // ERR_TIME_PAR
 InvalAccPar = Invalid acceleration parameter!                     // ERR_A_PAR
 
-;new lang
 InvalIncAccPar = Invalid parameter for acceleration increase!    // ERR_AA_PAR
 
 InvalVel = Invalid velocity!     // ERR_VELO_PAR
 UnableExecMove = Robot cannot execute movement due to angle of robot arm at axis 3!  // ERR_CCHANGE
 RobAxNotHomed = Robot/axis has not been homed!             // ERR_MAN_HM_ND
 RobNotHomed = Robot has not been homed!                // ERR_ROBOT_HM_ND
-PerNotHomed = Peripheral axis has not been homed!        // ERR_AXIS_HM_ND
-ExcesSpeed = Excessive speed required!                  // ERR_SPEED
-ExcesAccl = Excessive acceleration required!      // ERR_ACCL
+PerNotHomed = Peripherals have not been homed!        // ERR_AXIS_HM_ND
+ExcesSpeed = Excessive speed!                  // ERR_SPEED
+ExcesAccl = Excessive acceleration!      // ERR_ACCL
 InvalMoveDur = Invalid movement duration!     // ERR_MDUR
 ZeroVel = Zero velocity!                     // ERR_VEL_Z
 AccPar01 = Acceleration parameters must be between 0.0 and 1.0.  //  ERR_PROC
 
-;new lang
 InvalTypeMot = Invalid motion type!                           // ERR_MTYP
 InvalTypeCoor = Invalid coordinate type!                   // ERR_CTYP
-;end new lang
 
 UnablInitPar = Unable to initialize parameters while robot is moving!   // ERR_IWM
 ContrDis = Control disabled!    // ERR_COFF
@@ -346,11 +512,9 @@ UnsupGroup = Unsupported group!     // ERR_GRP_NSP
 InvalGroup = Invalid group!   // ERR_GRP_INV
 NotVecPos = Not a vector type position!   // ERR_NO_VEC
 
-;new lang
 UndefPos = The position is undefined!      // ERR_UNASS
 UndefRobPos = The robot position is undefined!      // ERR_UNASS_ROBOT
 UndefPerPos = The peripheral position is undefined!  // ERR_UNASS_PERIPH
-;end new lang
 
 InvalGripPerAx = Invalid gripper or peripheral axis!   // ERR_GRP_B
 InvalVer = Invalid version number:  // ERR_VER
@@ -359,7 +523,6 @@ InvalIOVal = Invalid I/O value!   // ERR_IOV
 MotOutWorksp = The motion is outside the robot workspace!  //   ERR_MWRK
 ContrLock = Controller: Another application has locked the controller!  // COMM_LOCK
 
-;new lang1
 WinVer = Windows 98 is required. // wc_VER
 
 ;ACLC Communication Dialog
@@ -394,10 +557,9 @@ InvalSoft = Invalid software input (syntax error)!   // ACL_HE_BADSOFTWARE
 InvalPeriphData = Invalid format of accessories data!   // ACL_HE_BADACCFORMAT
 EmergACL = Emergency !!! //ACL_HE_EMERGENCY
 
-;new lang
 ReqPrivMode = Command ignored - requires privilege mode! // ACL_HE_PRIVILEGE
 EnterForAutoMode = Type 'AUTO <ENTER>' to activate Auto mode.  // ACL_HE_MUSTAUTO
-;end new lang
+
 InvalACLCConfig = Invalid ACL controller configuration.\nThe configuration will erase all programs and positions from controller battery backed-up RAM.\nDo you want to perform the configuration? // ACL_HE_BADCONFIG
 InvalACLCPerSetup = Invalid ACL controller peripheral setup.\nDo you want to download the peripheral device parameters?   // ACL_HE_BADPERIPH
 
@@ -428,7 +590,6 @@ ArgLong = Argument too long.  // ACL_UM_TOOLONGARG
 IndDatErr = Index or data error!  // ACL_UM_INDORDATAERROR
 InvalAx = Invalid axis. // ACL_UM_BADAXIS
 
-;new lang1
 NoCoorPos = No coordinates assigned to the position.  // ACL_UM_NOPOSITION
 
 TrajErr = Trajectory error!  // ACL_UM_TRAJECTORYERROR
@@ -443,7 +604,6 @@ GrAxNotHome = Group/axis has not been homed.  // ACL_UM_GROUPNOTHOMED
 ACLCEmer = EMERGENCY: All programs aborted\n and motors disabled.   // ACL_UM_EMERGENCY
 ExitEmer = EXIT FROM EMERGENCY: All commands allowed\n and motors enabled. // ACL_UM_EXITEMERGENCY
 
-;new lang1
 SpeedFast = Excessive speed. // ACL_UM_SPEEDTOOFAST
 
 AxNotHome = Axis not configured for homing.  // ACL_UM_AXISNOTCONFIGHOME
@@ -451,12 +611,10 @@ TPMustAuto = Cannot execute command, TP must be in AUTO mode. // ACL_UM_CANNOTEX
 ExcessSpeedReg = Excessive speed required. // ACL_UM_EXCESSIVESPEED
 UnablExecMot = Unable to execute this motion - peripherals have not been configurated.   // ACL_UM_UNABLE_EXEC_PERIPH
 ACLCMustConfig = ACL controller configuration is required.\nThe configuration will erase all programs from controller battery backed-up RAM.\nDo you want to perform the configuration? // ACL_UM_MUSTCONFIG
-;new lang
 WhenSCCMot = When the speed controlled conveyor is in motion, do not attempt to move other peripheral axes.  // ACL_UM_SCC
 PosOutWorkEnv = Position is outside of the work envelope!   // ACL_UM_RANGE
 RelEmerButton = To perform an action release the emergency button. //  ACL_UM_EMERG_WARN
 ErrDelAbsPos = Position %d cannot be deleted as it is the base position for relative position %d.
-;end new lang
 ;----------  For "Write" SCORBASE command. -------------
 ErrorCharTemplLib = Error in character template library.  Contact your product vendor. // ERR_CHAR_TEMPL_LIB
 CannotWriteChar = Robot cannot reach position required for writing character: %c   character # %d. // ERR_CANNOT_WRITE_CHAR 

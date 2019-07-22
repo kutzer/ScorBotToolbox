@@ -29,6 +29,8 @@ function installScorBotToolbox(replaceExisting)
 % TODO - Allow users to create a local version if admin rights are not
 % possible.
 
+global wb
+
 %% Install/Update required toolboxes
 ToolboxUpdate('Transformation');
 ToolboxUpdate('Plotting');
@@ -350,87 +352,36 @@ if fullInstall
     switch osbits
         case 32
             % 32-bit Windows install
-            win32binContent = 'ScorBotToolboxSupport';
-            if ~isdir(win32binContent)
-                error(sprintf(...
-                    ['Change your working directory to the location of "installScorBotToolbox.m".\n',...
-                    '\n',...
-                    'If this problem persists:\n',...
-                    '\t(1) Unzip your original download of "ScorBotToolbox" into a new directory\n',...
-                    '\t(2) Open a new instance of MATLAB "as administrator"\n',...
-                    '\t\t(a) Locate MATLAB shortcut\n',...
-                    '\t\t(b) Right click\n',...
-                    '\t\t(c) Select "Run as administrator"\n',...
-                    '\t(3) Change your "working directory" to the location of "installScorBotToolbox.m"\n',...
-                    '\t(4) Enter "installScorBotToolbox" (without quotes) into the command window\n',...
-                    '\t(5) Press Enter.']));
-            end
-            files = dir(win32binContent);
-            waitbar(0,wb,'Copying win32bin contents...');
-            set(wb,'Visible','on');
-            n = numel(files);
-            fprintf('Copying win32bin contents:\n');
-            for i = 1:n
-                % source file location
-                source = fullfile(win32binContent,files(i).name);
-                % destination location
-                destination = win32binRoot;
-                if files(i).isdir
-                    switch files(i).name
-                        case '.'
-                            %Ignore
-                        case '..'
-                            %Ignore
-                        otherwise
-                            fprintf('\t%s...',files(i).name);
-                            nDestination = fullfile(destination,files(i).name);
-                            [isDir,msg,msgID] = mkdir(nDestination);
-                            if isDir
-                                [isCopy,msg,msgID] = copyfile(source,nDestination,'f');
-                                if isCopy
-                                    fprintf('[Complete]\n');
-                                else
-                                    bin = msg == char(10);
-                                    msg(bin) = [];
-                                    bin = msg == char(13);
-                                    msg(bin) = [];
-                                    fprintf('[Failed: "%s"]\n',msg);
-                                end
-                            else
-                                bin = msg == char(10);
-                                msg(bin) = [];
-                                bin = msg == char(13);
-                                msg(bin) = [];
-                                fprintf('[Failed: "%s"]\n',msg);
-                            end
-                    end
-                else
-                    fprintf('\t%s...',files(i).name);
-                    [isCopy,msg,msgID] = copyfile(source,destination,'f');
-                    if isCopy
-                        fprintf('[Complete]\n');
-                    else
-                        bin = msg == char(10);
-                        msg(bin) = [];
-                        bin = msg == char(13);
-                        msg(bin) = [];
-                        fprintf('[Failed: "%s"]\n',msg);
-                    end
-                end
-                waitbar(i/n,wb);
-            end
-            close(wb);
-            drawnow
+            migrateBinaryContent(win32binRoot);
         case 64
             % 64-bit Windows install
             % 64-bit requires:
             %   Install_ScorbotServer.msi
             %   Authorize_ScorbotServer.bat
+            
+            % Define server destination
+            destination = 'C:\Program Files (x86)\USNA\ScorbotServer';
+            
+            % Remove existing verion of server
+            exe_name = 'ScorbotServer.exe';
+            if exist(fullfile(destination,exe_name),'file') == 2
+                fprintf('Uninstalling prior version of ScorbotServer...');
+                % msiexec /x filename.msi /passive
+                [status,cmdout] = system('msiexec /x Install_ScorbotServer.msi /passive');
+            end
+            
+            % Install server
             fprintf('Installing ScorbotServer.msi...');
-            [status,cmdout] = system('Install_ScorbotServer.msi');
+            [status,cmdout] = system('msiexec /i Install_ScorbotServer.msi ALLUSERS=1 /passive');
+            %[status,cmdout] = system('Install_ScorbotServer.msi');
             % TODO - use status info etc. to check if this is actually
             % complete
             fprintf('[Complete]\n');
+            
+            % Update binary content
+            migrateBinaryContent(destination);
+            
+            % Authorize server
             fprintf('Authorizing server...');
             [status,cmdout] = system('Authorize_ScorbotServer.bat');
             % TODO - use status info etc. to check if this is actually 
@@ -446,6 +397,81 @@ fprintf('Rehashing Toolbox Cache...');
 rehash TOOLBOXCACHE
 fprintf('[Complete]\n');
 
+end
+
+function migrateBinaryContent(destination)
+
+global wb
+
+win32binContent = 'ScorBotToolboxSupport';
+if ~isdir(win32binContent)
+    error(sprintf(...
+        ['Change your working directory to the location of "installScorBotToolbox.m".\n',...
+        '\n',...
+        'If this problem persists:\n',...
+        '\t(1) Unzip your original download of "ScorBotToolbox" into a new directory\n',...
+        '\t(2) Open a new instance of MATLAB "as administrator"\n',...
+        '\t\t(a) Locate MATLAB shortcut\n',...
+        '\t\t(b) Right click\n',...
+        '\t\t(c) Select "Run as administrator"\n',...
+        '\t(3) Change your "working directory" to the location of "installScorBotToolbox.m"\n',...
+        '\t(4) Enter "installScorBotToolbox" (without quotes) into the command window\n',...
+        '\t(5) Press Enter.']));
+end
+files = dir(win32binContent);
+waitbar(0,wb,'Copying win32bin contents...');
+set(wb,'Visible','on');
+n = numel(files);
+fprintf('Copying win32bin contents:\n');
+for i = 1:n
+    % source file location
+    source = fullfile(win32binContent,files(i).name);
+    if files(i).isdir
+        switch files(i).name
+            case '.'
+                %Ignore
+            case '..'
+                %Ignore
+            otherwise
+                fprintf('\t%s...',files(i).name);
+                nDestination = fullfile(destination,files(i).name);
+                [isDir,msg,msgID] = mkdir(nDestination);
+                if isDir
+                    [isCopy,msg,msgID] = copyfile(source,nDestination,'f');
+                    if isCopy
+                        fprintf('[Complete]\n');
+                    else
+                        bin = msg == char(10);
+                        msg(bin) = [];
+                        bin = msg == char(13);
+                        msg(bin) = [];
+                        fprintf('[Failed: "%s"]\n',msg);
+                    end
+                else
+                    bin = msg == char(10);
+                    msg(bin) = [];
+                    bin = msg == char(13);
+                    msg(bin) = [];
+                    fprintf('[Failed: "%s"]\n',msg);
+                end
+        end
+    else
+        fprintf('\t%s...',files(i).name);
+        [isCopy,msg,msgID] = copyfile(source,destination,'f');
+        if isCopy
+            fprintf('[Complete]\n');
+        else
+            bin = msg == char(10);
+            msg(bin) = [];
+            bin = msg == char(13);
+            msg(bin) = [];
+            fprintf('[Failed: "%s"]\n',msg);
+        end
+    end
+    waitbar(i/n,wb);
+end
+close(wb);
+drawnow
 end
 
 function ToolboxUpdate(toolboxName)

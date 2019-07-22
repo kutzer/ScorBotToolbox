@@ -1,4 +1,4 @@
-;File: SCBS.ENG        Ver.1.0.4         24-JUL-2002
+;  File: SCBS.ENG        Ver.1.7         26-AUG-2012
 
 [WRITE_COMMAND]
 CharProgramPath = CHAR\ENG\WELDING
@@ -13,22 +13,24 @@ WeldingOutputVariable = WELDING
 [MainMenu]
 PopupMenuFile     =  &File
 
-;new lang
 NewProjMenu       = &New Project$Ctrl+N      // ID_FILE_NEW
 OpenProjMenu      = &Open Project...$Ctrl+O  // ID_FILE_OPEN
 SaveProjMenu       = &Save Project$Ctrl+S    // ID_FILE_SAVE_PRJ
 SaveAsProjMenu   = Save  Project &As...      // ID_FILE_SAVE_AS_PRJ
 CloseProjMenu      =  &Close Project         // ID_FILE_CLOSE_PRJ
+
+NewScriptMenu = New &Script      //  5.0 IDM_NEW_SCRIPT
+OpenScriptMenu = Open Sc&ript   // 5.0 IDM_OPEN_SCRIPT
+
 PrintProgMenu       = &Print Program...      // ID_PROG_PRINT
 PrintPositMenu      =  P&rint Positions...   // ID_POS_PRINT
 PrintImageMenu     =  Print &3D Image...     // ID_3D_PRINT
 PrePrintImageMenu = Print Preview 3&D Image... // ID_3D_PRINT_PREVIEW
 PrintChartsMenu     = Print C&harts...         // ID_CHARTS_PRINT
-PrePrintChartsMenu=Print Preview Char&ts...    // ID_CHARTS_PRINT_PREVIEW
+PrePrintChartsMenu = Print Preview Char&ts...    // ID_CHARTS_PRINT_PREVIEW
 ImportImageMenu    = &Import 3D Model          // ID_FILE_IMPORT_3D_MODEL
 EditImageMenu       = &Edit 3D Model           // ID_FILE_EDIT_3D_MODEL
 ViewFileMenu         = View &File               //  ID_FILE_VIEW
-;end new lang
 ExitMenu            =  E&xit  // ID_APP_EXIT
 
 PopupMenuEdit = &Edit
@@ -39,7 +41,6 @@ FindMenu      =  &Find...$Ctrl+F    //  ID_EDIT_FIND
 FindNeMenu  =  &Find &Next$F3   //  ID_EDIT_FIND_NEXT
 CmdRemMenu = Command/&Remark (* ...)   //  ID_EDIT_COMMAND_REMARK
 GotoLineMenu  = &Go  to  Line...      //  ID_EDIT_GO_TO_LINE
-;new lang1
 EditLineMenu   = Go to &Selected Line              // ID_EDIT_EDIT_LINE
 
 PopupMenuRun = &Run
@@ -60,32 +61,26 @@ OnLineMenu = O&n - Line     // IDM_ONLINE
 OffLineMenu = O&ff - Line   // IDM_OFFLINE
 SimulMenu = &Simulation     // IDM_SIMULATION
 ConMenu   = &Control On$F5  // IDM_CON
-CoffMenu  = Control &Off    // IDM_COFF
+CoffMenu  = Control &Off$F2    // IDM_COFF   // 5.6
 
-;new lang
 SetupMenu = &Hardware Setup     // IDM_PERIPH
 SetParamMenu = S&et Parameters  // IDM_SET_PARAM
-;end new lang
 
 LineNumMenu = &Line Number     // IDM_LINE_NUMBER
 
-;new lang
 StartUpProjMenu    = &Reload Last Project at Startup    // IDM_STARTUP_PROJ
 Level1Menu = Level &1                // IDM_L1
 Level2Menu = Level &2                // IDM_L2
 ProMenu     = &Pro                    // IDM_PRO
 AdvancedMenu =   &Advanced Options...  // IDM_ADV_OPTIONS
-;end new lang
 
 PopupMenuView  = &View
 
-;new lang1
 WorkspaceMenu  = &Workspace                //  ID_VIEW_PROJ
 
 ManMoveMenu     = &Manual Movement         //  ID_VIEW_MMOVE
 TeachPositMenu  =  &Teach Positions        //  ID_VIEW_TEACH_POS
 
-;new lang
 RobotMoveMenu  =  &Robot Movement          //  ID_VIEW_IMAGE
 ListPositMenu     =  &Positions       //  ID_VIEW_POS
 ShowChartMenu =   &Charts                   // IDM_SHOW_CHART
@@ -98,20 +93,16 @@ StatusBarMenu   =   Status &Bar             // ID_VIEW_STATUS_BAR
 
 PopupMenuDialogBars = &Dialog Bars 
 JointsMenu = &Joints           // ID_VIEW_JNT
-;end new lang
 
 XYZMenu = &XYZ                 //  ID_VIEW_XYZ
 
-;new lang
 DigOutMenu = Digital &Outputs  // ID_VIEW_DOUT
 DigInpMenu  =  Digital &Inputs //  ID_VIEW_DIN
 AnalOutMenu  = &Analog Outputs // ID_VIEW_DOUT
 AnalInpMenu =  A&nalog Inputs  //  ID_VIEW_DIN
-;end new lang
 
 EncodersMenu  =  &Encoder Counts     // ID_VIEW_ENC
 
-;new lang
 PopupMenuImage =  &3D Image      
 ResetModelMenu  = &Reset Workcell // ID_3D_RESET
 TopViewMenu = &Top View           // ID_CAMERA_TOP
@@ -123,13 +114,11 @@ RobotWorkspaceMenu = Show Robot Work &Envelope   // ID_SHOW_XYZ_REL_ROB
 WeldSettingMenu =  &Welding Settings   // ID_WELD_SETTING
 
 PopupMenuCamera = &Camera
-;end new lang
 
 RedirectCamMenu = &Redirect Camera    // ID_REDIRECT_CAMERA
 FollowMeCamMenu = &Follow Me Camera  // ID_FOLLOWME_CAMERA
 SaveCamPositMenu =  &Save Camera Position  // ID_SAVE_CAMERA_POS
 
-;new lang1
 RestoreCamPositMenu =  &Load Camera Position  // ID_DEF_VIEW
 
 PopupMenuLabels = &Labels
@@ -138,40 +127,38 @@ ObjectPositMenu = Object &Positions   // ID_SHOW_XYZ
 ObjectPositRelRobMenu = &Object Positions in Robot Coordinates  // ID_SHOW_XYZ_REL_ROB
 PartsInFeederMenu  = &Number of Parts in Feeder // ID_SHOW_NUM_PARTS_IN_FEEDER
 
-;new lang1
 PopupMenuSendRob = &Send Robot
 
 ToObjectMenu = Send Robot to &Object             // IDM_SEND_OBJECT
 ToPointMenu = Send Robot to &Point                 //  IDM_SEND_POINT
 AbovePointMenu = Send Robot &Above Point  // IDM_SEND_ABOVE_POINT
 
-;new lang1
 OptionsToSendMenu = S&end Robot Settings // IDM_SEND_OPTIONS
 
-;new lang1
 PopupMenuWindow = &Window
 SimulTeachScrMenu = &Simulation && Teach   // IDM_SIMUL_AND_TEACH
 
-;new lang1
 TeachScrMenu   =  &Teach && Edit    // IDM_TEACH
 
 RunScrMenu      =  &Run Screen      // IDM_RUN_SCREEN
 
-;new lang1
 ProjectScrMenu  = &Project Screen   // IDM_PROJECT_SCREEN
+
+OpenCIMScrMenu = &Open CIM Screen  // 5.0  IDM_CIM_SCREEN   
 
 UserScrMenu   =   &User Screen      // IDM_USER_SCREEN
 SaveUserScrMenu   =  S&ave User Screen  // IDM_SAVE_USER_SCREEN
 
 PopupMenuHelp =  &Help
+
 AboutMenu =      &About...  // ID_APP_ABOUT
 
-;new lang
 RegistrationMenu   =  Re&gistration...   // IDM_REGISTRATION
-RobocellHelpMenu  = &RoboCell Help  F1   // IDM_HELP
+RobocellHelpMenu  = &RoboCell Help$F1   // IDM_HELP
 ScorbaseHelpMenu = &SCORBASE Help
-ScorbaseHelpF1Menu = &SCORBASE Help  F1 
-;end new lang
+ScorbaseHelpF1Menu = &SCORBASE Help$F1 
+ScriptingHelpMenu = S&cripting Help                 // 5.0 IDM_SCRIPTING_HELP
+
 
 [ProgramViewPopupMenu]
 Copy = &Copy             // ID_EDIT_COPY
@@ -183,7 +170,6 @@ Paste = &Paste           // ID_EDIT_PASTE
 CommandRemark = Command/&Remark // ID_EDIT_COMMAND_REMARK
 
 [PositViewPopupMenu]
-;new lang
 PositionNumber = &Position #
 Delete = &Delete            // ID_POS_VIEW_DEL
 DeleteAll = Delete &All     // ID_POS_VIEW_DEL_ALL
@@ -193,13 +179,10 @@ RemoveAll = Re&move All     // ID_POS_VIEW_CLEAR_WATCH
 ShowJoint = Show &Joint     // ID_POS_VIEW_JOINT
 ShowXYZ = Show &XYZ         // ID_POS_VIEW_XYZ
 ShowBoth = Show &Both       // ID_POS_VIEW_JOINT_XYZ
-;end new lang
 
 [MessagesPopupMenu]
-;new lang
 DeleteAll = Delete &All     // ID_DEL_ALL_MESS
 Delete = Delete &Selection  // ID_DEL_MESS
-;end new lang
 
 ;    Shimon2
 [ChartsViewPopupMenu]
@@ -208,13 +191,12 @@ DefaultZoom = &Default Zoom Level
 BackZoomLevel = &Back One Zoom Level
 
 [DialogBars]
-;new lang
 EncCounts = Encoder Counts:
 AnalOuts  = Analog Outputs:
 AnalInps  = Analog Inputs:
 DigOuts   = Digital Outputs:
 DigInps   = Digital Inputs:
-Joints    = Joints (deg):
+Joints    = Joints:    // 5.0
 XYZ       = XYZ:
 
 X =  X(mm):     // IDS_X
@@ -222,12 +204,14 @@ Y =  Y(mm):     // IDS_Y
 Z =  Z(mm):     // IDS_Z
 P = P(deg):    // IDS_P
 R =  R(deg):    // IDS_R
+T =  T(deg):   // 5.0
 
 Base = Base:         // IDS_BASE
 Shoulder = Shoulder: // IDS_SHOULDER
 Elbow = Elbow:       // IDS_ELBOW
 Pitch = Pitch:       // IDS_PITCH
 Roll = Roll:         // IDS_ROLL
+Theta = Theta:   // 5.0
 
 InputNum = INPUT%d
 OutputNum = OUTPUT%d
@@ -237,6 +221,8 @@ Off =    O&ff
 Force =  For&ce
 SetValue = &Set Value
 
+OpenCIMPath = Open CIM path:    // 5.0 IDC_STATIC_CIM_PATH_TITLE
+IPaddress = IP address:               // 5.0 IDC_STATIC_IP_ADDRESS_TITLE
 
 [HintText]
 MiniNew = New
@@ -253,6 +239,12 @@ SaveAs = Save the currently active project with a new name  // ID_FILE_SAVE_AS_P
 
 MiniClose = Close Project
 Close = Close the currently active project   // ID_FILE_CLOSE_PRJ
+
+MiniNewScript = New script          //  5.0
+NewScript = Create new script      //  5.0 IDM_NEW_SCRIPT
+
+MiniOpenScript = Open script        // 5.0
+OpenScript = Open script file         // 5.0 IDM_OPEN_SCRIPT
 
 MiniPrintProg = Print the Program
 PrintProg = Print the SCORBASE Program file for the currently active project // ID_PROG_PRINT
@@ -509,6 +501,9 @@ RunScr = Activate Run Screen mode to run programs // IDM_RUN_SCREEN
 MiniProjectScr = Project Screen Mode
 ProjectScr = Activate Project Screen mode to view robot positions and run programs // IDM_PROJECT_SCREEN
 
+MiniOpenCIMScr = Open CIM Screen  // 5.0  IDM_CIM_SCREEN   
+OpenCIMScr = Activate Open CIM robot device driver screen  // 5.0  IDM_CIM_SCREEN   
+
 MiniUserScr = User Screen
 UserScr = Load the currently saved User Screen // IDM_USER_SCREEN
 
@@ -522,10 +517,13 @@ MiniRegistration =  Registration
 Registration = Registration information  // IDM_REGISTRATION
 
 MiniRobocellHelp = Robocell Help
-RobocellHelp = Robocell Help  // IDM_HELP
+RobocellHelp = Robocell help  // IDM_HELP
 
 MiniScorbaseHelp = SCORBASE Help
-ScorbaseHelp = SCORBASE Help  // IDM_HELP_SCORBASE
+ScorbaseHelp = SCORBASE help  // IDM_HELP_SCORBASE
+
+MiniScriptingHelp = Scripting Help   // 5.0
+ScriptingHelp = Scripting help   // 5.0 IDM_SCRIPTING_HELP
 
 SkipHomeCmdHint = Skip the Search Home command for robot and peripherals  // CM_SKIPHOMECMD
 
@@ -570,6 +568,9 @@ TurnOffOut =   Turn off a selected output // IDM_OUTPUT_OFF
 MiniSetVarToComput =  Set Variable
 SetVarToComput =  Set a variable for a specified value or expression //  IDM_SET_VAR_TO_COMP
 
+MiniRunSubr = Run Subroutine
+RunSubr = Run subroutine
+
 ; PositViewPopupMenu
 PositionNumber = Position number
 Delete = Delete the selected position  // ID_POS_VIEW_DEL
@@ -608,8 +609,25 @@ MiniSaveParSetAs = Save As...   // IDM_PAR_SAVE_AS
 MiniOpenDefaultParSet = Open Default // IDM_PAR_DEF
 MiniApplyParSet       = Apply        // IDM_PAR_APPLY
 MiniViewFileStruct    = View         // IDM_PAR_VIEW
-;end new lang
 
+; Open CIM Driver Form
+MiniSendError = Send Error // 5.0
+SendError = Send Error // 5.0 IDC_DD_SET_ERROR
+
+MiniEnterPickPlaceCmd = Enter Pick and Place command // 5.0
+EnterPickPlaceCmd = Enter Pick and Place command  // 5.0 ID_RUNSINGLE
+
+MiniSavePickPlaceCmd = Save Pick and Place command // 5.0
+SavePickPlaceCmd = Save Pick and Place command  // 5.0  ID_SAVEPROTOCOL
+
+MiniPlayPickPlaceFile = Play from Pick and Place file // 5.0
+PlayPickPlaceFile = Play from Pick and Place file   // 5.0  ID_PPPLAY
+
+MiniClosePickPlaceFile = Close Pick and Place file // 5.0
+ClosePickPlaceFile = Close Pick and Place file    // 5.0  ID_CLOSEPPFILE
+
+MiniTCPIP_Connection = TCP/IP Status
+TCPIP_Connection =  TCP/IP Status  // 5.3 ID_CONNECTION
 
 [CommandsDialog]
 Caption = Command List
@@ -618,10 +636,8 @@ RobotMoveCmd = AXIS CONTROL      // IDS_RM
 InpOutCmd =    INPUTS & OUTPUTS  // IDS_IO
 ProgramFlow =  PROGRAM FLOW      // IDS_PF
 
-;new lang
 AdvancedCmd =  ADVANCED COMMANDS // IDS_AC
 VisionCmd = VISION COMMANDS      // IDS_VF
-;end new lang
 
 ;  Comment:  XXXXXXBrief = <BriefName>,<Two letter hot key>
 ;  Comment:  XXXXXXShow  = Don't alter |1 or |2 or |3 items
@@ -636,7 +652,7 @@ GoToPosition#_FastBrief = GoToPosition#_Fast,GP
 GoToPosition#_FastShow = Go to Position |1 Fast  // IDS_GOTOPOSITIONFAST
 
 GoToPosition#_SpeedBrief = GoToPosition#_Speed,GP
-GoToPosition#_SpeedShow =  Go to Position |1 Speed |2 // IDS_GOTOPOSITIONSPEED
+GoToPosition#_SpeedShow =  Go to Position |1 Speed |2 (%)// IDS_GOTOPOSITIONSPEED
 
 GoToPosition#_TimeBrief = GoToPosition#_Time,GP
 GoToPosition#_TimeShow =  Go to Position |1 Duration |2 (1/10 sec.) // IDS_GOTOPOSITIONTIME
@@ -644,8 +660,11 @@ GoToPosition#_TimeShow =  Go to Position |1 Duration |2 (1/10 sec.) // IDS_GOTOP
 GoLinearToPosition#_FastBrief = GoLinearToPosition#_Fast,GL
 GoLinearToPosition#_FastShow =  Go Linear to Position |1 Fast  // IDS_GOLINEARTOPOSITIONFAST
 
-GoLinearToPosition#_SpeedBrief = GoLinearToPosition#_Speed,GL
-GoLinearToPosition#_SpeedShow =  Go Linear to Position |1 Speed |2 // IDS_GOTOPOSITIONSPEED
+GoLinearToPosition#_SpeedBrief = GoLinearToPosition#_SpeedPercent,GL
+GoLinearToPosition#_SpeedShow =  Go Linear to Position |1 Speed |2 (%)  // IDS_GOTOPOSITIONSPEED
+GoLinearToPosition#_SpeedMetricBrief = GoLinearToPosition#_SpeedMetric,GL            // 6.0.3     
+GoLinearToPosition#_SpeedMetricShow = Go Linear to Position  |1  Speed  |2 (mm/sec)  //IDS_GOLINEARTOPOSITIONSPEEDLINCODE 6.0.3
+
 
 GoLinearToPosition#_TimeBrief = GoLinearToPosition#_Time,GL
 GoLinearToPosition#_TimeShow =  Go Linear to Position |1 Duration |2 (1/10 sec.) // IDS_GOTOPOSITIONTIME
@@ -654,7 +673,7 @@ GoCircularToPosition#_FastBrief = GoCircularToPosition#_Fast,GC
 GoCircularToPosition#_FastShow = Go Circular to Position |1 through |2 Fast // IDS_GOCIRCULARTOPOSITIONFAST
 
 GoCircularToPosition#_SpeedBrief = GoCircularToPosition#_Speed,GC
-GoCircularToPosition#_SpeedShow =  Go Circular to Position |1 through |2 Speed |3 // IDS_GOCIRCULARTOPOSITIONSPEED
+GoCircularToPosition#_SpeedShow =  Go Circular to Position |1 through |2 Speed |3 (%) // IDS_GOCIRCULARTOPOSITIONSPEED
 
 GoCircularToPosition#_TimeBrief = GoCircularToPosition#_Time,GC
 GoCircularToPosition#_TimeShow =  Go Circular to Position |1 through |2 Duration |3 (1/10 sec.)// IDS_GOCIRCULARTOPOSITIONTIME
@@ -693,28 +712,22 @@ ControlOffBrief = ControlOff,CF
 ControlOffShow =  Control Off  // IDS_CONTROLOFF
 
 StartConveyorBrief = StartConveyor,SC
-;new lang1
-StartConveyorShow = Start Conveyor Axis |1 at Speed |2 in |3 Direction // IDS_STARTCONVEYOR
+StartConveyorShow = Start Conveyor Axis |1 at Speed |2 (%) in |3 Direction // IDS_STARTCONVEYOR
 
 StopConveyorBrief = StopConveyor,ST
-;new lang1
-StopConveyorShow =  STop Conveyor Axis |1  // IDS_STOPCONVEYOR
+StopConveyorShow =  Stop Conveyor Axis |1  // IDS_STOPCONVEYOR
 
-;new lang
 SetVariableToSensorBrief = SetVariableToGripperSensor,SG
 SetVariableToSensorShow =  Set Variable |1 to Gripper Sensor // IDS_SETVARIABLETOSENSOR
-;end new lang
 
 WriteBrief = Write,WR
 WriteShow =  Write: "|1", Scale |2   // IDS_WRITE
 
-;new lang
 UseParameterSetBrief = UseParameterSet,UP                       
 UseParameterSetShow =  Use Parameter Set |1
 
 SetParameterValueBrief = SetParameterValue,PV
 SetParameterValueShow = Set Parameter |1 [|2] = |3
-;end new lang
 
 IfInput#_OnJumpBrief = IfInput#_OnJump,II
 IfInput#_OnJumpShow =  If Input |1 On Jump to |2    // IDS_IFINPUTONJUMP
@@ -723,11 +736,9 @@ IfInput#_OffJumpBrief = IfInput#_OffJump,II
 IfInput#_OffJumpShow = If Input |1 Off Jump to |2   // IDS_IFINPUTOFFJUMP
 
 IfInput#_OnSubBrief = IfInput#_OnSub,II
-;new lang1
 IfInput#_OnSubShow =  If Input |1 On Call Subroutine |2       //  IDS_IFINPUTONSUB
 
 IfInput#_OffSubBrief = IfInput#_OffSub,II
-;new lang1
 IfInput#_OffSubShow =  If Input |1 Off Call Subroutine |2       // IDS_IFINPUTOFFSUB
 
 OnInputInt#_OnJumpBrief = OnInputInt#_OnJump,OI
@@ -737,11 +748,9 @@ OnInputInt#_OffJumpBrief = OnInputInt#_OffJump,OI
 OnInputInt#_OffJumpShow =  On Input Interrupt |1  Off Jump to |2 // IDS_ONINPUTINTOFFSUB
 
 OnInputInt#_OnSubBrief = OnInputInt#_OnSub,OI
-;new lang1
 OnInputInt#_OnSubShow =   On Input Interrupt |1 On Call Subroutine |2 // IDS_ONINPUTINTONSUB
 
 OnInputInt#_OffSubBrief = OnInputInt#_OffSub,OI
-;new lang1
 OnInputInt#_OffSubShow =  On Input Interrupt |1 Off Call Subroutine |2 // IDS_ONINPUTINTOFFSUB
 
 DisableInterrupt#_Brief = DisableInterrupt#_,DI
@@ -789,10 +798,10 @@ ResetTimerShow = Reset Timer     // IDS_RESETTIMER
 SetVariableToComputationBrief = SetVariableToComputation,SV
 SetVariableToComputationShow = Set Variable |1  = |2   // IDS_SETVARIABLE
 
-SetVariableToTimerBrief = SetVariableToTimer,SV 
+SetVariableToTimerBrief = SetVariableToTimer,VT
 SetVariableToTimerShow = Set Variable |1 to Timer  // IDS_SETVARIABLETOTIMER
 
-IfJumpBrief = IfJump,If
+IfJumpBrief = IfJump,IF
 IfJumpShow = If |1 Jump to |2 // IDS_IFJUMP
 
 SetSubroutineBrief = SetSubroutine,SS
@@ -807,12 +816,10 @@ CallSubroutineShow =  Call Subroutine |1 // IDS_CALLSUBROUTINE
 LabelBrief = Label,LA
 LabelShow =   |1:  // IDS_LABEL
 
-RunProgramBrief  = RunProgram,RU
-RunProgramShow = Run Program |1 // IDS_RUNPROGRAM
-
-;new lang
+RunProgramBrief  = RunSubroutine,RU // 6.0
+RunProgramShow = Run Subroutine |1  // IDS_RUNPROGRAM   6.0
 SnapBrief = Snap,SN
-SnapShow = Snap 
+SnapShow = Snap by Camera |1  // IDS_SNAP     5.0.0.12
 
 FindObjectBrief = FindObject,FO
 FindObjectShow = Find Object ("|1") -> |2
@@ -831,11 +838,57 @@ GetValueShow = Get Value (Row = |2 , Column = "|3") -> |1
 
 ChangeTableBrief =ChangeTable,CT
 ChangeTableShow = Change Table ( Row = |1 ,Column = "|2", Value = |3 )
-;end new lang
 
+TeachPositJointsBrief  = TeachPositionByJoints, TJ                               // 5.0   
+TeachPositJointsShow   = Teach Position |1 by Joints. Coordinates: |2 |3 |4 |5 |6    //  5.0 IDS_TEACHPOSITIONJOINTS
+
+TeachPositJointsRelBrief  = TeachPositionByJointsRelativeTo, RJ                      // 5.0   
+TeachPositJointsRelShow  = Teach Position |1 by Joints. Relative to: |2. Coordinates: |3 |4 |5 |6 |7   //  5.0 IDS_TEACHPOSITIONJOINTSREL
+
+TeachPositXYZBrief  = TeachPositionByXYZ, TX                                             // 5.0   
+TeachPositXYZShow  = Teach Position |1 by XYZ. Coordinates: |2 |3 |4 |5 |6     //   5.0 IDS_TEACHPOSITIONXYZ
+
+TeachPositXYZRelBrief  = TeachPositionByXYZRelativeTo, RX                         // 5.0   
+TeachPositXYZRelShow  = Teach Position |1 by XYZ. Relative to: |2. Coordinates: |3 |4 |5 |6 |7     //   5.0 IDS_TEACHPOSITIONXYZREL
+
+SetVariableToJointPositionBrief = SetVariableToJointPosition,SJ                                    // 5.0   
+SetVariableToJointPositionShow = Set Variable |1 to the Axis |2 Joint Value at Position |3     //   5.0 IDS_SETVARIABLETOJOINT
+
+SetVariableToCartesianPositionBrief = SetVariableToCartesianPosition,SX                                    // 5.0   
+SetVariableToCartesianPositionShow = Set Variable |1 to the Cartesian |2 Coordinate at Position |3     //   5.0 IDS_SETVARIABLETOXYZ
+
+SendMessageBrief = SendMessage,SM                 // 5.0   
+SendMessageShow = Send Message |1 to |2  ID=|3    // 5.0 IDS_SENDMESSAGE
+
+SendCommandBrief = SendCommand,MC                   // 5.1.1   
+SendcommandShow = Send Command |1 to |2  ID=|3    // 5.1.1 IDS_SENDCOMMAND
+
+SendQCMessageBrief = SendQCMessage,SQ             // 5.2.0.3   
+SendQCMessageShow = Send Message |1 to |2  ID=|3  RESULT=|4  // 5.2.0.3 IDS_SENDQCMESSAGE
+
+AddScriptBrief = LoadScript, LS                         //  5.0 
+AddScriptShow = Load script file: |1                    //   5.0 IDS_ADDSCRIPTINGCODE
+
+OnInputInt#_OnRunSubBrief = OnInputInt#_OnSub,OI    //  5.0a 
+OnInputInt#_OnRunSubShow =   On Input Interrupt |1 On Run Subroutine |2   // 5.0a IDS_ONINPUTINTONSUB
+
+OnInputInt#_OffRunSubBrief = OnInputInt#_OffSub,OI               //  5.0a 
+OnInputInt#_OffRunSubShow =  On Input Interrupt |1 Off Run Subroutine |2 // 5.0a  IDS_ONINPUTINTOFFSUB
+
+EndProgramBrief = EndProgram,EN        // 5.1   
+EndProgramShow = End            // 5.1   
+
+WaitForDigitalInput#_OnBrief = WaitForDigitalInput#_On,WN         // 6.0.3
+WaitForDigitalInput#_OnShow =  Wait Until Digital Input |1 is ON   // IDS_WAITDIGITALINPUTON 6.0.3
+
+WaitForDigitalInput#_OffBrief = WaitForDigitalInput#_Off,WF         // 6.0.3
+WaitForDigitalInput#_OffShow =  Wait Until Digital Input |1 is OFF  // IDS_WAITDIGITALINPUTOFF 6.0.3
+
+WaitForConditionBrief = WaitForCondition, WC // 6.0.3
+WaitForConditionShow = Wait Until |1 is True    // IDS_WAITCONDITION   6.0.3
 
 [HomingDialog]
-Caption = Robot Homing 
+Caption = Homing...
 Ax1Txt = Axis 1      // IDT_AX1
 Ax2Txt = Axis 2      // IDT_AX2
 Ax3Txt = Axis 3      // IDT_AX3
@@ -845,11 +898,19 @@ Ax6Txt = Gripper     // IDT_AX6
 RobTxt = Robot       //  IDT_RB
 Ax7Txt = Axis 7      // IDT_AX7
 Ax8Txt = Axis 8      // IDT_AX8
+
+; CaptionFast  = Fast Homing           //  4.9.2
+; CaptionPrec  = Precise Homing      //  4.9.2
+
 EmerTxt = To abort the homing procedure press the EMERGENCY button. // IDT_EMER
 PerWaitTxt = Wait.\n Homing peripheral axes... // IDT_PER_WAIT
 RobWaitTxt = Wait.\n Homing robot axes...     // IDT_ROB_WAIT
 Hom = Homing...            // IDS_HOMING_
-HomAx = Homing axis %d ...    // IDS_HOMING_AXIS
+
+; HomAx = Axis %d ...    // IDS_HOMING_AXIS  4.9.2
+
+HomAx = Homing axis %d ...    // IDS_HOMING_AXIS 
+
 HomB = Homing B ( %d )     // IDS_HOMING_B
 HomC = Homing C ( %d )     // IDS_HOMING_C
 
@@ -872,16 +933,15 @@ Y = Y(mm)
 Z = Z(mm)
 Pitch = Pitch (deg)
 Roll =  Roll (deg)
+Theta =  Theta (deg)     //  5.1
 GetPos = &Get Position
 Clear =  &Clear       
 Teach =  &Teach      
 
 DurNoCirc = Duration not allowed for circular motion.
 
-;new lang
 CannotDisPos = The position coordinates for the peripherals cannot be displayed.
 CannotTeachPer = Positions cannot be taught relative to peripheral positions.
-;end new lang
 
 InvalCoor = Invalid Encoder/Coordinate value: %s.
 
@@ -902,23 +962,17 @@ ClosePBtn = Close         // IDC_RM_CLOSEPUSHBUTTON
 [JawDialog]
 Caption = JAW
 
-;new lang1
 Str1 = Jaw (mm):
 Str2 = Range: 0...%d
-
-;new lang1
 Error = The jaw is undefined!
 
 [SetAxisDialog]
 Caption = Set Axis
-;new lang1
 Str1 = Set Axis:
-
 Str2 = to Zero.
 Error = The axis number is undefined.
 
 [AddCamPosDialog]
-;new lang
 Caption = Add Camera Position
 Str1 = Name:
 Str2 = \n
@@ -954,7 +1008,7 @@ Caption = Go To Line ...
 Str1 = Total number of lines: %d.
 Str2 = \n
 Error = \n
-;end new lang
+
 
 [PrintDialog]
 Caption = Print
@@ -963,12 +1017,10 @@ LogFile = &Log File
 ScreenLog = Screen and Log &File
 Text = Text:
 PrintTo = Print to:
-;new lang1
 Error = The test string is undefined.
 
 [StartConvDialog]
 Caption = Start  Conveyor // IDD_STARTCONV
-;new lang1
 Axis = Axis:
 SpeedTxt = Speed:     
 DirectTxt = Direction:
@@ -977,12 +1029,10 @@ MinusRBtn = &Minus
 Error = The speed is undefined.
 
 [StopConvDialog]
-;new lang
 Caption = Stop  Conveyor
 Str1 = Axis:
 Str2 = \n
 Error = The axis is undefined.
-;end new lang
 
 [GoPosDialog]
 Caption = Go to Position
@@ -992,34 +1042,17 @@ Joint = &Joint
 Linear = &Linear
 Circular = &Circular
 Spline = S&pline
-Fast = &Fast
-Speed = &Speed (1-9)
-;new lang1
+Fast = &Fast (100%)
+Speed = &Speed (1...99%)
+SpeedLin = &Speed (mm/sec)  // 6.0.3
 Duration = &Duration (1/10 sec)
-ImpropSpeed = Incorrect 'Speed' value (1...9).
+ImpropSpeed = Incorrect 'Speed' value (1...99%).
 TargEqualVia = 'Target' and 'Via/From' positions cannot be identical.
-;new lang
 UndefFrom = The 'From' position is undefined.
-UndefSpeed = The 'Speed' value is undefined (1...9).
+UndefSpeed = The 'Speed' value is undefined.
 UndefTime = The 'Time' value is undefined (1/10 sec).
-;end new lang
 ViaPos = Via Position
 FromPos = From Position
-
-[SetVarDialog]
-Caption = Set Variable
-Name = Name:
-Comput = &Computation
-Timer = &Timer (1/10 sec)
-;new lang1
-Sensor = &Gripper Sensor (mm)
-
-Analog = &Analog Input
-ValueOrExpres = Value  or  Expression
-AnalogInpNum  = Analog  Input  Number
-UndefNameVar = Undefined variable name.
-;new lang1
-UndefValVar = The value or expression are undefined.
 
 [TurnOutDialog]
 Caption = Turn Output
@@ -1029,10 +1062,8 @@ Digital = &Digital
 Analog  = &Analog
 On  =  &On
 Off = O&ff
-;new lang1
 Range = Value Range: 0...255
 InvalOutNum = Invalid output number: %ld.
-;new lang1
 UndefOutNum = The output  number is undefined. 
 CaptionDigital = Turn Output
 CaptionAnalog  = Set Analog Output
@@ -1042,16 +1073,15 @@ Caption = Disable / Enable Interrupt
 Disable = &Disable
 Enable  = &Enable
 InputNumber = Input Number:
-
+  
 [IfInputOnDialog]
 Caption = If Input
 InputNumber = Input Number:
 On  = &On
 Off = O&ff
-;new lang
 JumpToLabel = &Jump to Label:
-CallSubroutine = Call &Subroutine:
-;end new lang
+CallSubroutine = &Call Subroutine:
+RunSubroutine = &Run Subroutine:    // 5.0a
 
 [IfJumpDialog]
 Caption = If <CONDITION> Jump to <LABEL>
@@ -1059,7 +1089,6 @@ IfRadio = &If...
 IfStr   = If:
 JumpRadio =  &Jump
 JumpStr  =  Jump to:
-;new lang1
 Error = The condition is undefined.
 CaptionIf = If <CONDITION> Jump to <LABEL>
 CaptionJump = Jump to <LABEL>
@@ -1068,7 +1097,6 @@ CaptionJump = Jump to <LABEL>
 Caption = If Limit Switch < # > ON Jump to < LABEL >
 Switch = Limit Switch:
 Jump =  Jump to:
-;new lang1
 Error = The limit switch number is undefined.
 
 [LabelDialog]
@@ -1079,7 +1107,6 @@ Error = \n
 
 [SetSubrDialog]
 Caption = Set Subroutine
-;new lang1
 Str1 = Enter a name for the subroutine:
 Str2 = \n
 Error = \n
@@ -1087,14 +1114,13 @@ Error = \n
 [CallSubrDialog]
 Caption = Call Subroutine
 Str1 = Name:
-Str2 = \n
+Str2 = Note: You can call a script subroutine. For example:  // 5.0
 Error = \n
 
 [WaitDialog]
 Caption = Wait
 Str1 = 1/10 of a second
 Str2 = \n
-;new lang1
 Error = The wait time is undefined.
 
 [RemarkDialog]
@@ -1109,12 +1135,17 @@ Str1 = Record present position as position:
 Str2 = \n
 Error =
 
+'    5.0.0.12
+[SnapDialog]
+Caption = Snap
+Str1 = Camera number:
+Str2 = \n
+Error =
+
 [ListPosit]
-;new lang1
 Coor = Coor.
 XYZ = XYZ
 Joint = Joint       
-;new lang
 Axis = Axis %d
 Axis7 = Axis 7
 Axis8 = Axis 8
@@ -1133,28 +1164,23 @@ RelCurXYZ = Rel. Cur. (XYZ)
 AbsXYZ = Abs. (XYZ)
 RelJoint = Rel. %d (Joint)
 RelXYZ = Rel. %d (XYZ)
-;end new lang
 
 [DownLoadDialog]
-Caption = RoboCell Message                  // IDD_LOAD_SOFT
+Caption = RoboCell Message         // IDD_LOAD_SOFT
 ConfigPBtn = &Configure Controller           // IDC_CONFIG_PUSHBUTTON
 DownLoadPBtn = &Download Service Programs    // IDC_DOWNLOAD_PUSHBUTTON
 OffLinePBtn = &Off-Line Mode              // IDC_OFFLINE_PUSHBUTTON
 
 [FindDialog]
 Caption = Find
-;new lang
 FindWhat = Fi&nd what:    // IDC_STATIC_FIND_WHAT
 MatchCase = Match &case   // IDC_CHECK_CASE
-;end new lang
 Direction = Direction     // IDC_STATIC_DIRECT
 Up =   &Up     // IDC_RADIO_UP
 Down = &Down   // IDC_RADIO_DOWN
-;new lang
 FindNext =  &Find Next    // IDC_FIND_NEXT
 CannotFind = Cannot find '%s'
 FindIn     = Find in\s
-;end new lang
 
 [AboutDialog]
 Caption = About RoboCell    // IDD_ABOUT
@@ -1164,7 +1190,6 @@ ScbsCaption = About SCORBASE
 Caption = Write  // IDD_WRITE_CMD
 TextTxt   = Text:
 ScaleTxt  = Scale:
-;new lang1
 UndefText = Text must be entered in the Text field.
 
 [RunProgDialog]
@@ -1175,7 +1200,6 @@ NameTxt   = \sName
 [SendRobotOptionsDialog]
 Caption=Send Robot Options
 
-;new lang1
 Default=&Default
 
 Pitch=Pitch
@@ -1188,7 +1212,6 @@ UserDefined=User Defined:
 ZOffsetAbovePoint=Z-Offset Above Point
 Degrees=Degrees
 mm=mm
-;new lang
 10mm=+10 mm
 20mm=+20 mm
 30mm=+30 mm
@@ -1220,19 +1243,16 @@ Glass=Glass
 Metal=Metal
 Plastic=Plastic
 Wood=Wood
-;end new lang
 
 [WeldSettingDialog]
 Caption=Welding Settings
 VoltageTap=Voltage Tap
 
-;new lang1
 WireDiameter=Wire Diameter
 
 WireSpeed=Wire Speed
 ShieldingGas=Shielding Gas
 
-;new lang
 Voltage0=Fan only
 Voltage1=1
 Voltage2=2
@@ -1245,10 +1265,8 @@ Gas0=None
 Gas1=CO2
 Gas2=Argon+CO2
 Gas3=Flux Core
-;end new lang
 
 [WeldCaracteristicDialog]
-;new lang1
 Caption=Analysis of Weld Segment #%d
 
 Note=Note
@@ -1260,7 +1278,6 @@ WireDiameter=Wire Diameter (inch):
 WireSpeed=Wire Speed Value:
 GunSpeed=Gun Speed (mm/sec):
 
-;new lang
 Close=&Close
 GoodWeld=Good Weld
 LackShieldingGas=Porous and Burnt
@@ -1271,40 +1288,35 @@ Voltage1=1
 Voltage2=2
 Voltage3=3
 Voltage4=4
-;end new lang
 
 None=None
 CO2=CO2
 ArgonCO2=Argon+CO2
 FluxCore=Flux Core
 
-;new lang1
 ErrorData=Error Data
 
 [ApplicationStrings]
 OK = &OK
 Cancel = &Cancel
 
-;new lang
 SaveBeforeEdit = Save the project before editing the 3D Model.
 CtrlVersion = Controller Software Version %ld.
-;end new lang
 
 SyntErr = Syntax Error:  %s\n     // IDS_SYNTAXERROR
 TitleMesScreen = Message Screen   // IDS_TITLEPRINTSCR
 TitleLogFile  = Log File          // IDS_TITLELOGFILE
 Plus = Plus     // IDS_PLUSTEXT
 Minus = Minus   // IDS_MINUSTEXT
-ImpropSpeed10 = Improper 'Speed' value ( 1...10 ).\n        // IDS_ILLEGALSPEED10
+ImpropSpeed10 = Improper 'Speed' value ( 1...100 ).\n        // IDS_ILLEGALSPEED10
 IllegSwitchNum = Illegal limit switch number: %s.     // IDS_ILLEGLIMITSWITCHNUMBER
 InvalidJaw =  Invalid jaw value: %s ( mm )\n\nRange: 0...%d.     // IDS_INVALIDJAW
 
-;new lang1
 InvalidAnalog =  Invalid analog value: %s. Range: 0...255.     // IDS_INVALIDANALOG
 
 UndefLabel = Undefined label.        // IDS_UNDEFINEDLABEL
 UndefLabel1 = Undefined label: %s.   // IDS_UNDEFTHELABEL
-UndefSubr  = Undefined subroutine name.    // IDS_UNDEFSUBRNAME
+UndefSubr  = Undefined subroutine name %s.    // 5.0a  IDS_UNDEFSUBRNAME
 CmdNotFound = SCORBASE commands not found. \nHint:  correct  the  INI  file. // IDS_NOTFOUNDCOMMANDSHINT
 UndefPoint = Undefined 'Target  position'.\n       // IDS_UNDEFINEDPOINT
 UndefVia = Undefined 'Via  position'.\n            // IDS_UNDEFINEDTHROUGH
@@ -1314,7 +1326,6 @@ UndefInp = Undefined input number.       // IDS_UNDEFINPUTNUMBER
 InvalInp = Invalid input number %ld.    // IDS_INVALIDINPUTNUMBER
 InvalOutp = Invalid output number %ld.    // IDS_INVALIDOUTPUTNUMBER
 
-;new lang1
 IncalcExpres = The expression cannot be calculated.   // IDS_INCALCULREZULT
 
 UndefAnalVal = Undefined analog value.   // IDS_UNDEFANALOGVAL
@@ -1330,7 +1341,6 @@ Command = Command:\s                           // IDS_EXECUTION
 Argument = SCORBASE command argument:        // IDS_ARGUMTEXT
 Text = Text:                                 // IDS_TEXT
 
-;new lang1
 UndefText = Undefined  text  to  be found.       // IDS_UNDEFINEDTEXT
 
 SearchNotFound = Search  %s  '%s'  not  found.\n   // IDS_NOTFOUND
@@ -1339,18 +1349,16 @@ UndefPosNum = Undefined position number.     // IDS_UNDEFINEDPOINTNAME
 PosNoDigit = Position number is not digital.\n  //  IDS_POINTNONDIGIT
 InvalPosNum = Invalid position number.           // IDS_INVALIDPOINTNAME
 InvalPosNum1 = Invalid position number %ld.     // 
-MustRobPer = You must select 'Robot' and/or 'Periphirals'.  // IDS_UNDEFROBOTPERIPH
+MustRobPer = You must select 'Robot' and/or 'Peripherals'.  // IDS_UNDEFROBOTPERIPH
 InvalOper = Invalid operation!                         // IDS_INVALID_OPER
 UndefRelPos = Undefined 'Relative to' position number.  // IDS_UNDEFRELPOINTNAME
 RecurDefPos = Recursive definition of\nposition:  %s.   // IDS_RECURSDEFINPOINT
 
-;new lang1
 InvalSelAx = Invalid axes selection.                  // IDS_INCORRECTAXESCHECK
 
 WantDelPos = Are you sure you want to delete position # %d? // IDS_YOUWANTDELETEPOINT
 ImpropDur = Improper duration value (1/10 sec.)             // IDS_ILLEGALTIME
 
-;new lang1
 CannotMove = Cannot execute the motion.  // IDS_CANNOTEXECMOTION
 
 NoMemEdit =  Fatal error!  Not enough memory to execute this edit operation. You should abandon SBW. // IDS_NOTENOUGHMEMFOREDIT
@@ -1367,7 +1375,6 @@ SaveProg = Save program                     // IDS_SAVE_PRG_TITLE
 SavePos = Save positions                    // IDS_SAVE_PNT_TITLE
 SaveProgPos = Save program and positions    // IDS_SAVE_PRG_PNT_TITLE
 
-;new lang1
 SaveProj = Save changes to %s ?
 
 SaveProgPosFilt = Level %s (*.%s)|*.%s|       // IDS_SAVE_PRG_PNT_FILTER
@@ -1383,15 +1390,19 @@ SaveFileUse = Cannot save file.\n%s File in use.     // IDS_SAVEFILEINUSE
 LinesRead = %d lines were read from  %s  file.        // IDS_LINESREADED
 ReadErr = File read error.  // IDS_READERROR
 
-;new lang
 ER2About = RoboCell for SCORBOT-ER 2u
 ScbsER2About = SCORBASE for SCORBOT-ER 2u
 ER4About = RoboCell for SCORBOT-ER 4u
 ScbsER4About = SCORBASE for SCORBOT-ER 4u
 ER9About = RoboCell for SCORBOT-ER 9u
 ScbsER9About = SCORBASE for SCORBOT-ER 9u
+
+ASRS36About         =  RoboCell for ASRS 36u      // 5.0
+ScbsASRS36About  =  Scorbase for ASRS 36u         // 5.0
+ASRS2_36About         =  RoboCell for ASRS 2*36u  // 5.0
+ScbsASRS2_36About  =  Scorbase for ASRS 2*36u     // 5.0
+
 DemoInfo = This evaluation copy expires in %d days.  // IDS_DEMO_INFO
-;end new lang
 
 OffLine = Off-Line  // IDS_OFFLINETEXT
 OnLine = On-Line     // IDS_ONLINETEXT
@@ -1417,7 +1428,6 @@ EmergRec = EMERGENCY message received.   // IDS_ST_EMERGENCYRECEIVED
 NoEmerg = EMERGENCY is inactive.       // IDS_EMERGENCYINACTIVE
 Emerg = EMERGENCY                      
 
-;new lang1
 Emerg2 = Emergency button is pressed.
 
 TracerNotFound =  File TRACER.EXE not found in current directory!  // IDS_TRACER_NOT_FOUND
@@ -1445,8 +1455,10 @@ NoJaw = SCORBASE is configured for pneumatic gripper.\nCannot execute ""Jaw"" or
 UndefVar1 = Undefined  variable: %s.\s\s           // IDS_UNDEFVAR1
 UndefVar2 = Undefined variables: %s and %s.\s\s  // IDS_UNDEFVAR2
 
-;new lang1
 UndefNameVar = Undefined variable name.
+InvalidCameraNumber = Invalid camera number. The valid number is 1 or 2.   // 5.0.0.12
+ViewFlexClosed = The vision command cannot be executed when ViewFlex is closed. // 5.6
+VisionInProgress= Another vision command is being processed. Multiple vision commands cannot be processed simultaneously. // 5.6
 
 Label = Label: %s.    // IDS_LABELTEXT
 IllegSeq = Illegal sequence of operations.       // IDS_ILLEGSEQOPER
@@ -1485,12 +1497,10 @@ TooManySubr = Too many nested subroutines %d.  // IDS_TOOBIGNESTEDSUBR
 UndefSubr = Undefined subroutine name: %s.     // IDS_TOOBIGNESTEDSUBR
 MultSubr = Set subroutine %s is found in more than one program line.// IDS_MULTIPLESUBRNAME
 
-;new lang1
 TitErrBox      = RoboCell Error     // IDS_TITLEOFERRMESBOX
 TitErrBoxScbs  = SCORBASE error     // IDS_TITLEOFERRMESBOX
 AplName =    RoboCell for ER 4u     // IDS_APPLICATIONNAME_PRO without Copyright
 ScbsAplName =SCORBASE for ER 4u     // IDS_APPLICATIONNAME_PRO without Copyright
-;end new lang
 
 Con         =  Control On      // CM_CTRL_ON
 Coff        =  Control Off     // CM_CTRL_OFF
@@ -1499,19 +1509,15 @@ Ins         =  Insert          // IDS_INSERT
 IfInp = If Input
 OnInp = On Input Interrupt
 
-;new lang1
 BegProg = \s\s\s\s*** Beginning of Program:  %s *** // IDS_PROGBEG
 
 LineWr = %d lines were written in  %s  file. // IDS_LINESWRITTEN
 
-;new lang
 WrErr = Error writing to file.  // IDS_WRITEERROR
 OverWrFile = %s\nThis file already exists.\n\nDo you want to replace it? // IDS_OVERWRITEPNT
-;end new lang
 
 AlwOnTop = &Always on top   // IDS_ALWAYS_ON_TOP
 
-;new lang
 SCBSproOpt = RoboCell is an optional add-on.\nContact your Eshed Robotec representative for details.
 AplLock =  The controller has been locked by another application!
 Wait = Please wait...
@@ -1520,20 +1526,19 @@ Load3dWait = Please wait while 3D workcell loads...
 LoadSetupWait = Please wait while CellSetup loads...
 LoadProjWait = Please wait while the workspace loads...
 WaitTime =  Wait  %d  (10ths of seconds)
-;end new lang
 
 Done = Done
-ImpropAx = Improper axis number: %s. Use axis number: (%d...%d).
+ImpropAx = Improper axis defined (%d). Select an axis from %d to %d.
 
-;new lang
+ImpropJointNum = Improper joint number: %s. \nUse numbers 1 - 5, according to the relevant joints: \nBase=1, Shoulder=2, Elbow=3, Pitch=4, Roll=5. // 5.0
+ImpropCoorNum = Improper cartesian coordinate number: %s. \nUse numbers 1 - 5, according to the relevant coordinates: \nX=1, Y=2, Z=3, Pitch=4, Roll=5. // 5.0
+
 UndefProg  = The program name is undefined.  
 CannotWrText = Cannot write text: %s.
-;end new lang
 
 CannotExecMot1 = This motion is not available for peripheral position(s)
 UsFilter = User Files (*.usr)|*.usr  // IDS_SAVEUSERSCREENFILTER
 
-;new lang
 SaveUsScr  = Save the current layout as the User Screen  // IDS_SAVEUSERSCREENTITLE
 LoadUsScr  = Load the currently saved User Screen layout   // IDS_LOADUSERSCREENTITLE
 WantChangePerip = Do you want to change the peripheral devices?
@@ -1571,4 +1576,3 @@ ErrKeyName = Error key name:/s
 DownLangLevel = Changing to this SCORBASE level will disable advanced level commands in this project.\nOK to continue?  // Shimon
 SubWrite = Subprogram - Write:\s    // Shimon1  
 HistoryFiles = History Files    // Shimon1
-;end new lang
