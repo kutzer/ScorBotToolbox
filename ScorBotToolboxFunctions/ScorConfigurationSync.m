@@ -1,6 +1,6 @@
 function ScorConfigurationSync
-% SCORCONFIGURATIONSYNC syncronizes the ScorBot configuration files created
-% by the native Intelitek ScorBot interface, SCORBASE.
+% SCORCONFIGURATIONSYNC syncronizes the ScorBot configuration and library
+% files created by the native Intelitek ScorBot interface, SCORBASE.
 %
 %   M. Kutzer, 23Jul2019, USNA
 
