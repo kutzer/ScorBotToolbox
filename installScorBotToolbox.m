@@ -176,7 +176,22 @@ if isToolbox == 7
             if libisloaded('RobotDll')
                 unloadlibrary('RobotDll');
             end
+            % Remove folders from MATLAB path
             rmpath(toolboxRoot);
+            files = dir(toolboxRoot);
+            for i = 1:numel(files)
+                if files(i).isdir
+                    switch files(i).name
+                        case '.'
+                            % Skip
+                        case '..'
+                            % Skip
+                        otherwise
+                            rmpath( fullfile(toolboxRoot,files(i).name) );
+                    end
+                end
+            end
+            % Remove folder
             [isRemoved, msg, msgID] = rmdir(toolboxRoot,'s');
             if isRemoved
                 fprintf('Previous version of ScorBot Toolbox removed successfully.\n');
@@ -373,12 +388,13 @@ if fullInstall
                 fprintf('Uninstalling prior version of ScorbotServer...');
                 % msiexec /x filename.msi /passive
                 [status,cmdout] = system('msiexec /x Install_ScorbotServer.msi /passive');
+                fprintf('[Complete]\n');
             end
             
             % Install server
             fprintf('Installing ScorbotServer.msi...');
-            [status,cmdout] = system('msiexec /i Install_ScorbotServer.msi ALLUSERS=1 /passive');
             %[status,cmdout] = system('Install_ScorbotServer.msi');
+            [status,cmdout] = system('msiexec /i Install_ScorbotServer.msi ALLUSERS=1 /passive');
             % TODO - use status info etc. to check if this is actually
             % complete
             fprintf('[Complete]\n');
