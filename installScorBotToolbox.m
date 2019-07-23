@@ -14,7 +14,7 @@ function installScorBotToolbox(replaceExisting)
 %
 %   NOTE: This toolbox requires a 32-bit Windows Operating System.
 %
-%   M. Kutzer 10Aug2015, USNA
+%   M. Kutzer, 10Aug2015, USNA
 
 % Updates
 %   26Aug2015 - Updated to include replaceExisting to support
@@ -25,6 +25,9 @@ function installScorBotToolbox(replaceExisting)
 %   07Mar2018 - Updated to include try/catch for required toolbox
 %               installations.
 %   15Mar2018 - Updated to include msgbox warning when download fails.
+%   16Jul2019 - Updated for 32-bit and 64-bit support
+%   22Jul2019 - Updated to copy new library and configuration files to the 
+%               ScorbotServer folder.
 %
 % TODO - Allow users to create a local version if admin rights are not
 % possible.
@@ -353,6 +356,8 @@ if fullInstall
         case 32
             % 32-bit Windows install
             migrateBinaryContent(win32binRoot);
+            % Update binary content
+            ScorConfigurationSync;
         case 64
             % 64-bit Windows install
             % 64-bit requires:
@@ -380,6 +385,8 @@ if fullInstall
             
             % Update binary content
             migrateBinaryContent(destination);
+            % Update binary content
+            ScorConfigurationSync;
             
             % Authorize server
             fprintf('Authorizing server...');
@@ -390,6 +397,7 @@ if fullInstall
         otherwise
             error('OSBITS variable not set to known value.');
     end
+
 end
 
 %% Rehash toolbox cache
@@ -403,8 +411,8 @@ function migrateBinaryContent(destination)
 
 global wb
 
-win32binContent = 'ScorBotToolboxSupport';
-if ~isdir(win32binContent)
+source = 'ScorBotToolboxSupport';
+if ~isdir(source)
     error(sprintf(...
         ['Change your working directory to the location of "installScorBotToolbox.m".\n',...
         '\n',...
@@ -418,14 +426,14 @@ if ~isdir(win32binContent)
         '\t(4) Enter "installScorBotToolbox" (without quotes) into the command window\n',...
         '\t(5) Press Enter.']));
 end
-files = dir(win32binContent);
-waitbar(0,wb,'Copying win32bin contents...');
+files = dir(source);
+waitbar(0,wb,'Copying library and configuration file contents...');
 set(wb,'Visible','on');
 n = numel(files);
-fprintf('Copying win32bin contents:\n');
+fprintf('Copying library and configuration file contents:\n');
 for i = 1:n
     % source file location
-    source = fullfile(win32binContent,files(i).name);
+    nSource = fullfile(source,files(i).name);
     if files(i).isdir
         switch files(i).name
             case '.'
@@ -437,7 +445,7 @@ for i = 1:n
                 nDestination = fullfile(destination,files(i).name);
                 [isDir,msg,msgID] = mkdir(nDestination);
                 if isDir
-                    [isCopy,msg,msgID] = copyfile(source,nDestination,'f');
+                    [isCopy,msg,msgID] = copyfile(nSource,nDestination,'f');
                     if isCopy
                         fprintf('[Complete]\n');
                     else
@@ -457,7 +465,7 @@ for i = 1:n
         end
     else
         fprintf('\t%s...',files(i).name);
-        [isCopy,msg,msgID] = copyfile(source,destination,'f');
+        [isCopy,msg,msgID] = copyfile(nSource,destination,'f');
         if isCopy
             fprintf('[Complete]\n');
         else
