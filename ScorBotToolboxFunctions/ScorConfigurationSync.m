@@ -11,11 +11,13 @@ if ispc
     switch computer
         case 'PCWIN'
             % 32-bit
-            destination = fullfile(matlabroot,'bin','win32');
+            destination{1} = fullfile(matlabroot,'bin','win32');
+            destination{2} = fullfile(matlabroot,'toolbox','scorbot');
         case 'PCWIN64'
             % 64-bit
             % TODO - This code does not account for hard drive names other than "C:"
-            destination = 'C:\Program Files (x86)\USNA\ScorbotServer';
+            destination{1} = 'C:\Program Files (x86)\USNA\ScorbotServer';
+            %destination{2} = fullfile(matlabroot,'toolbox','scorbot');
         otherwise
             fprintf(2,'Windows 32-bit and 64-bit OS only.');
             return
@@ -32,29 +34,33 @@ if ~isdir(source)
     return
 end
 
-if ~isdir(destination)
-    % TODO - allow the user to find the ScorbotServer folder location
-    frintf(2,'ScorbotServer is not in the expected location.');
-    return
+for d = 1:numel(destination)
+    if ~isdir(destination{d})
+        % TODO - allow the user to find the ScorbotServer folder location
+        frintf(2,'Scorbot support files are not in the expected location.');
+        return
+    end
 end
 
 %% Get a list of all files in the destination directory
 % NOTE: We are only copying files from the source that currently exist in
 %       the destination directory.
-files = dir(destination);
-
-wb = waitbar(0,'Copying library and configuration file contents...');
-set(wb,'Visible','on');
-
-n = numel(files);
-fprintf('Copying library and configuration file contents:\n');
-for i = 1:n
-    % source file/folder
-    cloneFolderContents(files(i),source,destination,0);
-    waitbar(i/n,wb);
+for d = 1:numel(destination)
+    files = dir(destination{d});
+    
+    wb = waitbar(0,'Copying library and configuration file contents...');
+    set(wb,'Visible','on');
+    
+    n = numel(files);
+    fprintf('Copying library and configuration file contents:\n');
+    for i = 1:n
+        % source file/folder
+        cloneFolderContents(files(i),source,destination{d},0);
+        waitbar(i/n,wb);
+    end
+    close(wb);
+    drawnow
 end
-close(wb);
-drawnow
 
 confirm = true;
 
@@ -97,6 +103,55 @@ else
         
         switch file.name
             case 'USBC.dll'
+                
+                % Compare product version
+                srcCMD = sprintf('powershell -command (Get-Item ''%s'').VersionInfo.ProductVersion',nSource);
+                dstCMD = sprintf('powershell -command (Get-Item ''%s'').VersionInfo.ProductVersion',nDestination);
+                
+                % TODO - check status
+                [status,srcVERstr] = system(srcCMD);
+                [status,dstVERstr] = system(dstCMD);
+                
+                [newerVER,srcVERcln,dstVERcln] = versionCompare(srcVERstr,dstVERstr);
+                
+                switch newerVER
+                    case 0
+                        % Both files are the same version number
+                        % Same DLL (this is good)
+                        fprintf(2,...
+                            [' -> Yay! The ScorBot Toolbox version of USBC.dll appears up-to-date.\n',...
+                            '\t\tSCORBASE DLL Product Version: %s (%s)\n',...
+                            '\t\t Toolbox DLL Product Version: %s (%s)\n'],...
+                            srcVERcln,srcVERstr(1:end-1),dstVERcln,dstVERstr(1:end-1));
+                        replaceFile = false;
+                        replaceINI = true;
+                    case 1
+                        % Source file is the newer version number
+                        fprintf(2,...
+                            [' -> The ScorBot Toolbox version of USBC.dll appears to be out-of-date.\n',...
+                            '\t\tSCORBASE DLL Product Version: %s (%s)\n',...
+                            '\t\t Toolbox DLL Product Version: %s (%s)\n'],...
+                            srcVERcln,srcVERstr(1:end-1),dstVERcln,dstVERstr(1:end-1));
+                        % TODO - consider prompting the user
+                        replaceFile = true;
+                        replaceINI = true;
+                    case 2
+                        % Destination file is the newer version number
+                        fprintf(2,...
+                            [' -> The ScorBot Toolbox version of USBC.dll is newer than the version used by SCORBASE.\n',...
+                            '\t\tSCORBASE DLL Product Version: %s (%s)\n',...
+                            '\t\t Toolbox DLL Product Version: %s (%s)\n',...
+                            '\tConsider downloading and installing the latest version of SCORBASE:\n',...
+                            '\t\thttp://www.intelitekdownloads.com/Software/Robotics/ER-4u/\n'],...
+                            srcVERcln,srcVERstr(1:end-1),dstVERcln,dstVERstr(1:end-1));
+                        replaceFile = false;
+                        replaceINI = false;
+                    otherwise
+                        error('Unknown version comparison.');
+                end
+                
+                %{
+                % Compare date modified
                 srcFILE = dir( nSource );
                 dstFILE = dir( nDestination );
                 
@@ -123,6 +178,7 @@ else
                     replaceFile = true;
                     replaceINI = true;
                 end
+                %}
                 
                 if replaceINI
                     % REPLACE INI FILE
@@ -136,7 +192,9 @@ else
                         msg(bin) = [];
                         bin = msg == char(13);
                         msg(bin) = [];
-                        fprintf('[Failed: "%s"]\n',msg);
+                        fprintf('[Failed: "');
+                        fprintf(2,'%s',msg);
+                        fprintf('"]\n');
                     end
                 end
                 
@@ -158,7 +216,9 @@ else
                 msg(bin) = [];
                 bin = msg == char(13);
                 msg(bin) = [];
-                fprintf('[Failed: "%s"]\n',msg);
+                fprintf('[Failed: "');
+                fprintf(2,'%s',msg);
+                fprintf('"]\n');
             end
         else
             fprintf('[Skipped]\n');
@@ -172,3 +232,4 @@ else
 end
 
 end
+

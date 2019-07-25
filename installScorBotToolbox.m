@@ -28,6 +28,8 @@ function installScorBotToolbox(replaceExisting)
 %   16Jul2019 - Updated for 32-bit and 64-bit support
 %   22Jul2019 - Updated to copy new library and configuration files to the 
 %               ScorbotServer folder.
+%   24Jul2019 - Updated to account extended list of files to ignore for 
+%               simulation-only install
 %
 % TODO - Allow users to create a local version if admin rights are not
 % possible.
@@ -170,7 +172,6 @@ if isToolbox == 7
         choice = 'No';
     end
     % Replace existing or cancel installation
-    % TODO - Add 64-bit "Install_ScorbotServer.msi" uninstall
     switch choice
         case 'Yes'
             if libisloaded('RobotDll')
@@ -291,10 +292,11 @@ for i = 1:n
                     end
                 case 64
                     % 64-bit Windows install
-                    % -> Ignore dll and header files for 32-bit install
+                    % -> Ignore dll files for 32-bit install
                     if strcmp(files(i).name(end-3:end),'.dll')
                         isCopy = -1;
                     end
+                    % -> Ignore header files for 32-bit install
                     if strcmp(files(i).name(end-1:end),'.h')
                         isCopy = -1;
                     end
@@ -307,40 +309,58 @@ for i = 1:n
         else
             isCopy = 0;
             % Ignore general files for simulation-only install
+            % -> Ignore dll files
             if strcmp(files(i).name(end-3:end),'.dll')
                 isCopy = -1;
             end
+            % -> Ignore header files
             if strcmp(files(i).name(end-1:end),'.h')
                 isCopy = -1;
             end
+            % -> Ignore ScorGet* commands 
             if strfind(files(i).name,'ScorGet')
                 isCopy = -1;
             end
+            % -> Ignore ScorSet* commands
             if strfind(files(i).name,'ScorSet')
                 isCopy = -1;
             end
+            % -> Ignore ScorGo* commands (ScorGoHome, ScorGotoPoint)
             if strfind(files(i).name,'ScorGo')
                 isCopy = -1;
             end
+            % -> Ignore ScorIs* commands
             if strfind(files(i).name,'ScorIs')
+                isCopy = -1;
+            end
+            % -> Ignore ScorError* commands
+            if strfind(files(i).name,'ScorError')
+                isCopy = -1;
+            end
+            % -> Ignore ScorInit* commands
+            if strfind(files(i).name,'ScorInit')
                 isCopy = -1;
             end
             % Ignore specific files for simulation-only install
             ignoreMe = {...
                 'ScorCreateVector.m',...
                 'ScorDispError.m',...
+                'ScorParseErrorCode.m',...
                 'ScorHome.m',...
-                'ScorInit.m',...
                 'ScorParseErrorCode.m',...
                 'ScorSafeShutdown.m',...
                 'ScorShutdownCallback.m',...
                 'ScorWaitForMove.m',...
                 'ScorCallLib.m',...
-                'ScorServerCmd.m'};
+                'ScorServerCmd.m',...
+                'ScorConfigurationSync.m',...
+                'ScorLogout.m',...
+                'ScorWarmup.m'};
             ignoreMat = cell2mat( strfind(ignoreMe,files(i).name) );
             if ~isempty(ignoreMat)
                 isCopy = -1;
             end
+            % Copy file
             if isCopy ~= -1
                 [isCopy,msg,msgID] = copyfile(source,destination,'f');
             end
