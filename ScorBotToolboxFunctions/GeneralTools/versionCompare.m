@@ -11,6 +11,9 @@ function [newerVER,clean_v1,clean_v2] = versionCompare(v1,v2)
 %
 %   M. Kutzer, 24Jul2019, USNA
 
+% Updates
+%   05Aug2019 - Updated to provide full "clean version" string.
+
 % \d* - any number of consecutive digits
 % \D* - any non-numeric characters
 % \W* - identifies a term that is not a word or number combination
@@ -52,13 +55,16 @@ end
 % Compare version arrays
 clean_v1 = '';
 clean_v2 = '';
+newerVER = 0;
 for i = 1:n
-    if v1_array(i) > v2_array(i)
-        newerVER = 1;
-        return;
-    elseif v2_array(i) > v1_array(i)
-        newerVER = 2;
-        return
+    if newerVER == 0
+        if v1_array(i) > v2_array(i)
+            newerVER = 1;
+            %return;
+        elseif v2_array(i) > v1_array(i)
+            newerVER = 2;
+            %return
+        end
     end
     
     if i > 1
@@ -69,6 +75,5 @@ for i = 1:n
         clean_v2 = sprintf('%d',v2_array(i));
     end
 end
-newerVER = 0;
 
 end
