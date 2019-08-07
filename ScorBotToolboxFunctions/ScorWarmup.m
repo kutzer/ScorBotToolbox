@@ -99,13 +99,17 @@ while ishandle(h) && (t_check <= runtime)
             
             % Respond to error codes
             if errStruct.Code ~= 0
-                switch errStruct.QuickFix
-                    case 'ScorHome;'
-                        rehome = true;
-                    case 'ScorSetControl(''On'');'
-                        rehome = true;
-                    otherwise
-                        eval(errStruct.QuickFix);
+                if ~isempty(errStruct.QuickFix)
+                    switch errStruct.QuickFix
+                        case 'ScorHome;'
+                            rehome = true;
+                        case 'ScorSetControl(''On'');'
+                            rehome = true;
+                        otherwise
+                            eval(errStruct.QuickFix);
+                    end
+                else
+                    rehome = false;
                 end
                 
                 if rehome

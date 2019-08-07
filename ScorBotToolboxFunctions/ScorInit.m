@@ -181,7 +181,7 @@ switch osbits
                 fprintf('.');
             end
             iter = iter+1;
-            pause(.1);
+            pause(0.1);
         end
         % Wait for initialization completion to be confirmed
         while ScorCallLib(libname,'RIsInitDone') == 0
@@ -210,7 +210,7 @@ switch osbits
                 status = ScorServerCmd('RIsInitDone');
                 isDone = true;
             catch
-                pause(0.10);
+                pause(0.1);
             end
             % Throw timeout
             t = toc(t0);
@@ -223,7 +223,7 @@ switch osbits
         % Check status
         switch lower(status)
             case 'error'
-                fprintf('Error communicating with ScorbotServer, is it running?')
+                fprintf('Error communicating with ScorbotServer, is it running?\n')
                 warning('Unable to initialize.');
                 return
             otherwise
