@@ -208,6 +208,8 @@ else
         
         fprintf('%s%s...',tabsFile,file.name);
         if replaceFile
+            %fprintf('\nSOURCE: %s\n',nSource);
+            %fprintf('DESTIN: %s\n\n',destination);
             [isCopy,msg,msgID] = copyfile(nSource,destination,'f');
             if isCopy
                 fprintf('[Complete]\n');
