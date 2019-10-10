@@ -4,6 +4,8 @@ function ScorConfigurationSync
 %
 %   M. Kutzer, 23Jul2019, USNA
 
+% Updates:
+%   10Oct2019 - Fixed "frintf(___)" typo on Line 42.
 %% Define source and destination
 % TODO - This code does not account for hard drive names other than "C:"
 source = 'C:\Intelitek\SCORBASE\BIN';
@@ -37,7 +39,7 @@ end
 for d = 1:numel(destination)
     if ~isdir(destination{d})
         % TODO - allow the user to find the ScorbotServer folder location
-        frintf(2,'Scorbot support files are not in the expected location.');
+        fprintf(2,'Scorbot support files are not in the expected location.');
         return
     end
 end
