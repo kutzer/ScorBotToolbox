@@ -115,7 +115,7 @@ for i = 1:numel(xyzWPT_p)
     y0 = mean(y);
     for j = 1:numel(x)
         ds(j) = mean(mean( double(imEND(d+y0,x(j))) ));
-        s(j) = s0 + ds(j);
+        s(j) = s0 + 1/(ds(j)+1);
         s0 = s(j);
     end
     
@@ -133,7 +133,7 @@ tALL = sALL * s2t;
 
 %% Convert "ds" to z
 z_min = -5;
-p = polyfit([0,255],[-5,0],1);
+p = polyfit([0,255],[z_min,0],1);
 zALL = polyval(p,dsALL);
 
 %% Spline for path
