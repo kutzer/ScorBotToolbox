@@ -1,8 +1,16 @@
-%function ScorDrawMaker
+function ScorDrawMaker
 % SCORDRAWMAKER initializes a visualization of the ScorBot and renders an
-% image of Professor Emeritus Carl Wick. Carl was instrumental in the
-% development of all versions of the ScorBot toolbox. 
-%   - Thank you for everything Carl!
+% image of Professor Emeritus Carl Wick. Carl continues to be instrumental 
+% in the development of all versions of the ScorBot Toolbox his creation 
+% of RobotDll back in 2010 for the Matlab Toolbox for the Intelitek Scorbot
+% (MTIS), his USBC version fix in 2019 leading to the addition and use of 
+% ScorConfigurationSync.m in the ScorBot Toolbox, and his development of
+% the 64bit update to the toolbox that enables full use of the documented
+% functionality of the Intelitek USB library. 
+%
+%   Thank you for everything Carl!
+%
+%   M. Kutzer, 21Nov2019, USNA
 
 %% Read Image
 % Load image
@@ -22,9 +30,11 @@ imNOW(:,:,:) = 255;
 %% Initialize simulation
 sim = ScorSimInit;
 set(sim.Axes,'Visible','off');
-xlim(sim.Axes,[-300,600]);
-ylim(sim.Axes,[-300,300]);
-set(sim.Figure,'Units','Inches','Position',[0.5,0.5,10,6],'Color',[1,1,1]);
+xlim(sim.Axes,[-225,525]);
+ylim(sim.Axes,[-225,225]);
+%set(sim.Figure,'Units','Inches','Position',[0.5,0.5,10,6],'Color',[1,1,1]);
+set(sim.Figure,'Units','Normalized','Position',[0,0,1,1],'Color',[1,1,1],...
+    'Name','Professor Emeritus C. Wick, USNA Department of Weapons, Robotics, & Control Engineering');
 ScorSimPatch(sim);
 
 %% Rotate view
