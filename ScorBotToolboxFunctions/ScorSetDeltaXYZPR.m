@@ -34,6 +34,8 @@ function confirm = ScorSetDeltaXYZPR(varargin)
 %   28Aug2015 - Updated error handling
 %   23Dec2015 - Updated to clarify errors.
 %   02Oct2018 - Updated to include error logging.
+%   26Nov2019 - Updated to include ScorSetUndo following out-of-workspace
+%               point. This should fix lingering 962 errors. MIDN L. Davis
 
 %% Set global for ScorSetUndo
 global ScorSetUndoBSEPR
@@ -98,6 +100,7 @@ end
 isSet = ScorSetPoint(DeltaXYZPR,'Mode','Relative');
 if ~isSet
     confirm = false;
+    ScorSetUndo; % MIDN L. Davis fix for lingering 962 error
     return
 end
 

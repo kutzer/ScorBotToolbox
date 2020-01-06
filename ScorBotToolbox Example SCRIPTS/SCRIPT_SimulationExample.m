@@ -12,9 +12,18 @@ XYZPRs(5,:) = [500.000,-200.000,570.000,0.000, 2*pi/2];
 
 %% Convert XYZPR waypoints to BSEPR joint configurations
 for wpnt = 1:size(XYZPRs,1)
-    ScorXYZPR2BSEPR(XYZPRs(wpnt,:))
+    ScorXYZPR2BSEPR(XYZPRs(wpnt,:));
     BSEPRs(wpnt,:) = ScorXYZPR2BSEPR(XYZPRs(wpnt,:));
 end
+
+%% Print ordered set of waypoint joint angles
+% BSEPRnow = ScorSimGetBSEPR(simObj);
+% BSEPRpnt = [BSEPRnow; BSEPRs; BSEPRnow];
+% for wpnt = 1:size(BSEPRpnt,1)
+%     fprintf('[');
+%     fprintf('%9.5f',BSEPRpnt(wpnt,:));
+%     fprintf(']\n');
+% end
 
 %% Interpolate between waypoints for animation
 n = 50;
