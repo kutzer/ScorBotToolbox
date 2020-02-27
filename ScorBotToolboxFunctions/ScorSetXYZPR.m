@@ -99,6 +99,18 @@ if nargin > 3
     warning('Too many inputs specified. Ignoring additional parameters.');
 end
 
+%% Check for very small movement(s)
+q0 = ScorGetBSEPR;
+q1 = ScorXYZPR2BSEPR(XYZPR);
+
+degLIM = 0.25;
+dq = abs( q1 - q0 );
+if max(dq) < deg2rad(degLIM)
+    fprintf('Movement is less than %.2f degrees.\n',degLIM);
+    confirm = 1;
+    return
+end
+
 %% Set point
 isSet = ScorSetPoint(XYZPR,'Mode','Absolute');
 if ~isSet
