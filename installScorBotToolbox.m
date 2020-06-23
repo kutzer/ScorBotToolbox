@@ -38,6 +38,7 @@ global wb
 
 %% Install/Update required toolboxes
 ToolboxUpdate('Transformation');
+ToolboxUpdate('Geometry');
 ToolboxUpdate('Plotting');
 
 %% Check inputs
