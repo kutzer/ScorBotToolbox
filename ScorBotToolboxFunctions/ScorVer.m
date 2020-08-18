@@ -86,14 +86,15 @@ function varargout = ScorVer
 %   29Jul2019 - Updated merge 32-bit and 64-bit branches. 
 %   21Nov2019 - Updated to thank Carl.
 %   26Nov2019 - Updated to include L. Davis ScorSetDeltaXYZPR fix.
+%   13Aug2020 - Updated for COVID simulation labs
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.0.2';
+A.Version = '5.1.0';
 A.Release = '(R2019a)';
-A.Date = '26-Nov-2019';
+A.Date = '13-Aug-2020';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);
