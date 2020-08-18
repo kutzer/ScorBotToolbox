@@ -19,6 +19,7 @@ function confirm = ScorSimSetBSEPR(varargin)
 %   30Dec2015 - Updated error checking
 %   30Dec2015 - Updated to add "confirm" output
 %   01Sep2016 - Updated to include BSEPR/XYZPR pitch distinction
+%   18Aug2020 - Added ScorSimDraw functionality
 
 %% Check inputs
 % Check for zero inputs
@@ -78,4 +79,5 @@ for i = 1:numel(scorSim.Joints)
     set(scorSim.Joints(i),'Matrix',Rz(BSEPR(i)));
 end
 confirm = true;
+isScorSimPenOnPaper(scorSim);
 drawnow

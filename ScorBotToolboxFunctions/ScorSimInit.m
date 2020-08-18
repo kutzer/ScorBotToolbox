@@ -18,6 +18,12 @@ function scorSim = ScorSimInit(varargin)
 %           for the ScorBot end-effector fingertips (hgtransform objects)
 %       scorSim.TeachFlag - status update object, not for general use
 %       scorSim.TeachText - status update object, not for general use
+%       scorSim.DrawFlag
+%       scorSim.DrawText
+%       scorSim.DrawTool
+%       scorSim.DrawLine
+%       scorSim.LabBench
+%       scorSim.Paper
 %
 %   Example:
 %       %% Initialize ScorBot simulation
@@ -46,6 +52,7 @@ function scorSim = ScorSimInit(varargin)
 %   30Dec2015 - Updated error checking
 %   30Dec2015 - Updated to add example
 %   17Oct2017 - Updated documentation and nargout check
+%   18Aug2020 - Added drawing fields
 
 %% Check inputs
 % Check for too many inputs
@@ -130,13 +137,15 @@ end
 %% Set callback function
 set(scorSim.Figure,'WindowKeyPressFcn',@ScorSimTeachCallback);
 
-%% Setup Indicator Axes
+%% Setup Teach Indicator Axes
 % Create indicator axes
 axs = axes('Parent',scorSim.Figure,'Position',[0.84,0.0,0.16,0.08],...
-           'xlim',[0,2],'ylim',[0,1],'Visible','Off','HandleVisibility','off');
+           'xlim',[0,2],'ylim',[0,1],'Visible','Off',...
+           'HandleVisibility','off');
 % Create status flag
 scorSim.TeachFlag = patch([0,2,2,0,0],[0,0,1,1,0],'w');
-set(scorSim.TeachFlag,'FaceColor','w','EdgeColor','k','FaceAlpha',0.5,'Parent',axs);
+set(scorSim.TeachFlag,'FaceColor','w','EdgeColor','k','FaceAlpha',0.5,...
+    'Parent',axs);
 % Create status text
 scorSim.TeachText = text(1,0.5,sprintf('Inactive.'),...
     'VerticalAlignment','Middle',...
@@ -144,6 +153,55 @@ scorSim.TeachText = text(1,0.5,sprintf('Inactive.'),...
 set(scorSim.TeachText,'Parent',axs);
 % Set visibility
 set([scorSim.TeachFlag,scorSim.TeachText],'Visible','off');
+
+%% Setup Drawing Indicator Axes
+% Create indicator axes
+axs = axes('Parent',scorSim.Figure,'Position',[0.0,0.0,0.16,0.08],...
+           'xlim',[0,2],'ylim',[0,1],'Visible','Off',...
+           'HandleVisibility','off');
+% Create status flag
+scorSim.DrawFlag = patch([0,2,2,0,0],[0,0,1,1,0],'w');
+set(scorSim.DrawFlag,'FaceColor','w','EdgeColor','k','FaceAlpha',0.5,...
+    'Parent',axs);
+% Create status text
+scorSim.DrawText = text(1,0.5,sprintf('Inactive.'),...
+    'VerticalAlignment','Middle',...
+    'HorizontalAlignment','Center');
+set(scorSim.DrawText,'Parent',axs);
+% Set visibility
+set([scorSim.DrawFlag,scorSim.DrawText],'Visible','off');
+
+%% Create lab bench and paper
+scorSim.LabBench = hgtransform('Parent',scorSim.Frames(1),...
+    'Matrix',Tx(150.00)*Tz(19.95));
+patch('Vertices',...
+    [  0.00,  0.00, 60.00, 60.00,  0.00,  0.00, 60.00, 60.00;...
+      12.00,-12.00,-12.00, 12.00, 12.00,-12.00,-12.00, 12.00;...
+      -0.75, -0.75, -0.75, -0.75,  0.00,  0.00,  0.00,  0.00].'*25.4,...
+    'Faces',[1,2,3,4; 5,6,7,8; 1,2,6,5; 2,3,7,6; 3,4,8,7; 4,1,5,8],...
+    'Parent',scorSim.LabBench,'EdgeColor','None','FaceColor',[102, 118, 134]./255,...
+    'Tag','ScorBot Simulation Lab Bench');
+set(scorSim.LabBench,'Visible','off');
+
+scorSim.Paper = hgtransform('Parent',scorSim.Frames(1),...
+    'Matrix',Tx(300.00)*Tz(20.00));
+patch('Vertices',...
+    [-4.25,-4.25, 4.25, 4.25;...
+      5.50,-5.50,-5.50, 5.50].'*25.4,...
+     'Faces',[1,2,3,4],...
+     'Parent',scorSim.Paper,'EdgeColor','None','FaceColor',[248,248,255]./255,...
+     'Tag','ScorBot Simulation Paper');
+ set(scorSim.Paper,'Visible','off');
+ 
+%% Setup Drawing Tool & Line
+scorSim.DrawTool = hgtransform('Parent',scorSim.Frames(6),...
+    'Matrix',Tz(3.5*25.4),'Tag','ScorBot Simulation Drawing Tool');
+plot3([0,0],[0,0],[0,-3.75*25.4],'Parent',scorSim.DrawTool,...
+    'Linewidth',2,'Tag','ScorBot Simulation Drawning Tool Pen','Color','k');
+set(scorSim.DrawTool,'Visible','off');
+
+scorSim.DrawLine = plot(scorSim.Paper,nan,nan,'k','LineWidth',1.5);
+set(scorSim.DrawLine,'XData',nan,'YData',nan,'ZData',nan);
 
 %% Close gripper
 ScorSimSetGripper(scorSim,'Close');

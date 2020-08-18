@@ -200,7 +200,7 @@ switch lower(callbackdata.Key)
         grip = ScorSimGetGripper(simObj);
         % Choose open vs close with shift modifier
         if numel(callbackdata.Modifier) == 1
-            if strcmpi('shift',callbackdata.Modifier{1});
+            if strcmpi('shift',callbackdata.Modifier{1})
                 openFlag = false;
             else
                 openFlag = true;
