@@ -8,9 +8,17 @@ function ScorSimQuitTeachCallback(src,callbackdata)
 
 % Updates
 %   23Oct2015 - Updates to status indicator.
+%   19Aug2020 - Added check for valid ScorSim variable
 
 %% Declare globals
 global scorSimGlobalVariable scorSimTeachBSEPR scorSimTeachXYZPR
+
+%% Check to see if the workspace has been cleared
+if ~isScorSim(scorSimGlobalVariable)
+    warning('Workspace cleared by user.');
+    delete(src);
+    return
+end
 
 %% Update simulation status
 if ~isempty(scorSimGlobalVariable.Figure)

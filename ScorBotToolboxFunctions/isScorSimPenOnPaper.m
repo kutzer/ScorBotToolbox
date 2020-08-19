@@ -110,7 +110,7 @@ if any( isnan(X_new_p) )
 else
     if any(isnan( X_p(:,end) ))
         X_p(:,end+1) = X_new_p;
-    elseif norm(X_new_p - X_p(:,end)) < ZERO
+    elseif norm(X_new_p - X_p(:,end)) > ZERO
         X_p(:,end+1) = X_new_p;
     else
         % Points are close together, ignore new point to save memory
