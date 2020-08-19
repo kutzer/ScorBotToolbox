@@ -74,7 +74,6 @@ x = ptc.Vertices(:,1);
 y = ptc.Vertices(:,2);
 in = inpolygon(H_t2p(1,4),H_t2p(2,4),x,y);
 if in
-    [H_t2p(1,4); H_t2p(2,4); 0.05]
     tf = true;
     msg = 'Drawing!';
     set(scorSim.DrawText,'String',sprintf('%s\n%s',preamble,msg));
