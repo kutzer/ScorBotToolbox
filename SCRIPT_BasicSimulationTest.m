@@ -1,4 +1,10 @@
 %%SCRIPT Basic Simulation Test
+%
+%   M. Kutzer, 29Dec2015, USNA
+
+% Updates
+%   21Aug2020 - Updated to utilize automatic interpolation tools
+
 fprintf('Testing ScorBot Toolbox simulation tools...');
 
 %% Create simulation
@@ -11,6 +17,15 @@ BSEPRs(2,:) = [-pi/8, pi/2,-pi/2,-pi/2, pi/2];
 BSEPRs(3,:) = [ pi/8, pi/2,-0.10,-pi/2,-pi/2];
 BSEPRs(4,:) = ScorSimGetBSEPR(simObj);
 
+%% Move Robot
+ScorSimSetSpeed(simObj,100);
+for ipnt = 1:size(BSEPRs,1)
+    ScorSimSetBSEPR(simObj,BSEPRs(ipnt,:));
+    ScorSimWaitForMove(simObj);
+end
+
+%% OLD METHOD
+%{
 %% Interpolate between waypoints for animation
 n = 50;
 BSEPR_all = [];
@@ -25,7 +40,7 @@ end
 for ipnt = 1:size(BSEPR_all,1)
     ScorSimSetBSEPR(simObj,BSEPR_all(ipnt,:));
 end
-
+%}
 %% Open Gripper
 for grip = 0:1.0:70
     ScorSimSetGripper(simObj,grip);
