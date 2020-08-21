@@ -1,7 +1,7 @@
 function confirm = ScorSetPose(varargin)
 % SCORSETPOSE moves the ScorBot to a designated end-effector pose.
 %   SCORSETPOSE(H) moves the ScorBot end-effector to a specified 4x4 
-%   homogeneous transformation representing the end-effector pose of 
+%   rigid body transformation representing the end-effector pose of 
 %   ScorBot relative to the base frame.
 %
 %   SCORSETPOSE(...,'MoveType',mode) specifies whether the movement is

@@ -9,6 +9,9 @@ function ScorSimTeachCallback(src, callbackdata)
 % Updates
 %   23Oct2015 - Updates to status indicator.
 %   17Oct2017 - Updated comments.
+%   21Aug2020 - Updated to add ...'MoveType','Instant') to ScorSimSet*
+%               commands
+%   21Aug2020 - Updated to add use of ScorSimGetSpeed
 
 %% Declare globals
 global scorSimGlobalVariable scorSimTeachBSEPR scorSimTeachXYZPR
@@ -114,8 +117,9 @@ else
 end
 
 %% Initialize parameters
-angScale = 0.0175; % Angular resolution (radians)
-linScale = 1.0000; % Linear resolution (millimeters)
+spd = ScorSimGetSpeed(simObj);
+angScale = 0.0175*(spd/50); % Angular resolution (radians)
+linScale = 1.0000*(spd/50); % Linear resolution (millimeters)
 if scorSimTeachBSEPR
     teachStr = 'BSEPR Teach';
     set([simObj.TeachFlag,simObj.TeachText],'Visible','on');
@@ -235,7 +239,7 @@ end
 if scorSimTeachBSEPR
     BSEPR = ScorSimGetBSEPR(simObj);
     BSEPR = BSEPR + delta;
-    ScorSimSetBSEPR(simObj,BSEPR);
+    ScorSimSetBSEPR(simObj,BSEPR,'MoveType','Instant');
     
     % Refresh data
     drawnow
@@ -247,7 +251,7 @@ if scorSimTeachXYZPR
     % Inverse kinematics method
     XYZPR = ScorSimGetXYZPR(simObj);
     XYZPR = XYZPR + delta;
-    ScorSimSetXYZPR(simObj,XYZPR);
+    ScorSimSetXYZPR(simObj,XYZPR,'MoveType','Instant');
     
     % Jacobian method
     %BSEPR = ScorSimGetBSEPR(simObj);

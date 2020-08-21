@@ -24,6 +24,8 @@ function scorSim = ScorSimInit(varargin)
 %       scorSim.DrawLine
 %       scorSim.LabBench
 %       scorSim.Paper
+%       scorSim.Speed
+%       scorSim.IsMoving
 %
 %   Example:
 %       %% Initialize ScorBot simulation
@@ -53,6 +55,8 @@ function scorSim = ScorSimInit(varargin)
 %   30Dec2015 - Updated to add example
 %   17Oct2017 - Updated documentation and nargout check
 %   18Aug2020 - Added drawing fields
+%   21Aug2020 - Added speed field
+%   21Aug2020 - Added moving field
 
 %% Check inputs
 % Check for too many inputs
@@ -203,11 +207,19 @@ set(scorSim.DrawTool,'Visible','off');
 scorSim.DrawLine = plot(scorSim.Paper,nan,nan,'k','LineWidth',1.5);
 set(scorSim.DrawLine,'XData',nan,'YData',nan,'ZData',nan);
 
+%% Setup Speed Parameter
+scorSim.Speed = text(0,0,'50','Parent',scorSim.Axes,...
+    'Tag','Simulation Speed','Visible','off');
+
+%% Setup Moving Parameter
+scorSim.IsMoving = text(0,0,'0','Parent',scorSim.Axes,...
+    'Tag','Simulation is Moving','Visible','off');
+
 %% Close gripper
 ScorSimSetGripper(scorSim,'Close');
 
 %% Home ScorSim
-ScorSimGoHome(scorSim);
+ScorSimGoHome(scorSim,'MoveType','Instant');
 
 %% Set default view (matches USNA MU111 setup)
 view([(-37.5+180),30]);

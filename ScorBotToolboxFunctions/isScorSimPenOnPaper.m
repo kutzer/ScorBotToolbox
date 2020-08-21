@@ -13,7 +13,7 @@ if nargin < 1
     error('ScorSim:NoSimObj',...
         ['A valid ScorSim object must be specified.',...
         '\n\t-> Use "scorSim = ScorSimInit;" to create a ScorSim object',...
-        '\n\t-> and "%s(scorSim,BSEPR);" to execute this function.'],mfilename)
+        '\n\t-> and "%s(scorSim);" to execute this function.'],mfilename)
 end
 % Check scorSim
 if nargin >= 1
@@ -27,7 +27,7 @@ if nargin >= 1
         error('ScorSet:BadSimObj',...
             ['%s is not a valid ScorSim object.',...
             '\n\t-> Use "scorSim = ScorSimInit;" to create a ScorSim object',...
-            '\n\t-> and "%s(scorSim,BSEPR);" to execute this function.'],txt,mfilename);
+            '\n\t-> and "%s(scorSim);" to execute this function.'],txt,mfilename);
     end
 end
 
@@ -119,4 +119,5 @@ else
 end
 
 set(sim.DrawLine,'XData',X_p(1,:),'YData',X_p(2,:),'ZData',X_p(3,:));
+
 end
