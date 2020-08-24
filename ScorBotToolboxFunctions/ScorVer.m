@@ -89,12 +89,13 @@ function varargout = ScorVer
 %   13Aug2020 - Updated for COVID simulation labs
 %   21Aug2020 - COVID simulation overhaul
 %   24Aug2020 - Added initial version of ScorSimSafeShutdown
+%   24Aug2020 - Added ScorSimWaitForMove plot and data functionality 
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.2.2';
+A.Version = '5.3.0';
 A.Release = '(R2019a)';
 A.Date = '24-Aug-2020';
 A.URLVer = 1;
