@@ -132,9 +132,9 @@ end
 confirm = false;
 
 %% Move simulation
-coefs = [0.5,3.5];
 switch lower(mType)
     case 'linearjoint'
+        coefs = [0.5,2.5]; % <--- Coefficients for interpolation
         % Interpolate in joint space
         q_o = ScorSimGetBSEPR(scorSim);
         q_f = BSEPR;
@@ -142,6 +142,7 @@ switch lower(mType)
         executeSimMove(scorSim,q,'MoveType',mType);
         confirm = true;
     case 'lineartask'
+        coefs = [0.5,3.5]; % <--- Coefficients for interpolation
         % Interpolate in task space
         q_o = ScorSimGetXYZPR(scorSim);
         q_f = ScorBSEPR2XYZPR(BSEPR);
