@@ -90,14 +90,15 @@ function varargout = ScorVer
 %   21Aug2020 - COVID simulation overhaul
 %   24Aug2020 - Added initial version of ScorSimSafeShutdown
 %   24Aug2020 - Added ScorSimWaitForMove plot and data functionality 
+%   25Aug2020 - Updated installScorBotToolbox defaults and messages
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.3.0';
+A.Version = '5.3.1';
 A.Release = '(R2019a)';
-A.Date = '24-Aug-2020';
+A.Date = '25-Aug-2020';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);
