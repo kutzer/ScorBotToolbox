@@ -134,19 +134,19 @@ confirm = false;
 %% Move simulation
 switch lower(mType)
     case 'linearjoint'
-        coefs = [0.5,2.5]; % <--- Coefficients for interpolation
+        coefs = [0.5,1,3.5]; % <--- Coefficients for interpolation
         % Interpolate in joint space
         q_o = ScorSimGetBSEPR(scorSim);
         q_f = BSEPR;
-        q = interpSimMove(scorSim,q_o,q_f,coefs);
+        q = interpSimMove(scorSim,q_o,q_f,coefs,mType);
         executeSimMove(scorSim,q,'MoveType',mType);
         confirm = true;
     case 'lineartask'
-        coefs = [0.5,3.5]; % <--- Coefficients for interpolation
+        coefs = [0.5,1,4.5]; % <--- Coefficients for interpolation
         % Interpolate in task space
         q_o = ScorSimGetXYZPR(scorSim);
         q_f = ScorBSEPR2XYZPR(BSEPR);
-        q = interpSimMove(scorSim,q_o,q_f,coefs);
+        q = interpSimMove(scorSim,q_o,q_f,coefs,mType);
         executeSimMove(scorSim,q,'MoveType',mType);
         confirm = true;
     case 'instant'
