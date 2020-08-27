@@ -98,7 +98,7 @@ function varargout = ScorVer
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.3.3';
+A.Version = '5.3.4';
 A.Release = '(R2019a)';
 A.Date = '27-Aug-2020';
 A.URLVer = 1;

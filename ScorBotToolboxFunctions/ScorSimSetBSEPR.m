@@ -32,6 +32,9 @@ function confirm = ScorSimSetBSEPR(varargin)
 %   18Aug2020 - Added ScorSimDraw functionality
 %   20Aug2020 - Added 'MoveType' for interpolation and better aligned 
 %               documentation with ScorSet* equivalent function
+%   25Aug2020 - Updated to include a 3-parameter coefficient
+%   26Aug2020 - Updated to interpolate based on move type
+%   27Aug2020 - Updated to include acceleration/deceleration
 
 %% Check inputs
 % Check for zero inputs
@@ -138,6 +141,14 @@ switch lower(mType)
         % Interpolate in joint space
         q_o = ScorSimGetBSEPR(scorSim);
         q_f = BSEPR;
+        
+        % Check if init and goal are the same point
+        ZERO = 0.001;
+        if max( abs(q_f-q_o) ) < ZERO
+            confirm = true;
+            return
+        end
+        
         q = interpSimMove(scorSim,q_o,q_f,coefs,mType);
         executeSimMove(scorSim,q,'MoveType',mType);
         confirm = true;
@@ -146,6 +157,14 @@ switch lower(mType)
         % Interpolate in task space
         q_o = ScorSimGetXYZPR(scorSim);
         q_f = ScorBSEPR2XYZPR(BSEPR);
+        
+        % Check if init and goal are the same point
+        ZERO = 0.01;
+        if max( abs(q_f-q_o) ) < ZERO
+            confirm = true;
+            return
+        end
+        
         q = interpSimMove(scorSim,q_o,q_f,coefs,mType);
         executeSimMove(scorSim,q,'MoveType',mType);
         confirm = true;

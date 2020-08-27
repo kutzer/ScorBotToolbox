@@ -5,7 +5,7 @@
 % Updates
 %   21Aug2020 - Updated to utilize automatic interpolation tools
 
-fprintf('Testing ScorBot Toolbox simulation tools...');
+fprintf('Testing ScorBot Toolbox simulation tools...\n');
 
 %% Create simulation
 simObj = ScorSimInit; % Create wire structure

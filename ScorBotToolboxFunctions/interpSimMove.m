@@ -22,6 +22,9 @@ function q = interpSimMove(scorSim,q_o,q_f,coefs,mType)
 % Updates:
 %   26Aug2020 - Added correlation between move length and move duration
 %   26Aug2020 - Added ramp radius and time
+%   25Aug2020 - Updated to include a 3-parameter time coefficient
+%   26Aug2020 - Updated to interpolate based on move type
+%   27Aug2020 - Updated to include acceleration/deceleration
 
 % TODO - add acceleration and deceleration using coefs
 
