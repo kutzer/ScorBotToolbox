@@ -6,6 +6,8 @@ function ScorConfigurationSync
 
 % Updates:
 %   10Oct2019 - Fixed "frintf(___)" typo on Line 42.
+%   27Aug2020 - Added line feed after "SCORBASE is not in the expected
+%               location"
 %% Define source and destination
 % TODO - This code does not account for hard drive names other than "C:"
 source = 'C:\Intelitek\SCORBASE\BIN';
@@ -32,7 +34,7 @@ end
 %% Check if source and destination exist
 if ~isdir(source)
     % TODO - allow the user to find the SCORBASE BIN folder
-    fprintf(2,'SCORBASE is not in the expected location.');
+    fprintf(2,'SCORBASE is not in the expected location.\n');
     return
 end
 
