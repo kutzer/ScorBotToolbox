@@ -1,4 +1,10 @@
 function executeSimMove(scorSim,q,pType,mType)
+% EXECUTESIMMOVE
+%
+%   M. Kutzer, 20Aug2020, USNA
+
+% Updates:
+%   27Aug2020 - Updated to change "BusyMode" to "queue"
 
 figure( scorSim.Figure );
 timerName = 'timer-ScorSim';
@@ -32,6 +38,7 @@ set(T,...
     'Period',dt,...
     'ExecutionMode','FixedRate',...
     'TasksToExecute',size(q,2),...
+    'BusyMode','queue',...
     'Name',timerName);
 
 start(T);
