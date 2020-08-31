@@ -1,6 +1,13 @@
 function executeSimMove(scorSim,q,pType,mType)
-% EXECUTESIMMOVE
+% EXECUTESIMMOVE simulates an interpolated move command.
+%   EXECUTESIMMOVE(scorSim,q,pType,mType)
 %
+%   Inputs:
+%       scorSim - ScorBot simulation structured array
+%             q - 
+%         pType
+%         mType
+
 %   M. Kutzer, 20Aug2020, USNA
 
 % Updates:

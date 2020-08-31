@@ -46,6 +46,12 @@ function varargout = ScorSimWaitForMove(varargin)
 %
 %   M. Kutzer, 21Aug2020, USNA
 
+% Updates:
+%   31Aug2020 - Added global for ScorSimWaitForMove collect data workaround
+
+%% Declare global for ScorSimWaitForMove workaround
+global ScorSimInterpGlobal
+
 %% Start timer
 t_swfm = tic; 
 
@@ -306,6 +312,14 @@ end
 if getData
     CollectedData.tXYZPR = [transpose(posT),XYZPR];
     CollectedData.tBSEPR = [transpose(jntT),BSEPR];
+    
+    % Data collect fix
+    if isfield(ScorSimInterpGlobal,'tXYZPR') && isfield(ScorSimInterpGlobal,'tBSEPR')
+        CollectedData.tXYZPR = ScorSimInterpGlobal.tXYZPR;
+        CollectedData.tBSEPR = ScorSimInterpGlobal.tBSEPR;
+    else
+        fprintf('ScorSimWaitForMove used timer-based data, global unavailable.');
+    end
 end
 
 %% Package output

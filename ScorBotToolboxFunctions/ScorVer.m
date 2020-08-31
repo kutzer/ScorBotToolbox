@@ -94,14 +94,15 @@ function varargout = ScorVer
 %   25Aug2020 - Added ScorSimSet* linear task/joint move time discrepency
 %   27Aug2020 - Joint acceleration/deceleration in simulation
 %   27Aug2020 - Updated timer budymode to queue in executeSimMove
+%   31Aug2020 - Added global for ScorSimWaitForMove collect data workaround
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.3.5';
+A.Version = '5.3.6';
 A.Release = '(R2020a)';
-A.Date = '27-Aug-2020';
+A.Date = '31-Aug-2020';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);

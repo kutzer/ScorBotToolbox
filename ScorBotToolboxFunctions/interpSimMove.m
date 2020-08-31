@@ -1,7 +1,9 @@
-function q = interpSimMove(scorSim,q_o,q_f,coefs,mType)
+function [q,t] = interpSimMove(scorSim,q_o,q_f,coefs,mType)
 % INTERPBSEPR linearly interpolates between two 5-element arrays assuming
 % the motion begins and ends at rest.
 %   q = INTERPBSEPR(scorSim,q_f,coefs,mType)
+%
+%   [q,t] = INTERPBSEPR(___)
 %
 %   Inputs:
 %       scorSim - structured array containing 
@@ -16,6 +18,11 @@ function q = interpSimMove(scorSim,q_o,q_f,coefs,mType)
 %                       t_f - move end time   (assuming 180 degree move)
 %
 %         mType - Move type {['LinearJoint'],'LinearTask'} 
+%
+%   Outputs:
+%       q - 5 x N element array containing joint or task positions
+%           depending on mType context 
+%       t - 1 x N element array containing time stamps
 %
 %   M. Kutzer, 21Aug2020, USNA
 

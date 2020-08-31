@@ -35,6 +35,10 @@ function confirm = ScorSimSetBSEPR(varargin)
 %   25Aug2020 - Updated to include a 3-parameter coefficient
 %   26Aug2020 - Updated to interpolate based on move type
 %   27Aug2020 - Updated to include acceleration/deceleration
+%   31Aug2020 - Added global for ScorSimWaitForMove collect data workaround
+
+%% Declare global for ScorSimWaitForMove workaround
+global ScorSimInterpGlobal
 
 %% Check inputs
 % Check for zero inputs
@@ -149,9 +153,17 @@ switch lower(mType)
             return
         end
         
-        q = interpSimMove(scorSim,q_o,q_f,coefs,mType);
+        % Interpolate move
+        [q,t] = interpSimMove(scorSim,q_o,q_f,coefs,mType);
+        % Update global
+        BSEPRs = q.';
+        XYZPRs = interpSimBSEPR2XYZPR(q).';
+        ScorSimInterpGlobal.tBSEPR = [t.',BSEPRs];
+        ScorSimInterpGlobal.tXYZPR = [t.',XYZPRs];
+        % Execute move
         executeSimMove(scorSim,q,'MoveType',mType);
         confirm = true;
+        
     case 'lineartask'
         coefs = [0.5,1,4.5]; % <--- Coefficients for interpolation
         % Interpolate in task space
@@ -165,7 +177,13 @@ switch lower(mType)
             return
         end
         
-        q = interpSimMove(scorSim,q_o,q_f,coefs,mType);
+        [q,t] = interpSimMove(scorSim,q_o,q_f,coefs,mType);
+        % Update global
+        BSEPRs = interpSimXYZPR2BSEPR(q).';
+        XYZPRs = q.';
+        ScorSimInterpGlobal.tBSEPR = [t.',BSEPRs];
+        ScorSimInterpGlobal.tXYZPR = [t.',XYZPRs];
+        % Execute move
         executeSimMove(scorSim,q,'MoveType',mType);
         confirm = true;
     case 'instant'
