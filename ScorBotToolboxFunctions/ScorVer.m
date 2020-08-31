@@ -100,7 +100,7 @@ function varargout = ScorVer
 
 A.Name = 'ScorBot Toolbox';
 A.Version = '5.3.5';
-A.Release = '(R2019a)';
+A.Release = '(R2020a)';
 A.Date = '27-Aug-2020';
 A.URLVer = 1;
 
