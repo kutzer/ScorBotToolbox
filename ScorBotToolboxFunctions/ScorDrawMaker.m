@@ -20,6 +20,9 @@ function ScorDrawMaker
 %
 %   M. Kutzer, 21Nov2019, USNA
 
+% Updates:
+%   08Sep2020 - Updated for new simulation syntax
+
 %% Read Image
 % Load image
 imEND = imread('Wick.png');
@@ -99,7 +102,7 @@ for i = 1:numel(y_Pass)
         
         H0(1:3,4) = xyzWPT_o(1:3,j);
         
-        ScorSimSetPose(sim,H0);
+        ScorSimSetPose(sim,H0,'MoveType','Instant');
         drawnow;
     end
     %}
@@ -189,7 +192,7 @@ for i = 1:numel(q0)
     q(i,:) = linspace(q0(i),qi(i),n);
 end
 for f = 1:size(q,2)
-    ScorSimSetBSEPR(sim,q(:,f).');
+    ScorSimSetBSEPR(sim,q(:,f).','MoveType','Instant');
     drawnow;
 end
 
@@ -197,7 +200,7 @@ end
 for f = 1:size(X_p,2)
     % Move ScorBot
     H0(1:3,4) = X_o(1:3,f);
-    ScorSimSetPose(sim,H0);
+    ScorSimSetPose(sim,H0,'MoveType','Instant');
     
     % Update image mask
     D = (xALL - X_p(1,f)).^2 + (yALL - X_p(2,f)).^2 + (zALL - X_p(3,f)).^2;
@@ -222,6 +225,6 @@ for i = 1:numel(q0)
     q(i,:) = linspace(qi(i),q0(i),n);
 end
 for f = 1:size(q,2)
-    ScorSimSetBSEPR(sim,q(:,f).');
+    ScorSimSetBSEPR(sim,q(:,f).','MoveType','Instant');
     drawnow;
 end
