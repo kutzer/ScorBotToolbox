@@ -100,9 +100,9 @@ function varargout = ScorVer
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.3.6';
+A.Version = '5.3.7';
 A.Release = '(R2020a)';
-A.Date = '31-Aug-2020';
+A.Date = '08-Sep-2020';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);
