@@ -54,6 +54,7 @@ im = getFOVSnapshot(cam);
 
 %% Return simulation
 set(scorSim.Frames(1),'Parent',scorSim.Axes);
+drawnow;
 
 %% Restore current warning state
 for i = 1:numel(wrn)
