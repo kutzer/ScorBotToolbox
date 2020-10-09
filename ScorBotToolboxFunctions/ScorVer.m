@@ -97,12 +97,14 @@ function varargout = ScorVer
 %   31Aug2020 - Added global for ScorSimWaitForMove collect data workaround
 %   09Oct2020 - Added ScorSimGetSnapshot and ScorSimCameraView.fig
 %   09Oct2020 - Updated ScorSimGetSnapshot to surpress warnings
+%   09Oct2020 - Updated ScorSimDraw and isScorSimPenOnPaper to account for
+%               single points of contact.
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.4.1';
+A.Version = '5.4.2';
 A.Release = '(R2020a)';
 A.Date = '09-Oct-2020';
 A.URLVer = 1;

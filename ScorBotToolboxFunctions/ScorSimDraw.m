@@ -11,6 +11,9 @@ function confirm = ScorSimDraw(varargin)
 %
 %   M. Kutzer, 18Aug2020, USNA
 
+% Updates:
+%   09Oct2020 - Added single point contact clearing.
+
 %% Check inputs
 % Check for zero inputs
 if nargin < 1
@@ -39,6 +42,13 @@ if nargin > 1
     switch lower(varargin{2})
         case 'clear'
             set(scorSim.DrawLine,'XData',nan,'YData',nan,'ZData',nan);
+            % Remove single point contacts
+            tag = 'ScorSimDraw Single Point Contact';
+            mom = get(scorSim.DrawLine,'Parent');
+            plt = findobj('Parent',mom,'Tag',tag);
+            if ~isempty(plt)
+                delete(plt);
+            end
             drawnow;
         case 'disable'
             set(scorSim.DrawTool,'Visible','off');

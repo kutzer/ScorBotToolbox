@@ -5,6 +5,9 @@ function [tf,msg] = isScorSimPenOnPaper(varargin)
 %
 %   M. Kutzer, 18Aug2020, USNA
 
+% Updates:
+%   09Oct2020 - Added single point contact.
+
 preamble = 'ScorSimDraw';
 
 %% Check inputs
@@ -106,6 +109,21 @@ if any( isnan(X_new_p) )
         return
     else
         X_p(:,end+1) = nan;
+        % Compensate for the single-point contact case
+        if any(isnan( X_p(:,end-2) ))
+            tag = 'ScorSimDraw Single Point Contact';
+            mom = get(sim.DrawLine,'Parent');
+            plt = findobj('Parent',mom,'Tag',tag);
+            if isempty(plt)
+                plt = plot3(mom,X_p(1,end-1),X_p(2,end-1),X_p(3,end-1),'.k');
+            else
+                XX_p(1,:) = get(plt,'XData');
+                XX_p(2,:) = get(plt,'YData');
+                XX_p(3,:) = get(plt,'ZData');
+                XX_p(:,end+1) = X_p(:,end-1);
+                set(plt,'XData',XX_p(1,:),'YData',XX_p(2,:),'ZData',XX_p(3,:));
+            end
+        end
     end
 else
     if any(isnan( X_p(:,end) ))
