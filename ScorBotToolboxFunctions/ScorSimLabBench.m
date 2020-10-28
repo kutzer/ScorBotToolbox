@@ -6,6 +6,8 @@ function ScorSimLabBench(varargin)
 %   SCORSIMLABBENCH(scorSim,'Clear') clears all objects placed on the lab
 %   bench.
 %
+%   SCORSIMLABBENCH(scorSim,'Disable') disables the drawing functionality.
+%
 %   See also ScorSimDraw
 %
 %   M. Kutzer, 28Oct2020, USNA
@@ -37,19 +39,46 @@ if nargin >= 1
     end
 end
 
+% Disable drawing
+ScorSimDraw(scorSim,'Disable');
 if nargin > 1
     switch lower(varargin{2})
         case 'clear'
-            set(scorSim.DrawLine,'XData',nan,'YData',nan,'ZData',nan);
-            % Remove single point contacts
-            tag = 'ScorSimDraw Single Point Contact';
-            mom = get(scorSim.DrawLine,'Parent');
-            plt = findobj('Parent',mom,'Tag',tag);
-            if ~isempty(plt)
-                delete(plt);
-            end
-            drawnow;
+            h_x2l = findobj('Parent',scorSim.LabBench,'Type','hgtransform');
+            delete(h_x2l);
+        case 'disable'
+            h_x2l = findobj('Parent',scorSim.LabBench,'Type','hgtransform');
+            delete(h_x2l);
+            set(scorSim.LabBench,'Visible','off');
+            return
     end
 end
+
 %% Show lab bench 
 set(scorSim.LabBench,'Visible','on');
+
+%% Update noisy background
+xx = 1000;
+yy = 1000;
+bkTag = 'LabBenchBackground';
+bk = uint8(255 *...
+    (repmat(reshape([0.96,0.96,0.86],1,1,3),xx,yy)...
+    + (rand(xx,yy,3) - 0.5*ones(xx,yy,3))*0.3));
+h_bk2l = findobj('Parent',scorSim.LabBench,'Tag',bkTag,'Type','hgtransform');
+if isempty(h_bk2l)
+    h_bk2l = hgtransform('Parent',scorSim.LabBench,...
+        'Matrix',Tx(-300)*Ty(-yy/2)*Tz(-20),'Tag',bkTag);
+end
+img = findobj('Parent',h_bk2l,'Tag',bkTag,'Type','hgtransform');
+if isempty(img)
+    img = imshow(bk,'Parent',scorSim.Axes);
+    set(img,'Parent',h_bk2l,'Tag',bkTag);
+else
+    set(img,'CData',bk);
+end
+set(scorSim.Axes,'Visible','on');
+
+%% Move the light
+lgt = addSingleLight(scorSim.Axes);
+pos = [2*(rand(1,2)-0.5), 0.7 + rand(1)];
+set(lgt,'Position',pos);

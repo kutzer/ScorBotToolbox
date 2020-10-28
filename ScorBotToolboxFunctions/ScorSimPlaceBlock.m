@@ -129,13 +129,19 @@ obj.Vertices = v.';
 
 %% Set color
 set(obj,'FaceColor',color,'EdgeColor','none');
+material(obj,'shiny');
 
 %% Migrate patch object
 h_b2l = hgtransform('Parent',scorSim.LabBench,'Matrix',H_b2l);
 set(obj,'Parent',h_b2l);
 delete(fig);
 
+%% Move the light
+lgt = addSingleLight(scorSim.Axes);
+pos = [2*(rand(1,2)-0.5), 0.7 + rand(1)];
+set(lgt,'Position',pos);
+
 %% Return output(s)
-if nargout > 1
+if nargout > 0
     varargout{1} = h_b2l;
 end
