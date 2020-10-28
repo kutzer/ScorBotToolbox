@@ -1,4 +1,4 @@
-function h = ScorSimPlaceBlock(varargin)
+function varargout = ScorSimPlaceBlock(varargin)
 % SCORSIMPLACEBLOCK creates adds a block to the ScorBot simulation
 % environment. 
 %   SCORSIMPLACEBLOCK(scorSim) creates a random block on the
@@ -23,6 +23,9 @@ function h = ScorSimPlaceBlock(varargin)
 %                       y-, and z-axis scaling (e.g., [1 1 3] means one 
 %                       unit in x is equal in length to one unit in y and 
 %                       three units in z ).
+%
+%   h_b2l = SCORSIMPLACEBLOCK(___) returns the hgtransform object of the
+%   block defined relative to the lab bench coordinate frame.
 %
 %   See also ScorSimLabBench
 %
@@ -115,3 +118,24 @@ open( sprintf('%s.fig',fname) );
 fig = findobj('Parent',0,'Name',fname,'Type','figure');
 axs = findobj('Parent',fig(1),'Tag',fname,'Type','axes');
 obj = findobj('Parent',axs(1),'Tag',fname,'Type','patch');
+
+%% Scale object
+sc = scale*daspect./2;
+v = obj.Vertices.';                     % Get object vertices
+v(4,:) = 1;                             % Make coordinates homogeneous
+v = Sx(sc(1))*Sy(sc(2))*Sz(sc(3))*v;    % Scale coordinates
+v(4,:) = [];
+obj.Vertices = v.';
+
+%% Set color
+set(obj,'FaceColor',color,'EdgeColor','none');
+
+%% Migrate patch object
+h_b2l = hgtransform('Parent',scorSim.LabBench,'Matrix',H_b2l);
+set(obj,'Parent',h_b2l);
+delete(fig);
+
+%% Return output(s)
+if nargout > 1
+    varargout{1} = h_b2l;
+end
