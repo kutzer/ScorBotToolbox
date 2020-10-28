@@ -9,10 +9,13 @@ function confirm = ScorSimDraw(varargin)
 %
 %   SCORSIMDRAW(scorSim,'ExportPaper') copies the paper into a new figure.
 %
+%   See also ScorSimLabBench
+%
 %   M. Kutzer, 18Aug2020, USNA
 
 % Updates:
 %   09Oct2020 - Added single point contact clearing.
+%   28Oct2020 - Updated documentation
 
 %% Check inputs
 % Check for zero inputs
@@ -82,7 +85,7 @@ end
 
 % TODO - add extra drawing inputs
 
-%% Show lab bench and paper 
+%% Show lab bench, pen, and paper 
 set(scorSim.DrawTool,'Visible','on');
 set(scorSim.LabBench,'Visible','on');
 set(scorSim.Paper,   'Visible','on');
