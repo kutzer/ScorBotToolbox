@@ -112,6 +112,6 @@ end
 
 %% Load figure
 open( sprintf('%s.fig',fname) );
-fig = findobj('Parent',0,'Name',fname);
-axs = findobj('Parent',fig,'Tag',fname);
-obj = findobj('Parent',axs,'Tag',fname,'Type)
+fig = findobj('Parent',0,'Name',fname,'Type','figure');
+axs = findobj('Parent',fig(1),'Tag',fname,'Type','axes');
+obj = findobj('Parent',axs(1),'Tag',fname,'Type','patch');
