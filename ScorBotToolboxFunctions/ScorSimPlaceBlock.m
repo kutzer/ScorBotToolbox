@@ -62,7 +62,7 @@ end
 shape = 'rectangle';
 color = [1,0,0];
 H_b2l = Tx(200*rand(1))*Ty(500*(rand(1)-0.5))*Rz(2*pi*rand(1));
-%cale = 65;
+scale = 65;
 %daspect = [1,0.75,0.30];
 daspect = [];
 if nargin > 1

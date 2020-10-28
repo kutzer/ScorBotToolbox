@@ -99,14 +99,15 @@ function varargout = ScorVer
 %   09Oct2020 - Updated ScorSimGetSnapshot to surpress warnings
 %   09Oct2020 - Updated ScorSimDraw and isScorSimPenOnPaper to account for
 %               single points of contact.
+%   28Oct2020 - Added *LabBench and *PlaceBlock functionality 
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.4.2';
+A.Version = '5.4.3';
 A.Release = '(R2020a)';
-A.Date = '09-Oct-2020';
+A.Date = '28-Oct-2020';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);
