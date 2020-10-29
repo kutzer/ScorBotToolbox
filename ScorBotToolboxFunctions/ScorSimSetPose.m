@@ -77,6 +77,7 @@ mType = 'LinearTask';
 mName = mfilename;
 if numel(mName) >= 11, vName = mName(11:end); else, vName = 'q'; end
 % Check property designator
+pType = 'MoveType';
 if nargin >= 3
     pType = varargin{3};
     if ~ischar(pType) || ~strcmpi('MoveType',pType)
