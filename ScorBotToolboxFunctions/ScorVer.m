@@ -101,14 +101,15 @@ function varargout = ScorVer
 %               single points of contact.
 %   28Oct2020 - Added *LabBench and *PlaceBlock functionality 
 %   29Oct2020 - Added pType to ScorSimSetPose
+%   08Jan2021 - Updated update/install procedure
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.5.0';
-A.Release = '(R2020a)';
-A.Date = '03-Nov-2020';
+A.Version = '5.5.1';
+A.Release = '(R2019b)';
+A.Date = '08-Jan-2021';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);
