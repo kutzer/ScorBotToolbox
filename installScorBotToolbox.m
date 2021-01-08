@@ -33,6 +33,7 @@ function installScorBotToolbox(replaceExisting)
 %   25Aug2020 - Updated to default replace prompt selection to "Yes"
 %   25Aug2020 - Updated message associated with moved install file
 %   08Jan2021 - Updated ToolboxUpdate
+%   08Jan2021 - Corrected questdlg
 
 % TODO - Allow users to create a local version if admin rights are not
 % possible.
@@ -94,7 +95,7 @@ if ispc
                     'Would you like to install the simulation tools?']...
                  ),...
                  'Install Simulation Tools',...
-                 'Yes','No','Yes');
+                 'Yes','No','Cancel','Yes');
             
             fullInstall = false;
             switch choice
@@ -123,8 +124,7 @@ else
         '    simulation capabilities.\n',...
         '\n',...
         'Would you like to install the simulation tools?']),...
-        'Yes','No');
-    
+        'Install Simulation Tools','Yes','No','Cancel','Yes');    
     fullInstall = false;
     switch choice
         case 'Yes'
@@ -170,7 +170,7 @@ if isToolbox == 7
         choice = questdlg(sprintf(...
             ['MATLAB Root already contains the ScorBot Toolbox.\n',...
             'Would you like to replace the existing toolbox?']),...
-            'Yes','Yes');
+            'Replace Existing ScorBot Toolbox','Yes','No','Cancel','Yes');
     elseif replaceExisting
         choice = 'Yes';
     else
