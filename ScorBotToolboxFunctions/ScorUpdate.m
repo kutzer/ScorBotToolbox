@@ -128,7 +128,7 @@ if hardwarechk
         switch computer
             case 'PCWIN'
                 % Test hardware 
-                fprintf('Testing ScorBot hardware...')
+                fprintf('Testing ScorBot hardware...\n')
                 try
                     SCRIPT_BasicHardwareTest;
                     fprintf('SUCCESS\n');
@@ -139,7 +139,7 @@ if hardwarechk
         end
     end
     % ScorBot simulation
-    fprintf('Testing ScorBot simulation...');
+    fprintf('Testing ScorBot simulation...\n');
     try
         SCRIPT_BasicSimulationTest;
         fprintf('SUCCESS\n');
