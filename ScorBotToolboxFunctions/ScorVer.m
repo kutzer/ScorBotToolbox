@@ -102,12 +102,14 @@ function varargout = ScorVer
 %   28Oct2020 - Added *LabBench and *PlaceBlock functionality 
 %   29Oct2020 - Added pType to ScorSimSetPose
 %   08Jan2021 - Updated update/install procedure
+%   08Jan2021 - Corrected questdlg
+%   08Jan2021 - Corrected WRC_MATLABCameraSupport install
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.5.1';
+A.Version = '5.5.2';
 A.Release = '(R2019b)';
 A.Date = '08-Jan-2021';
 A.URLVer = 1;

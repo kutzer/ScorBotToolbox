@@ -34,6 +34,7 @@ function installScorBotToolbox(replaceExisting)
 %   25Aug2020 - Updated message associated with moved install file
 %   08Jan2021 - Updated ToolboxUpdate
 %   08Jan2021 - Corrected questdlg
+%   08Jan2021 - Corrected WRC_MATLABCameraSupport install
 
 % TODO - Allow users to create a local version if admin rights are not
 % possible.
@@ -632,6 +633,12 @@ end
 fprintf('Downloading the %s ...',toolboxName);
 tmpFolder = sprintf('%s',toolboxName);
 pname = fullfile(tempdir,tmpFolder);
+if isfolder(pname)
+    % Remove existing directory
+    [ok,msg] = rmdir(pname,'s');
+end
+% Create new directory
+[ok,msg] = mkdir(tempdir,tmpFolder);
 
 %% Download and unzip toolbox (GitHub)
 url = sprintf('https://github.com/kutzer/%s/archive/master.zip',toolboxName);
@@ -648,7 +655,8 @@ catch
         % documentation.
         % TODO - Consider an alternative to urlwrite.
         tmpFname = sprintf('%s-master.zip',toolboxName);
-        urlwrite(url,fullfile(pname,tmpFname));
+        %urlwrite(url,fullfile(pname,tmpFname));
+        websave(fullfile(pname,tmpFname),url);
         fnames = unzip(fullfile(pname,tmpFname),pname);
         delete(fullfile(pname,tmpFname));
         
