@@ -35,6 +35,7 @@ function installScorBotToolbox(replaceExisting)
 %   08Jan2021 - Updated ToolboxUpdate
 %   08Jan2021 - Corrected questdlg
 %   08Jan2021 - Corrected WRC_MATLABCameraSupport install
+%   08Mar2021 - Updated to include patch toolbox install
 
 % TODO - Allow users to create a local version if admin rights are not
 % possible.
@@ -45,6 +46,7 @@ global wb
 ToolboxUpdate('Transformation');
 ToolboxUpdate('Geometry');
 ToolboxUpdate('Plotting');
+ToolboxUpdate('Patch');
 SupportUpdate('WRC_MATLABCameraSupport');
 
 %% Check inputs
