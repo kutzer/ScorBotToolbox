@@ -15,6 +15,7 @@ function ScorUpdate(varargin)
 %               installations.
 %   15Mar2018 - Updated to include msgbox warning when download fails.
 %   08Jan2021 - Updated install procedure
+%   08Mar2021 - Fixed simulation test
 
 % TODO - Find a location for "ScorBotToolbox Example SCRIPTS"
 % TODO - update function for general operation
@@ -110,16 +111,6 @@ cd(pname_star);
 %% Install ScorBot Toolbox
 installScorBotToolbox(true);
 
-%% Move back to current directory and remove temp file
-cd(cpath);
-[ok,msg] = rmdir(pname,'s');
-if ~ok
-    warning('Unable to remove temporary download folder. %s',msg);
-end
-
-%% Complete installation
-fprintf('Installation complete.\n');
-
 %% Test functionality
 if hardwarechk
     fprintf('\n');
@@ -150,5 +141,15 @@ if hardwarechk
 else
     fprintf('Skipping hardware and simulation check.\n');
 end
+
+%% Move back to current directory and remove temp file
+cd(cpath);
+[ok,msg] = rmdir(pname,'s');
+if ~ok
+    warning('Unable to remove temporary download folder. %s',msg);
+end
+
+%% Complete installation
+fprintf('Installation complete.\n');
 
 end

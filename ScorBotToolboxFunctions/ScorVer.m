@@ -104,14 +104,15 @@ function varargout = ScorVer
 %   08Jan2021 - Updated update/install procedure
 %   08Jan2021 - Corrected questdlg
 %   08Jan2021 - Corrected WRC_MATLABCameraSupport install
+%   08Mar2021 - Updated update/install to include patch toolbox
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.5.2';
+A.Version = '5.5.3';
 A.Release = '(R2019b)';
-A.Date = '08-Jan-2021';
+A.Date = '08-Mar-2021';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);
