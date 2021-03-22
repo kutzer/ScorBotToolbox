@@ -45,12 +45,18 @@ cam.vRes   = res(2); % vertical resolution of the camera
 
 h_o2c = findobj('Parent',cam.Axes,'Type','hgtransform','Tag',hgtTag);
 
+%% Hide frames
+hideTriad(scorSim.Frames);
+
 %% Move simulation to simulated camera
 set(scorSim.Frames(1),'Parent',h_o2c);
 drawnow;
 
 %% Get image
 im = getFOVSnapshot(cam);
+
+%% Show frames
+showTriad(scorSim.Frames);
 
 %% Return simulation
 set(scorSim.Frames(1),'Parent',scorSim.Axes);

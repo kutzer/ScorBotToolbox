@@ -26,6 +26,8 @@ function scorSim = ScorSimInit(varargin)
 %       scorSim.Paper
 %       scorSim.Speed
 %       scorSim.IsMoving
+%       scorSim.CheckerBoard
+%       scorSim.Ball
 %
 %   Example:
 %       %% Initialize ScorBot simulation
@@ -57,6 +59,7 @@ function scorSim = ScorSimInit(varargin)
 %   18Aug2020 - Added drawing fields
 %   21Aug2020 - Added speed field
 %   21Aug2020 - Added moving field
+%   20Mar2021 - Added checkerboard and ball objects
 
 %% Check inputs
 % Check for too many inputs
@@ -214,6 +217,56 @@ scorSim.Speed = text(0,0,'50','Parent',scorSim.Axes,...
 %% Setup Moving Parameter
 scorSim.IsMoving = text(0,0,'0','Parent',scorSim.Axes,...
     'Tag','Simulation is Moving','Visible','off');
+
+%% Setup checkerboard
+cb.boardSize = [6,7];
+cb.squareSize = 19.05;
+[cb.hg, cb.ptc] = plotCheckerboard(...
+    scorSim.Frames(6),cb.boardSize,cb.squareSize);
+hideTriad(cb.hg);
+set(cb.ptc,'EdgeColor','none');
+
+% Define board 
+cb.w = 4.75 * 25.4; % Width  (mm)
+cb.h = 6.25 * 25.4; % Height (mm)
+cb.d = 7;           % Depth  (mm)
+% Board vertices (referenced from lower left corner)
+cb.v_l = [...
+    0.00, 0.00, cb.h, cb.h, 0.00, 0.00, cb.h, cb.h;... % x-coordinates
+    0.00, cb.w, cb.w, 0.00, 0.00, cb.w, cb.w, 0.00;... % y-coordinates
+    0.10, 0.10, 0.10, 0.10, cb.d, cb.d, cb.d, cb.d];   % z-coordinates
+cb.v_l(4,:) = 1;
+% Board faces 
+cb.f = [...
+    1,2,3,4;...
+    5,6,7,8;...
+    1,2,6,5;...
+    2,3,7,6;...
+    3,4,8,7;...
+    4,1,5,8];
+% Transformation relating board lower left to grid frame
+cb.H_l2g = Tx( -(cb.squareSize + 0.88*25.4) )*Ty( -(cb.squareSize + 0.21*25.4) );
+% Reference board to grid frame
+cb.v_g = cb.H_l2g * cb.v_l;
+% Patch board
+cb.brd = patch('Faces',cb.f,'Vertices',cb.v_g(1:3,:).','FaceColor','w',...
+    'EdgeColor','k','FaceAlpha',1,'Parent',cb.hg);
+
+% Place checkerboard in the gripper
+ScorSimSetGripper(scorSim,cb.d);
+cb.go = ScorSimGetGripperOffset(scorSim);
+cb.gw = 15.1;
+
+cb.H_g2e = Ty(cb.d/2)*Tx(cb.gw/2 + 29.2)*Tz(cb.go + 22.4)*Ry(-pi/2)*Rx(pi/2);
+set(cb.hg,'Matrix',cb.H_g2e,'Visible','off');
+
+% Update tags
+set(cb.hg, 'Tag','ScorBot Simulation Gripper CheckerBoard, Frame');
+set(cb.ptc,'Tag','ScorBot Simulation Gripper CheckerBoard, CheckerBoard');
+set(cb.brd,'Tag','ScorBot Simulation Gripper CheckerBoard, Board');
+
+% Package output
+scorSim.CheckerBoard = cb.hg;
 
 %% Close gripper
 ScorSimSetGripper(scorSim,'Close');
