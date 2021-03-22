@@ -1,13 +1,11 @@
-function H_g2e = ScorSimCheckerBoard(varargin)
-% SCORSIMCHECKERBOARD shows or hides a checkerboard placed in the gripper
-% of ScorBot. 
-%   SCORSIMCHECKERBOARD(scorSim)
+function ScorSimGripBall(varargin)
+% SCORSIMGRIPBALL shows or hides a 51mm diameter ball in the gripper of
+% ScorBot.
+%   SCORSIMGRIPBALL(scorSim)
 %
-%   SCORSIMCHECKERBOARD(scorSim,'show')
+%   SCORSIMGRIPBALL(scorSim,'show')
 %
-%   SCORSIMCHECKERBOARD(scorSim,'hide')
-%
-%   H_g2e = SCORSIMCHECKERBOARD(___)
+%   SCORSIMGRIPBALL(scorSim,'hide')
 %
 %   M. Kutzer, 22Mar2021, USNA
 
@@ -48,17 +46,15 @@ end
 %% Show the lab bench
 ScorSimLabBench(scorSim);
 
-%% Get transformation
-H_g2e = get(scorSim.CheckerBoard,'Matrix');
-
 %% Show or hide the checkerboard
 switch hideShow
     case 'show'
-        ScorSimGripBall(scorSim,'Hide');
-        ScorSimSetGripper(scorSim,7);
-        set(scorSim.CheckerBoard,'Visible','on');
-        hideTriad(scorSim.CheckerBoard);
+        ScorSimCheckerBoard(scorSim,'Hide');
+        ScorSimSetGripper(scorSim,51);
+        set(scorSim.Ball,'Visible','on');
+        kids = get(scorSim.Ball,'Children');
+        set(kids,'Visible','on');
     case 'hide'
-        set(scorSim.CheckerBoard,'Visible','off');
+        set(scorSim.Ball,'Visible','off');
         ScorSimSetGripper(scorSim,'close');
 end

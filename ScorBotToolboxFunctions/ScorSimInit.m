@@ -223,6 +223,7 @@ cb.boardSize = [6,7];
 cb.squareSize = 19.05;
 [cb.hg, cb.ptc] = plotCheckerboard(...
     scorSim.Frames(6),cb.boardSize,cb.squareSize);
+set(cb.hg,'Visible','off');
 hideTriad(cb.hg);
 set(cb.ptc,'EdgeColor','none');
 
@@ -250,7 +251,7 @@ cb.H_l2g = Tx( -(cb.squareSize + 0.88*25.4) )*Ty( -(cb.squareSize + 0.21*25.4) )
 cb.v_g = cb.H_l2g * cb.v_l;
 % Patch board
 cb.brd = patch('Faces',cb.f,'Vertices',cb.v_g(1:3,:).','FaceColor','w',...
-    'EdgeColor','k','FaceAlpha',1,'Parent',cb.hg);
+    'EdgeColor','k','FaceAlpha',1,'Parent',cb.hg,'Visible','off');
 
 % Place checkerboard in the gripper
 ScorSimSetGripper(scorSim,cb.d);
@@ -258,7 +259,7 @@ cb.go = ScorSimGetGripperOffset(scorSim);
 cb.gw = 15.1;
 
 cb.H_g2e = Ty(cb.d/2)*Tx(cb.gw/2 + 29.2)*Tz(cb.go + 22.4)*Ry(-pi/2)*Rx(pi/2);
-set(cb.hg,'Matrix',cb.H_g2e,'Visible','off');
+set(cb.hg,'Matrix',cb.H_g2e);
 
 % Update tags
 set(cb.hg, 'Tag','ScorBot Simulation Gripper CheckerBoard, Frame');
@@ -268,6 +269,21 @@ set(cb.brd,'Tag','ScorBot Simulation Gripper CheckerBoard, Board');
 % Package output
 scorSim.CheckerBoard = cb.hg;
 
+%% Setup ball
+rb.sfit.Radius = 51/2;      % Radius of ball (51mm OD)
+rb.sfit.Center = [0,0,0];   % Center of ball
+rb.stct = patchSphere(rb.sfit,500); % Structured array containing patch info
+
+rb.h_s2e = hgtransform('Parent',scorSim.Frames(6));
+rb.ptc = patch(rb.stct,'FaceColor','r','EdgeColor','none',...
+    'Parent',rb.h_s2e,'Visible','off');
+
+% Update tags
+set(rb.h_s2e, 'Tag','ScorBot Simulation Gripper Ball, Frame');
+set(rb.ptc,   'Tag','ScorBot Simulation Gripper Ball, Ball');
+
+% Package output
+scorSim.Ball = rb.h_s2e;
 %% Close gripper
 ScorSimSetGripper(scorSim,'Close');
 
