@@ -106,14 +106,16 @@ function varargout = ScorVer
 %   08Jan2021 - Corrected WRC_MATLABCameraSupport install
 %   08Mar2021 - Updated update/install to include patch toolbox
 %   22Mar2021 - Added checkerboard and ball simulation components
+%   24Mar2021 - Corrected axis direction reversal in *SimLabBench, and
+%               corrected hidden patch object(s) in *SimCheckerBoard
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.5.4';
+A.Version = '5.5.5';
 A.Release = '(R2019b)';
-A.Date = '22-Mar-2021';
+A.Date = '24-Mar-2021';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);

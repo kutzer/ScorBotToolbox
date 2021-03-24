@@ -13,7 +13,8 @@ function ScorSimLabBench(varargin)
 %   M. Kutzer, 28Oct2020, USNA
 
 % Updates:
-%
+%   24Mar2021 - Corrected axes directions to normal after adding background
+%               image
 
 %% Check inputs
 % Check for zero inputs
@@ -73,10 +74,17 @@ img = findobj('Parent',h_bk2l,'Tag',bkTag,'Type','hgtransform');
 if isempty(img)
     img = imshow(bk,'Parent',scorSim.Axes);
     set(img,'Parent',h_bk2l,'Tag',bkTag);
+    % Return axes to normal directions
+    set(scorSim.Axes,...
+        'XDir','normal',...
+        'YDir','normal',...
+        'ZDir','normal');
 else
     set(img,'CData',bk);
 end
 set(scorSim.Axes,'Visible','on');
+
+
 
 %% Move the light
 lgt = addSingleLight(scorSim.Axes);
