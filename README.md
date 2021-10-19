@@ -15,10 +15,10 @@ This toolbox interfaces and simulates the Intelitek ScorBot-ER 4U with MATLAB. T
 1. Open MATLAB as an administrator
 2. Run "ScorUpdate"
 
-## Toolbox Reference Guide: 
+## Toolbox Reference Guide
 https://www.usna.edu/Users/weapsys/kutzer/_files/documents/ScorBot%20Toolbox%20Quick%20Reference%20Guide.pdf 
 
-## Additional information: 
+## Additional information
 https://www.usna.edu/Users/weapsys/kutzer/_Code-Development/ScorBot_Toolbox.php 
 
 ## References
