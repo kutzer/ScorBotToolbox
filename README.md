@@ -3,6 +3,8 @@ ScorBot Toolbox for MATLAB
 
 This toolbox interfaces and simulates the Intelitek ScorBot-ER 4U with MATLAB. The toolbox allows users to control ScorBot, to acquire sensor information from ScorBot and to visualize aspects of ScorBot's movements. This download includes an install file to create the toolbox and add paths as needed. All toolbox functions include extensive help documentation, error checking, and visualization tools. 
 
+<a href="https://www.google.com/" target="_blank">Google</a>
+
 ## First Time Installation Instructions
 1. Download and install the [Intelitek ScorBase software](https://downloads.intelitek.com/Software/Robotics/ER-4u/)
 2. Download "ScorBotToolbox.zip" (or alternate version)
