@@ -137,7 +137,7 @@ set(sim.Axes,'Visible','off');
 set(sim.Figure,'Color',[1,1,1]);
 
 for i = 1:size(BSEPR_30Hz,1)
-    ScorSimSetBSEPR(sim,BSEPR_30Hz(i,:));
+    ScorSimSetBSEPR(sim,BSEPR_30Hz(i,:),'MoveType','Instant');
     % Update frame
     drawnow
     frame = getframe(sim.Figure);
