@@ -34,6 +34,7 @@ function confirm = ScorSimSetXYZPR(varargin)
 %   01Sep2016 - Updated to include BSEPR/XYZPR pitch distinction
 %   20Aug2020 - Added 'MoveType' for interpolation and better aligned 
 %               documentation with ScorSet* equivalent function
+%   23Jun2023 - Added reshape(XYZPR,1,5)
 
 %% Check inputs
 % Check for zero inputs
@@ -82,6 +83,9 @@ if nargin >= 2
             ['End-effector position and orientation must be specified as a 5-element numeric array.',...
             '\n\t-> Use "%s(%s,[X,Y,Z,Pitch,Roll])".'],mfilename,txt);
     end
+
+    % Ensure XYZPR is a row-vector
+    XYZPR = reshape(XYZPR,1,5);
 end
 % Set default move type
 mType = 'LinearTask';
