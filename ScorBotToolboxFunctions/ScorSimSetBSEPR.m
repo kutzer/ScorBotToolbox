@@ -36,6 +36,7 @@ function confirm = ScorSimSetBSEPR(varargin)
 %   26Aug2020 - Updated to interpolate based on move type
 %   27Aug2020 - Updated to include acceleration/deceleration
 %   31Aug2020 - Added global for ScorSimWaitForMove collect data workaround
+%   23Jun2023 - Added reshape(BSEPR,1,5)
 
 %% Declare global for ScorSimWaitForMove workaround
 global ScorSimInterpGlobal
@@ -87,6 +88,9 @@ if nargin >= 2
             ['Joint configuration must be specified as a 5-element numeric array.',...
             '\n\t-> Use "%s(%s,[Joint1,Joint2,...,Joint5]);".'],mfilename,txt);
     end
+    
+    % Ensure BSEPR is a row-vector
+    BSEPR = reshape(BSEPR,1,5);
 end
 % Set default move type
 mType = 'LinearJoint';
