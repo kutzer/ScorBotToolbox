@@ -76,7 +76,7 @@ sim = ScorSimInit;
 ScorSimPatch(sim);
 dt = diff(tBSEPR(:,1));
 for i = 1:size(tBSEPR,1)
-    ScorSimSetBSEPR(sim,tBSEPR(i,2:6));
+    ScorSimSetBSEPR(sim,tBSEPR(i,2:6),'MoveType','Instant');
     pause(dt);
 end
 
