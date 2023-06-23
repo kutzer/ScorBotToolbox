@@ -17,11 +17,12 @@ This toolbox interfaces and simulates the Intelitek ScorBot-ER 4U with MATLAB. T
 2. Run "ScorUpdate"
 
 ## Toolbox Reference Guide
-https://www.usna.edu/Users/weapsys/kutzer/_files/documents/ScorBot%20Toolbox%20Quick%20Reference%20Guide.pdf 
+[ScorBot Toolbox Quick Reference Guide](https://www.usna.edu/Users/weaprcon/kutzer/_files/documents/ScorBot%20Toolbox%20Quick%20Reference%20Guide.pdf) 
 
 ## Additional information
-https://www.usna.edu/Users/weapsys/kutzer/_Code-Development/ScorBot_Toolbox.php 
+[ScorBot Toolbox USNA Download Page](https://www.usna.edu/Users/weaprcon/kutzer/_Code-Development/ScorBot_Toolbox.php)
 
 ## References
-1. J. Esposito, C. Wick, & K. Knowles, "Matlab Toolbox for the Intelitek Scorbot: An open source robotics education library," in Proc. American Society of Engineering Education Annual Conference, Vancouver, BC, 2011.
-2. C. Wick, J. Esposito, & K. Knowles, (2012, Aug 25) Matlab Toolbox for the Intelitek Scorbot (MTIS) [Online]. Available: https://www.usna.edu/Users/weapsys/esposito/scorbot.matlab.php
+1. M.D.M. Kutzer, J. Donnal, & C.E. Wick, "The ScorBot Toolbox for MATLAB: An Open-Source Hardware Interaction and Simulation Library for the Intelitek SCORBOT-ER 4u Educational Robot," in Proc. American Society for Engineering Education (ASEE) 2023 Annual Conference & Exposition, Baltimore, MD, June 2023.
+2. J. Esposito, C. Wick, & K. Knowles, "Matlab Toolbox for the Intelitek Scorbot: An open source robotics education library," in Proc. American Society of Engineering Education Annual Conference, Vancouver, BC, 2011.
+3. C. Wick, J. Esposito, & K. Knowles, (2012, Aug 25) Matlab Toolbox for the Intelitek Scorbot (MTIS) [Online]. Available: https://www.usna.edu/Users/weapsys/esposito/scorbot.matlab.php
