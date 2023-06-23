@@ -5,7 +5,9 @@ This toolbox interfaces and simulates the Intelitek ScorBot-ER 4U with MATLAB. T
 
 ## First Time Installation Instructions
 1. Download, unzip, and install the [Intelitek ScorBase ER4u software](https://downloads.intelitek.com/Software/Robotics/ER-4u/Previous_Versions/)
-   - Use the "Scorbase_Robocell_V5335.zip" download, run Scorbase_Robocell_V5335\install\Setup.exe from the unzipped directory, and select SCORBASE ER4u when promoted.
+   - Use the "Scorbase_Robocell_V5335.zip" download,
+   - Run Scorbase_Robocell_V5335\install\Setup.exe from the unzipped directory, and
+   - Select SCORBASE ER4u when promoted.
 2. Download "[ScorBotToolbox.zip](https://github.com/kutzer/ScorBotToolbox/archive/refs/heads/master.zip)" (or alternate version)
 3. Unzip "ScorBotToolbox.zip"
 4. Open MATLAB as an administrator
