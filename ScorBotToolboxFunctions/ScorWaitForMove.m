@@ -207,6 +207,8 @@ function varargout = ScorWaitForMove(varargin)
 %   23Aug2016 - Corrected typo in help documentation.
 %   01Sep2016 - Added comments to examples
 %   01Sep2016 - Added rapid movement note, "while ScorIsMoving; end"
+%   23Sep2023 - Added 'MoveType' 'Instant' to ScorSimSetBSEPR when using
+%               "robOn" flag
 
 % Known Issues
 %   15Sep2015 - Running ScorWaitForMove immediately following a
@@ -531,7 +533,8 @@ while ScorIsMoving
                 set(h.BSEPRPlot(i),'xData',jntT,'yData',transpose(BSEPR(:,i)));
             end
             if robOn
-                ScorSimSetBSEPR(h.RobotAnimation.Sim,BSEPR(end,:));
+                ScorSimSetBSEPR(h.RobotAnimation.Sim,BSEPR(end,:),...
+                    'MoveType','Instant');
                 % Plot starting waypoint
                 if size(XYZPR,1) == 1 && newWaypoint
                     h.RobotAnimation.Waypoint(end+1) = ...
@@ -625,7 +628,8 @@ while norm(dBSEPR) > 1e-8 || (toc(t_swfm)-t_dwell_strt) < t_dwell
                 set(h.BSEPRPlot(i),'xData',jntT,'yData',transpose(BSEPR(:,i)));
             end
             if robOn
-                ScorSimSetBSEPR(h.RobotAnimation.Sim,BSEPR(end,:));
+                ScorSimSetBSEPR(h.RobotAnimation.Sim,BSEPR(end,:),...
+                    'MoveType','Instant');
                 % Get previous plot data
                 xData = get(h.RobotAnimation.Plot,'xData');
                 yData = get(h.RobotAnimation.Plot,'yData');
