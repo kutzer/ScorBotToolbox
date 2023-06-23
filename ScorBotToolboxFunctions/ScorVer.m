@@ -108,14 +108,18 @@ function varargout = ScorVer
 %   22Mar2021 - Added checkerboard and ball simulation components
 %   24Mar2021 - Corrected axis direction reversal in *SimLabBench, and
 %               corrected hidden patch object(s) in *SimCheckerBoard
+%   23Jun2023 - Corrected ScorWaitForMove('RobotAnimation','On') issues by
+%               defining 'MoveType' 'Instant'
+%   23Jun2023 - Added reshape(___,1,5) to ScorSimSetBSEPR and
+%               ScorSimSetXYZPR
 
 % TODO - Update Scor* error checking to use "mfilename"
 % TODO - Update Scor* error checking to use "inputname(i)"
 
 A.Name = 'ScorBot Toolbox';
-A.Version = '5.5.5';
+A.Version = '5.5.6';
 A.Release = '(R2019b)';
-A.Date = '24-Mar-2021';
+A.Date = '23-Jun-2023';
 A.URLVer = 1;
 
 msg{1} = sprintf('MATLAB %s Version: %s %s',A.Name, A.Version, A.Release);
