@@ -1,4 +1,4 @@
-function installScorBotToolbox(replaceExisting)
+function installScorBotToolbox(replaceExisting,skipAdmin)
 % INSTALLSCORBOTTOOLBOX installs ScorBot Toolbox for MATLAB.
 %   INSTALLSCORBOTTOOLBOX installs ScorBot Toolbox into the following 
 %   locations:
